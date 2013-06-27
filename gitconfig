@@ -1,0 +1,22 @@
+[user]
+	name = Jimmy Zelinskie
+	email = jimmyzelinskie@gmail.com
+[alias]
+	s = status
+	h = show HEAD
+	d = diff
+	co = checkout
+	br = branch
+	unstage = reset HEAD
+	discard = checkout HEAD --
+  dp = diff --patience
+  ds = diff --cached
+  pr = pull --rebase
+[core]
+	excludesfile = ~/.gitignore
+[diff]
+	mnemonicprefix = true
+[merge]
+	tool = vimdiff
+[difftool]
+  prompt = false
