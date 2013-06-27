@@ -19,19 +19,18 @@ if [[ "$OSTYPE" == darwin* ]]; then
   export GOOS=darwin
   export GOARCH=amd64
   export GOROOT=/usr/local/go
-  export GOBIN=$GOROOT/bin
+  export GOBIN=$HOME/bin/
   export PATH=$GOBIN:$PATH
   source $GOROOT/misc/zsh/go
 elif [[ "$OSTYPE" == linux-gnu* ]]; then
   export GOOS=linux
   export GOARCH=amd64
   export GOROOT=/usr/lib/go
+  export GOBIN=$HOME/bin/
+  export PATH=$GOBIN:$PATH
   source $GOROOT/misc/zsh/go
 fi
 if [[ -a $HOME/.golang ]]; then
   export GOROOT=$HOME/.golang
-  export GOARCH=amd64
-  export GOBIN=$GOROOT/bin
-  export PATH=$GOBIN:$PATH
   source $GOROOT/misc/zsh/go
 fi
