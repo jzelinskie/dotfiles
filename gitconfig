@@ -1,6 +1,8 @@
 [user]
 	name = Jimmy Zelinskie
 	email = jimmyzelinskie@gmail.com
+[color]
+	ui = auto
 [alias]
 	s = status
 	h = show HEAD
@@ -16,7 +18,10 @@
 	excludesfile = ~/.gitignore
 [diff]
 	mnemonicprefix = true
+	algorithm = patience
 [merge]
 	tool = vimdiff
 [difftool]
-  prompt = false
+	prompt = false
+[url "git@github.com:"]
+	pushInsteadOf = git://github.com/

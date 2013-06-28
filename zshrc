@@ -11,10 +11,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-#
 # Go
-#
-
 if [[ "$OSTYPE" == darwin* ]]; then
   export GOOS=darwin
   export GOARCH=amd64
@@ -25,7 +22,6 @@ if [[ "$OSTYPE" == darwin* ]]; then
 elif [[ "$OSTYPE" == linux-gnu* ]]; then
   export GOOS=linux
   export GOARCH=amd64
-  export GOROOT=/usr/lib/go
   export GOBIN=$HOME/bin/
   export PATH=$GOBIN:$PATH
   source $GOROOT/misc/zsh/go
