@@ -11,9 +11,8 @@
 	br = branch
 	unstage = reset HEAD
 	discard = checkout HEAD --
-  dp = diff --patience
-  ds = diff --cached
-  pr = pull --rebase
+	ds = diff --cached
+	pr = pull --rebase
 [core]
 	excludesfile = ~/.gitignore
 [diff]
