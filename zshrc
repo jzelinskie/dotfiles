@@ -24,7 +24,6 @@ elif [[ "$OSTYPE" == linux-gnu* ]]; then
   export GOARCH=amd64
   export GOBIN=$HOME/bin/
   export PATH=$GOBIN:$PATH
-  source $GOROOT/misc/zsh/go
 fi
 if [[ -a $HOME/.golang ]]; then
   export GOROOT=$HOME/.golang

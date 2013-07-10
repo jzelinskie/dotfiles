@@ -18,8 +18,9 @@ set nocompatible
 filetype off
 call vundle#rc()
 Bundle 'Blackrush/vim-gocode'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'altercation/vim-colors-solarized'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'evanmiller/nginx-vim-syntax'
