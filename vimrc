@@ -17,64 +17,98 @@ endif
 set nocompatible
 filetype off
 call vundle#rc()
-Bundle 'Blackrush/vim-gocode'
+
+" Vim
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'cakebaker/scss-syntax.vim'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'evanmiller/nginx-vim-syntax'
 Bundle 'fholgado/minibufexpl.vim'
-Bundle 'garbas/vim-snipmate'
 Bundle 'gmarik/vundle'
 Bundle 'godlygeek/tabular'
 Bundle 'gregsexton/MatchTag'
-Bundle 'gregsexton/gitv'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'honza/vim-snippets'
-Bundle 'kchmck/vim-coffee-script'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
-Bundle 'noahfrederick/Hemisu'
-Bundle 'oscarh/vimerl'
-Bundle 'othree/html5.vim'
-Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
-Bundle 'skwp/vim-rspec'
-Bundle 'tomasr/molokai'
-Bundle 'tomtom/tlib_vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'vim-scripts/Gist.vim'
-Bundle 'vim-scripts/Wombat'
-Bundle 'vim-scripts/a.vim'
-Bundle 'vim-scripts/csv.vim'
-Bundle 'vim-scripts/django.vim'
-Bundle 'vim-scripts/jQuery'
 Bundle 'vim-scripts/matchit.zip'
-Bundle 'vim-scripts/slimv.vim'
 Bundle 'vim-scripts/taglist.vim'
 
+" Colors
+Bundle 'tomasr/molokai'
+Bundle 'vim-scripts/Wombat'
 
-"" Plugin Specifics
-" js/html indent
+" Git
+Bundle 'gregsexton/gitv'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-git'
+Bundle 'vim-scripts/Gist.vim'
+
+" Web
+Bundle 'cakebaker/scss-syntax.vim'
+Bundle 'evanmiller/nginx-vim-syntax'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'othree/html5.vim'
+Bundle 'pangloss/vim-javascript'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-markdown'
+Bundle 'vim-scripts/csv.vim'
+Bundle 'vim-scripts/jQuery'
 autocmd FileType html setlocal indentkeys-=*<Return>
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
-" s-exp paren completion off
+" Scala
+Bundle 'derekwyatt/vim-scala'
+
+" Erlang
+Bundle 'oscarh/vimerl'
+
+" Go
+Bundle 'Blackrush/vim-gocode'
+
+" Ruby
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-rails'
+
+" C/C++
+Bundle 'vim-scripts/a.vim'
+
+" Python
+Bundle 'vim-scripts/django.vim'
+
+" Clojure
+Bundle 'tpope/vim-fireplace'
+Bundle 'tpope/vim-classpath'
+Bundle 'guns/vim-clojure-static'
+Bundle 'kien/rainbow_parentheses.vim'
 let g:paredit_mode = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
 
 
 
