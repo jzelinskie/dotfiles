@@ -1,24 +1,10 @@
-"" RTP
-" crossplatform runtime path
-if has("unix")
-  set rtp+=$HOME/.vim/bundle/vundle
-  set rtp+=$GOROOT/misc/vim " golang plugins
-  if system("uname") == "Darwin\n"
-    set clipboard=unnamed
-  endif
-endif
-if has("win32")
-  " TODO
-endif
-
-
-
-"" Plugins
+" vundle bootstrap
+set rtp+=$HOME/.vim/bundle/vundle
 set nocompatible
 filetype off
 call vundle#rc()
 
-" Vim
+" vim
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'gmarik/vundle'
@@ -36,17 +22,20 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'vim-scripts/taglist.vim'
 
-" Colors
+" colors
 Bundle 'tomasr/molokai'
 Bundle 'vim-scripts/Wombat'
 
-" Git
+" git
 Bundle 'gregsexton/gitv'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-git'
 Bundle 'vim-scripts/Gist.vim'
 
-" Web
+" puppet
+Bundle 'rodjek/vim-puppet'
+
+" web
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'evanmiller/nginx-vim-syntax'
 Bundle 'hail2u/vim-css3-syntax'
@@ -62,26 +51,26 @@ let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
-" Scala
+" scala
 Bundle 'derekwyatt/vim-scala'
 
-" Erlang
+" erlang
 Bundle 'oscarh/vimerl'
 
-" Go
+" go
 Bundle 'Blackrush/vim-gocode'
 
-" Ruby
+" ruby
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 
 " C/C++
 Bundle 'vim-scripts/a.vim'
 
-" Python
+" python
 Bundle 'vim-scripts/django.vim'
 
-" Clojure
+" clojure
 Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-classpath'
 Bundle 'guns/vim-clojure-static'
@@ -111,8 +100,11 @@ let g:rbpt_colorpairs = [
     \ ]
 
 
+" mac clipboard sync
+if system("uname") == "Darwin\n"
+  set clipboard=unnamed
+endif
 
-"" Vim Settings
 "search options
 set ignorecase
 set smartcase
@@ -163,16 +155,13 @@ set synmaxcol=2048 "dont color huge lines
 set visualbell
 set noerrorbells
 
-
-
-"" Rebinds
-"map up/down arrow keys to unimpaired commands
+" map up/down arrow keys to unimpaired commands
 nmap <Up> [e
 nmap <Down> ]e
 vmap <Up> [egv
 vmap <Down> ]egv
 
-"map left/right arrow keys to indendation
+" map left/right arrow keys to indendation
 nmap <Left> <<
 nmap <Right> >>
 vmap <Left> <gv
@@ -181,10 +170,10 @@ vmap <Right> >gv
 " toggle pastemode
 nmap <silent> <leader>p :set invpaste<CR>:set paste?<CR>
 
-"toggle tagbar
+" toggle tagbar
 nmap <silent> <leader>o :TagbarToggle<CR>
 
-"toggle nerdtree
+" toggle nerdtree
 nmap <silent> <leader>n :NERDTreeToggle<CR>
 
 " toggle textwrap
@@ -195,13 +184,13 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 " strip trailing whitespace on save
 function! <SID>StripTrailingWhitespaces()
-    "preparation: save last search, and cursor position.
+    " preparation: save last search, and cursor position.
     let _s=@/
     let l = line(".")
     let c = col(".")
-    "do the business:
+    " do the business:
     %s/\s\+$//e
-    "restore previous search history, and cursor position
+    " restore previous search history, and cursor position
     let @/=_s
     call cursor(l, c)
 endfunction
