@@ -60,6 +60,9 @@ Bundle 'oscarh/vimerl'
 " go
 Bundle 'Blackrush/vim-gocode'
 
+" rust
+Bundle 'wting/rust.vim'
+
 " ruby
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
