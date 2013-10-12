@@ -38,6 +38,7 @@ zstyle ':prezto:load' pmodule \
   'history-substring-search' \
   'archive' \
   'dpkg' \
+  'fasd' \
   'git' \
   'haskell' \
   'node' \
@@ -48,7 +49,6 @@ zstyle ':prezto:load' pmodule \
   'rails' \
   'rsync' \
   'ruby' \
-  'ssh' \
   'wakeonlan' \
   'yum'
 
