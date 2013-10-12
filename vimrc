@@ -4,8 +4,7 @@ set nocompatible
 filetype off
 call vundle#rc()
 
-" vim
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+" vim enhancement
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'gmarik/vundle'
 Bundle 'godlygeek/tabular'
@@ -21,6 +20,10 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'vim-scripts/taglist.vim'
+
+" powerline
+Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+let g:powerline_config_overrides={"common": {"dividers": {"left": {"hard": " ", "soft": "| "}, "right": {"hard": " ", "soft": " |"}}}}
 
 " colors
 Bundle 'tomasr/molokai'
@@ -108,7 +111,7 @@ if system("uname") == "Darwin\n"
   set clipboard=unnamed
 endif
 
-"search options
+" search options
 set ignorecase
 set smartcase
 set shellslash
