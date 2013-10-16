@@ -5,7 +5,6 @@ filetype off
 call vundle#rc()
 
 " vim enhancement
-Bundle 'fholgado/minibufexpl.vim'
 Bundle 'gmarik/vundle'
 Bundle 'godlygeek/tabular'
 Bundle 'gregsexton/MatchTag'
@@ -22,12 +21,21 @@ Bundle 'vim-scripts/matchit.zip'
 Bundle 'vim-scripts/taglist.vim'
 
 " powerline
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-let g:powerline_config_overrides={"common": {"dividers": {"left": {"hard": " ", "soft": "| "}, "right": {"hard": " ", "soft": " |"}}}}
+Bundle 'bling/vim-airline'
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_theme = 'jellybeans'
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+function! AirlineThemePatch(palette)
+  if g:airline_theme == 'jellybeans'
+    let g:airline#themes#jellybeans#palette.visual = g:airline#themes#jellybeans#palette.replace
+  endif
+endfunction
 
 " colors
-Bundle 'tomasr/molokai'
-Bundle 'vim-scripts/Wombat'
+Bundle 'jzelinskie/vim-monokai'
+Bundle 'Pychimp/vim-luna'
 
 " git
 Bundle 'gregsexton/gitv'
@@ -47,12 +55,12 @@ Bundle 'othree/html5.vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-markdown'
-Bundle 'vim-scripts/csv.vim'
+Bundle 'chrisbra/csv.vim'
 Bundle 'vim-scripts/jQuery'
 autocmd FileType html setlocal indentkeys-=*<Return>
-let g:html_indent_inctags = "html,body,head,tbody"
-let g:html_indent_script1 = "inc"
-let g:html_indent_style1 = "inc"
+let g:html_indent_inctags = 'html,body,head,tbody'
+let g:html_indent_script1 = 'inc'
+let g:html_indent_style1 = 'inc'
 
 " scala
 Bundle 'derekwyatt/vim-scala'
@@ -80,34 +88,10 @@ Bundle 'vim-scripts/django.vim'
 Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-classpath'
 Bundle 'guns/vim-clojure-static'
-Bundle 'kien/rainbow_parentheses.vim'
 let g:paredit_mode = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-
 
 " mac clipboard sync
-if system("uname") == "Darwin\n"
+if system('uname') == 'Darwin\n'
   set clipboard=unnamed
 endif
 
@@ -116,13 +100,13 @@ set ignorecase
 set smartcase
 set shellslash
 set incsearch
-set wildmenu
 set hlsearch
+set wildmenu
 
 " visuals
 syntax on
 filetype plugin indent on
-colorscheme molokai
+colorscheme monokai
 hi TabLineFill ctermfg=bg
 set t_Co=256
 set hidden
@@ -143,7 +127,7 @@ set completeopt-=preview "no autocomplete scratch buffer
 set fillchars=vert:·
 
 " functionality
-let mapleader=","
+let mapleader = ','
 set list listchars=tab:·\ ,eol:¬
 set encoding=utf-8
 set nobackup
@@ -192,8 +176,8 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 function! <SID>StripTrailingWhitespaces()
     " preparation: save last search, and cursor position.
     let _s=@/
-    let l = line(".")
-    let c = col(".")
+    let l = line('.')
+    let c = col('.')
     " do the business:
     %s/\s\+$//e
     " restore previous search history, and cursor position
