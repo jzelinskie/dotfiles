@@ -1,4 +1,4 @@
-# .dotfiles/
+# ~/.dotfiles
 
 ## install
 
@@ -15,4 +15,3 @@ If you've never heard of it, it's like a nicer [oh-my-zsh](https://github.com/ro
 
 I use [vundle](https://github.com/gmarik/vundle) to install all my plugins for vim.
 If you've never heard of it, it's like a nicer [pathogen](https://github.com/tpope/vim-pathogen).
-To install/update all the plugins run `vim +BundleInstall!`
