@@ -26,3 +26,5 @@
 	pushInsteadOf = git://github.com/
 [push]
 	default = simple
+[github]
+	user = jzelinskie
