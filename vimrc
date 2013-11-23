@@ -9,8 +9,9 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " colors
-Bundle 'jzelinskie/vim-monokai'
-colorscheme monokai
+let g:rehash256 = 1
+Bundle 'tomasr/molokai'
+colorscheme molokai
 
 " mac clipboard sync
 if system('uname') == 'Darwin\n'
@@ -24,13 +25,7 @@ Bundle 'scrooloose/syntastic'
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline_theme = 'jellybeans'
-let g:airline_theme_patch_func = 'AirlineThemePatch'
-function! AirlineThemePatch(palette)
-  if g:airline_theme == 'jellybeans'
-    let g:airline#themes#jellybeans#palette.visual = g:airline#themes#jellybeans#palette.replace
-  endif
-endfunction
+let g:airline_theme = 'monochrome'
 
 " tags
 Bundle 'majutsushi/tagbar'
