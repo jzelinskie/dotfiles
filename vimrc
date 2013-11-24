@@ -67,7 +67,8 @@ Bundle 'derekwyatt/vim-scala'
 Bundle 'oscarh/vimerl'
 
 " go
-Bundle 'Blackrush/vim-gocode'
+Bundle 'jnwhiteh/vim-golang'
+Bundle 'nsf/gocode', {'rtp': 'vim/'}
 autocmd BufWritePre *.go :silent Fmt
 
 " rust
