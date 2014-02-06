@@ -15,14 +15,21 @@ colorscheme molokai
 
 " mac clipboard sync
 if system('uname') == 'Darwin\n'
-  set clipboard=unnamed
+  set clipboard=unnamedplus
 endif
 
-" powerline
+" syntastic
+Bundle 'scrooloose/syntastic'
+au FileType qf setlocal wrap linebreak
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_enable_signs  = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq   = 0
+
+" airline
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/syntastic'
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_theme = 'monochrome'
@@ -58,7 +65,7 @@ Bundle 'tpope/vim-markdown'
 autocmd FileType html setlocal indentkeys-=*<Return>
 let g:html_indent_inctags = 'html,body,head,tbody'
 let g:html_indent_script1 = 'inc'
-let g:html_indent_style1 = 'inc'
+let g:html_indent_style1  = 'inc'
 
 " scala
 Bundle 'derekwyatt/vim-scala'
