@@ -139,7 +139,7 @@ autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 " vim
 syntax on
 filetype plugin indent on
-hi TabLineFill ctermfg=bg
+set bg=dark
 set backspace=2
 set completeopt-=preview
 set cpoptions=ces$
@@ -181,3 +181,4 @@ set virtualedit=all
 set visualbell
 set wildmenu
 set wrapscan
+hi TabLineFill ctermfg=bg
