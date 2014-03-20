@@ -34,89 +34,43 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_theme = 'monochrome'
 
-" tags
-Bundle 'majutsushi/tagbar'
-nmap <silent> <leader>o :TagbarToggle<CR>
-
-" git
-Bundle 'airblade/vim-gitgutter'
-Bundle 'gregsexton/gitv'
-Bundle 'mattn/gist-vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-git'
-let g:gitgutter_enabled = 0
-let g:gitgutter_highlight_lines = 1
-nmap <silent> <leader>g :GitGutterToggle<CR>
-
-" puppet
-Bundle 'rodjek/vim-puppet'
-
-" web
-Bundle 'cakebaker/scss-syntax.vim'
-Bundle 'chrisbra/csv.vim'
-Bundle 'evanmiller/nginx-vim-syntax'
-Bundle 'gregsexton/MatchTag'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'othree/html5.vim'
-Bundle 'pangloss/vim-javascript'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-autocmd FileType html setlocal indentkeys-=*<Return>
-let g:html_indent_inctags = 'html,body,head,tbody'
-let g:html_indent_script1 = 'inc'
-let g:html_indent_style1  = 'inc'
-
-" scala
-Bundle 'derekwyatt/vim-scala'
-
-" erlang
-Bundle 'oscarh/vimerl'
-
 " go
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'nsf/gocode', {'rtp': 'vim/'}
 autocmd BufWritePre *.go :silent Fmt
 
-" rust
+" tags
+Bundle 'majutsushi/tagbar'
+nmap <silent> <leader>o :TagbarToggle<CR>
+
+" misc runtime files
+Bundle 'derekwyatt/vim-scala'
+Bundle 'evanmiller/nginx-vim-syntax'
+Bundle 'oscarh/vimerl'
+Bundle 'rodjek/vim-puppet'
+Bundle 'tpope/vim-git'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-markdown'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'vim-scripts/django.vim'
 Bundle 'wting/rust.vim'
 
-" ruby
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails'
-
-" C/C++
-Bundle 'vim-scripts/a.vim'
-
-" python
-Bundle 'vim-scripts/django.vim'
-
-" clojure
-Bundle 'guns/vim-clojure-static'
-Bundle 'tpope/vim-classpath'
-Bundle 'tpope/vim-fireplace'
-let g:paredit_mode = 0
-
 " productivity enhancement
-Bundle 'godlygeek/tabular'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'sjl/gundo.vim'
+Bundle 'gregsexton/MatchTag'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-nmap <silent> <leader>n :NERDTreeToggle<CR>
+Bundle 'vim-scripts/a.vim'
+
+" leader mappings
 nmap <silent> <leader>p :set invpaste<CR>:set paste?<CR>
 nmap <silent> <leader>w :set invwrap<CR>:set wrap?<CR>
-nnoremap <silent> <C-l> :nohl<CR><C-l>
 
-" unimpaired arrow keys
+" productive arrow keys
 Bundle 'tpope/vim-unimpaired'
 nmap <Up> [e
 nmap <Down> ]e
 vmap <Up> [egv
 vmap <Down> ]egv
-
-" identation arrow keys
 nmap <Left> <<
 nmap <Right> >>
 vmap <Left> <gv
@@ -136,25 +90,18 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
-" vim
-syntax on
-filetype plugin indent on
-set bg=dark
-set backspace=2
+" vim settings
+Bundle 'tpope/vim-sensible'
 set completeopt-=preview
 set cpoptions=ces$
-set encoding=utf-8
 set ffs=unix,dos
 set fillchars=vert:·
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 set guioptions-=T
 set guioptions-=m
 set hidden
-set history=100
 set hlsearch
 set ignorecase
-set incsearch
-set laststatus=2
 set lazyredraw
 set list listchars=tab:·\ ,eol:¬
 set nobackup
@@ -162,11 +109,7 @@ set noerrorbells
 set noshowmode
 set noswapfile
 set number
-set ruler
-set scrolloff=8
 set shellslash
-set shiftround
-set showcmd
 set showfulltag
 set showmatch
 set showmode
@@ -179,6 +122,4 @@ set ttyfast
 set vb
 set virtualedit=all
 set visualbell
-set wildmenu
 set wrapscan
-hi TabLineFill ctermfg=bg
