@@ -13,9 +13,11 @@ let g:rehash256 = 1
 Bundle 'tomasr/molokai'
 colorscheme molokai
 
-" mac clipboard sync
-if system('uname') == 'Darwin\n'
+" sync default register to clipboard
+if has('unnamedplus')
   set clipboard=unnamedplus
+else
+  set clipboard=unnamed
 endif
 
 " syntastic
