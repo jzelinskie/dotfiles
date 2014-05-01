@@ -39,7 +39,9 @@ let g:airline_theme = 'monochrome'
 " go
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'nsf/gocode', {'rtp': 'vim/'}
+Bundle 'golang/lint', {'rtp': 'misc/vim/'}
 autocmd BufWritePre *.go :silent Fmt
+autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 
 " tags
 Bundle 'majutsushi/tagbar'
@@ -94,6 +96,7 @@ autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " vim settings
 Bundle 'tpope/vim-sensible'
+set colorcolumn=80
 set completeopt-=preview
 set cpoptions=ces$
 set ffs=unix,dos
