@@ -29,3 +29,6 @@ if [[ -a $HOME/.golang ]]; then
   export GOROOT=$HOME/.golang
   source $GOROOT/misc/zsh/go
 fi
+
+# Ruby (rbenv)
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
