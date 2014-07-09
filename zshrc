@@ -17,6 +17,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
   export GOARCH=amd64
   export GOROOT=/usr/local/go
   export GOBIN=$HOME/bin
+  export GOPATH=$HOME/go
   export PATH=$GOBIN:$PATH
   source $GOROOT/misc/zsh/go
 elif [[ "$OSTYPE" == linux-gnu* ]]; then
