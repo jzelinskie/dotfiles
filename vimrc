@@ -127,6 +127,7 @@ set showfulltag
 set showmatch
 set showmode
 set smartcase
+set spell
 set synmaxcol=2048
 set t_Co=256
 set title
