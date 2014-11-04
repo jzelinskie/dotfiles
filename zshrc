@@ -33,3 +33,11 @@ fi
 
 # Ruby (rbenv)
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# Pygments cat
+if which pygmentize > /dev/null; then alias cat='pygmentize -O encoding=UTF-8 -g'; fi
+
+# Z is the new J, yo
+if [[ "$OSTYPE" == darwin* ]]; then
+  source `brew --prefix`/etc/profile.d/z.sh
+fi
