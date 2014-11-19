@@ -2,15 +2,40 @@
 let mapleader = ','
 
 " vundle
-set rtp+=$HOME/.vim/bundle/vundle
 set nocompatible
 filetype off
-call vundle#rc()
-Bundle 'gmarik/vundle'
+set rtp+=$HOME/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'bling/vim-airline'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'evanmiller/nginx-vim-syntax'
+Plugin 'fatih/vim-go'
+Plugin 'gmarik/vundle'
+Plugin 'gregsexton/MatchTag'
+Plugin 'idris-hackers/idris-vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'oscarh/vimerl'
+Plugin 'rodjek/vim-puppet'
+Plugin 'scrooloose/syntastic'
+Plugin 'tomasr/molokai'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-scripts/a.vim'
+Plugin 'vim-scripts/django.vim'
+Plugin 'wting/rust.vim'
+call vundle#end()
+filetype plugin indent on
 
 " colors
 let g:rehash256 = 1
-Bundle 'tomasr/molokai'
 colorscheme molokai
 
 " sync default register to clipboard
@@ -21,23 +46,22 @@ else
 endif
 
 " syntastic
-Bundle 'scrooloose/syntastic'
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 au FileType qf setlocal wrap linebreak
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_go_checkers = ['govet', 'golint', 'gotype']
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_enable_signs  = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq   = 0
 
 " airline
-Bundle 'bling/vim-airline'
-Bundle 'kien/ctrlp.vim'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_theme = 'monochrome'
 
 " go
-Bundle 'fatih/vim-go'
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
@@ -51,34 +75,13 @@ au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
 " tags
-Bundle 'majutsushi/tagbar'
 nmap <silent> <leader>o :TagbarToggle<CR>
-
-" misc runtime files
-Bundle 'derekwyatt/vim-scala'
-Bundle 'evanmiller/nginx-vim-syntax'
-Bundle 'oscarh/vimerl'
-Bundle 'rodjek/vim-puppet'
-Bundle 'tpope/vim-git'
-Bundle 'idris-hackers/idris-vim'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'vim-scripts/django.vim'
-Bundle 'wting/rust.vim'
-
-" productivity enhancement
-Bundle 'gregsexton/MatchTag'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/a.vim'
 
 " leader mappings
 nmap <silent> <leader>p :set invpaste<CR>:set paste?<CR>
 nmap <silent> <leader>w :set invwrap<CR>:set wrap?<CR>
 
 " productive arrow keys
-Bundle 'tpope/vim-unimpaired'
 nmap <Up> [e
 nmap <Down> ]e
 vmap <Up> [egv
@@ -103,7 +106,6 @@ endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " vim settings
-Bundle 'tpope/vim-sensible'
 set colorcolumn=80
 set completeopt-=preview
 set cpoptions=ces$
@@ -127,7 +129,6 @@ set showfulltag
 set showmatch
 set showmode
 set smartcase
-set spell
 set synmaxcol=2048
 set t_Co=256
 set title
