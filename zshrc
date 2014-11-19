@@ -11,25 +11,11 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Go
-if [[ "$OSTYPE" == darwin* ]]; then
-  export GOOS=darwin
-  export GOARCH=amd64
-  export GOROOT=/usr/local/go
-  export GOBIN=$HOME/bin
-  export GOPATH=$HOME/go
-  export PATH=$GOBIN:$PATH
-  source $GOROOT/misc/zsh/go
-elif [[ "$OSTYPE" == linux-gnu* ]]; then
-  export GOOS=linux
-  export GOARCH=amd64
-  export GOBIN=$HOME/bin
-  export PATH=$GOBIN:$PATH
-fi
-if [[ -a $HOME/.golang ]]; then
-  export GOROOT=$HOME/.golang
-  source $GOROOT/misc/zsh/go
-fi
+# Docker aliases
+alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+alias dkill='docker kill `docker ps -q`'
+alias drm='docker rm `docker ps -a -q`'
+alias drmi='docker rmi -f `docker images -q`'
 
 # Ruby (rbenv)
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
@@ -38,6 +24,16 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 if which pygmentize > /dev/null; then alias cat='pygmentize -O encoding=UTF-8 -g'; fi
 
 # Z is the new J, yo
-if [[ "$OSTYPE" == darwin* ]]; then
-  source `brew --prefix`/etc/profile.d/z.sh
+if [[ -a '/usr/local/etc/profile.d/z.sh' ]]; then
+  source /usr/local/etc/profile.d/z.sh
 fi
+
+# Initialize autocomplete here, otherwise functions won't be loaded
+ autoload -U compinit
+ compinit
+
+# Load every completion after autocomplete loads
+for file in ${(M)config_files:#*/completion.zsh}
+do
+  source $file
+done
