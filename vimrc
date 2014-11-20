@@ -7,6 +7,7 @@ filetype off
 set rtp+=$HOME/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'bling/vim-airline'
+Plugin 'cespare/vim-toml'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'evanmiller/nginx-vim-syntax'
