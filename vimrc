@@ -7,20 +7,28 @@ filetype off
 set rtp+=$HOME/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'bling/vim-airline'
+Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'cespare/vim-toml'
 Plugin 'derekwyatt/vim-scala'
+Plugin 'digitaltoad/vim-jade'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'evanmiller/nginx-vim-syntax'
 Plugin 'fatih/vim-go'
 Plugin 'gmarik/vundle'
 Plugin 'gregsexton/MatchTag'
+Plugin 'groenewege/vim-less'
+Plugin 'hail2u/vim-css3-syntax'
 Plugin 'idris-hackers/idris-vim'
+Plugin 'kchmck/vim-coffee-script'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'oscarh/vimerl'
+Plugin 'othree/html5.vim'
+Plugin 'pangloss/vim-javascript'
 Plugin 'rodjek/vim-puppet'
 Plugin 'scrooloose/syntastic'
 Plugin 'tomasr/molokai'
+Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
@@ -62,7 +70,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_theme = 'monochrome'
 
-" go
+" python
+autocmd FileType python set ts=2 sw=2 et
+
+" vim-go
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
@@ -94,15 +105,15 @@ vmap <Right> >gv
 
 " strip trailing whitespace on save
 function! <SID>StripTrailingWhitespaces()
-    " preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line('.')
-    let c = col('.')
-    " do the business:
-    %s/\s\+$//e
-    " restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
+  " preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line('.')
+  let c = col('.')
+  " do the business:
+  %s/\s\+$//e
+  " restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
 endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
@@ -133,7 +144,7 @@ set smartcase
 set synmaxcol=2048
 set t_Co=256
 set title
-set ts=2 sts=2 sw=2 expandtab
+set ts=2 sts=2 sw=2 et ci
 set ttyfast
 set vb
 set virtualedit=all

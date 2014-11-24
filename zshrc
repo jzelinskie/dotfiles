@@ -28,12 +28,8 @@ if [[ -a '/usr/local/etc/profile.d/z.sh' ]]; then
   source /usr/local/etc/profile.d/z.sh
 fi
 
-# Initialize autocomplete here, otherwise functions won't be loaded
- autoload -U compinit
- compinit
-
-# Load every completion after autocomplete loads
-for file in ${(M)config_files:#*/completion.zsh}
-do
-  source $file
-done
+# source brew autocomplete on mac
+if [[ "$OSTYPE" == darwin* ]]; then
+  fpath=("/usr/local/share/zsh/site-functions" $fpath)
+  autoload -Uz compinit && compinit -i
+fi
