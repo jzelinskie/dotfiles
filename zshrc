@@ -29,7 +29,7 @@ if [[ -a '/usr/local/etc/profile.d/z.sh' ]]; then
 fi
 
 # source brew autocomplete on mac
-if [[ "$OSTYPE" == darwin* ]]; then
-  fpath=("/usr/local/share/zsh/site-functions" $fpath)
+if [[ -a '/usr/local/share/zsh/site-functions' ]]; then
+  fpath=('/usr/local/share/zsh/site-functions' $fpath)
   autoload -Uz compinit && compinit -i
 fi
