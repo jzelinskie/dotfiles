@@ -34,3 +34,6 @@ if [[ -a $HOME/.golang ]]; then
 fi
 export GOBIN=$HOME/bin
 export PATH=$GOBIN:$PATH
+
+# Python
+export PYTHONDONTWRITEBYTECODE=1
