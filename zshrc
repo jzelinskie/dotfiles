@@ -16,6 +16,11 @@ alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 alias dkill='docker kill `docker ps -q`'
 alias drm='docker rm `docker ps -a -q`'
 alias drmi='docker rmi -f `docker images -q`'
+alias dclean='dkill && drm'
+alias b2d='boot2docker'
+
+# Brew aliases
+alias cask="brew cask"
 
 # Ruby (rbenv)
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
