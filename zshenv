@@ -39,4 +39,6 @@ export PATH=$GOBIN:$PATH
 export PYTHONDONTWRITEBYTECODE=1
 
 # Heroku Toolbelt
-export PATH="$PATH:/usr/local/heroku/bin"
+if [[ -a /usr/local/heroku/bin ]]; then
+  export PATH="$PATH:/usr/local/heroku/bin"
+fi
