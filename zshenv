@@ -11,6 +11,9 @@ if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
+# Wireshark SSL
+export SSLKEYLOGFILE=/var/log/sslkeylog.log
+
 # Boot2Docker
 if [[ "$OSTYPE" == darwin* ]]; then
   export DOCKER_HOST=tcp://192.168.59.103:2376
