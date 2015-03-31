@@ -27,7 +27,7 @@ Plugin 'othree/html5.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'rodjek/vim-puppet'
 Plugin 'scrooloose/syntastic'
-Plugin 'tomasr/molokai'
+Plugin 'jzelinskie/molokai'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-haml'
@@ -55,12 +55,14 @@ else
 endif
 
 " syntastic
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 au FileType qf setlocal wrap linebreak
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_go_checkers = ['govet', 'golint', 'gotype']
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_enable_signs  = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq   = 0
 
