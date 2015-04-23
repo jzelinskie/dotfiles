@@ -4,6 +4,7 @@
 [color]
 	ui = auto
 [alias]
+  ss = rev-parse --short
 	s = status
 	h = show HEAD
 	d = diff
@@ -30,3 +31,5 @@
 	default = simple
 [github]
 	user = jzelinskie
+[rerere]
+	enabled = true
