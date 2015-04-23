@@ -120,6 +120,16 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
+if has('nvim')
+  set rtp+=/usr/share/vim
+  set rtp+=/usr/share/vim/vim73
+  tmap <esc><esc> <c-\><c-n>
+
+  " https://github.com/neovim/neovim/issues/2017
+  set ttimeout
+  set ttimeoutlen=0
+endif
+
 " vim settings
 set colorcolumn=80
 set completeopt-=preview
