@@ -19,6 +19,12 @@ alias docker-rmi-all='docker rmi -f `docker images -q`'
 alias docker-rmi-none="docker images | gsed 's/\s\+/ /g' | grep '<none>' | cut -d ' ' -f 3 | xargs docker rmi"
 alias docker-clean='dkill && drm'
 
+# Prefer neovim to vim, if it exists
+if which nvim > /dev/null; then
+  alias vi=nvim
+  alias vim=nvim
+fi
+
 # Brew aliases
 alias cask="brew cask"
 
