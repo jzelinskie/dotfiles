@@ -19,6 +19,8 @@ Plugin 'gregsexton/MatchTag'
 Plugin 'groenewege/vim-less'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'idris-hackers/idris-vim'
+Plugin 'jzelinskie/molokai'
+Plugin 'jzelinskie/vim-sensible'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
@@ -27,13 +29,11 @@ Plugin 'othree/html5.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'rodjek/vim-puppet'
 Plugin 'scrooloose/syntastic'
-Plugin 'jzelinskie/molokai'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-ruby/vim-ruby'
@@ -121,13 +121,10 @@ endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 if has('nvim')
+  set nottimeout
   set rtp+=/usr/share/vim
   set rtp+=/usr/share/vim/vim73
   tmap <esc><esc> <c-\><c-n>
-
-  " https://github.com/neovim/neovim/issues/2017
-  set ttimeout
-  set ttimeoutlen=0
 endif
 
 " vim settings
