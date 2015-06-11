@@ -18,6 +18,9 @@ alias docker-rmi='docker rmi `docker images -f "dangling=true" -q`'
 alias docker-rmi-all='docker rmi -f `docker images -q`'
 alias docker-rmi-none="docker images | gsed 's/\s\+/ /g' | grep '<none>' | cut -d ' ' -f 3 | xargs docker rmi"
 alias docker-clean='dkill && drm'
+function docker-rmr() {
+  docker images | grep $1 | gsed 's/\s\+/ /g' | cut -d " " -f 1-2 | gsed 's/\s/:/' | xargs docker rmi
+}
 
 # Prefer neovim to vim, if it exists
 if which nvim > /dev/null; then
