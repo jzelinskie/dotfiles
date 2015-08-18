@@ -4,18 +4,17 @@
 [color]
 	ui = auto
 [alias]
-  ss = rev-parse --short
 	s = status
+	ss = rev-parse --short
 	h = show HEAD
 	d = diff
+	dc = diff --cached
 	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) -%an%Creset' --abbrev-commit
 	co = checkout
 	br = branch
-	unstage = reset HEAD
 	discard = checkout HEAD --
-	ds = diff --cached
-	pr = pull --rebase
 	unadd = reset HEAD
+	pullr = pull --rebase
 [core]
 	excludesfile = ~/.gitignore
 [diff]
@@ -26,7 +25,8 @@
 [difftool]
 	prompt = false
 [url "git@github.com:"]
-	pushInsteadOf = git://github.com/
+	insteadOf = git://github.com/
+	insteadOf = https://github.com/
 [push]
 	default = simple
 [github]
