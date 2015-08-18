@@ -58,7 +58,7 @@ endif
 "let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 au FileType qf setlocal wrap linebreak
 let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_go_checkers = ['govet', 'golint', 'gotype']
+let g:syntastic_go_checkers = ['go tool vet', 'go tool vet -shadow', 'golint', 'gotype']
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_enable_signs  = 1
@@ -87,7 +87,7 @@ au FileType go nmap gd <Plug>(go-def)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-let g:go_fmt_command = "gofmt"
+let g:go_fmt_command = "goimports"
 
 " tags
 nmap <silent> <leader>o :TagbarToggle<CR>
