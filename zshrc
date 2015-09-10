@@ -21,6 +21,12 @@ alias docker-clean='dkill && drm'
 function docker-rmr() {
   docker images | grep $1 | gsed 's/\s\+/ /g' | cut -d " " -f 1-2 | gsed 's/\s/:/' | xargs docker rmi
 }
+function docker-env() {
+  eval $(docker-machine env dev)
+  \docker $@
+}
+alias docker=docker-env
+
 
 # Prefer neovim to vim, if it exists
 if which nvim > /dev/null; then

@@ -14,11 +14,6 @@ fi
 # Wireshark SSL
 export SSLKEYLOGFILE=/var/log/sslkeylog.log
 
-# Boot2Docker
-if [[ "$OSTYPE" == darwin* ]]; then
-  eval $(docker-machine env dev)
-fi
-
 # Go environment
 if [[ "$OSTYPE" == darwin* ]]; then
   export GOOS=darwin
