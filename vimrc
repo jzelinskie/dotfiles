@@ -58,7 +58,7 @@ endif
 "let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 au FileType qf setlocal wrap linebreak
 let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_go_checkers = ['go tool vet', 'go tool vet -shadow', 'golint', 'gotype']
+let g:syntastic_go_checkers = ['govet', 'golint', 'gofmt']
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_enable_signs  = 1
