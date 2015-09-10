@@ -12,6 +12,8 @@
 	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) -%an%Creset' --abbrev-commit
 	co = checkout
 	br = branch
+	remotes = remote
+	fetch = fetch --all
 	discard = checkout HEAD --
 	unadd = reset HEAD
 	pullr = pull --rebase
