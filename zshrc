@@ -10,7 +10,7 @@
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"; fi
 
 # Docker aliases
-alias b2d='boot2docker'
+alias dm='docker-machine'
 alias docker-ip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 alias docker-kill='docker kill `docker ps -q`'
 alias docker-rm='docker rm `docker ps -a -q`'
@@ -22,7 +22,9 @@ function docker-rmr() {
   docker images | grep $1 | gsed 's/\s\+/ /g' | cut -d " " -f 1-2 | gsed 's/\s/:/' | xargs docker rmi
 }
 function docker-env() {
-  eval $(docker-machine env dev)
+  if [[ -z "$DOCKER_HOST" ]]; then
+    eval $(docker-machine env dev)
+  fi
   \docker $@
 }
 alias docker=docker-env
