@@ -36,6 +36,12 @@ if which nvim > /dev/null; then
   alias vim=nvim
 fi
 
+# Quickly get into Go workdirs
+function goworkon() {
+  echo ${0:a:h}/$1 | export GOPATH=`awk '{split($0,a,"/src"); print a[1]}'`
+  cd $1
+}
+
 # Brew aliases
 alias cask="brew cask"
 
