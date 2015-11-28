@@ -19,6 +19,7 @@
 	pullr = pull --rebase
 [core]
 	excludesfile = ~/.gitignore
+	safecrlf = true
 [diff]
 	mnemonicprefix = true
 	algorithm = patience
