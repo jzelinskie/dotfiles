@@ -1,7 +1,7 @@
 " leader
 let mapleader = ','
 
-" plug
+" vim-plug: plugin management with lazy loading
 set nocompatible
 filetype off
 call plug#begin('~/.vim/plugged')
@@ -53,8 +53,12 @@ else
   set clipboard=unnamed
 endif
 
+" speed up ctrl+p with find
+if has("unix")
+  let g:ctrlp_user_command = "find %s -path '*.git*' -prune -o -type f"
+endif
+
 " syntastic
-"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 au FileType qf setlocal wrap linebreak
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_go_checkers = ['govet', 'golint', 'gofmt']
@@ -91,7 +95,7 @@ let g:go_fmt_command = "goimports"
 " tags
 nmap <silent> <leader>o :TagbarToggle<CR>
 
-" leader mappings
+" toggle paste and wrap
 nmap <silent> <leader>p :set invpaste<CR>:set paste?<CR>
 nmap <silent> <leader>w :set invwrap<CR>:set wrap?<CR>
 
@@ -119,6 +123,7 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
+" neovim
 if has('nvim')
   set nottimeout
   set rtp+=/usr/share/vim
