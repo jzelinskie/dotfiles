@@ -17,6 +17,8 @@
 	discard = checkout HEAD --
 	unadd = reset HEAD
 	pullr = pull --rebase
+	cherrypick = cherry-pick
+	dif = diff
 [core]
 	excludesfile = ~/.gitignore
 	safecrlf = true
