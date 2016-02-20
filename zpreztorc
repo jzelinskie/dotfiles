@@ -37,21 +37,14 @@ zstyle ':prezto:load' pmodule \
   'syntax-highlighting' \
   'history-substring-search' \
   'archive' \
-  'dpkg' \
-  'fasd' \
+  'command-not-found' \
   'git' \
-  'haskell' \
-  'node' \
+  'gpg' \
   'osx' \
-  'ocaml' \
-  'pacman' \
-  'perl' \
   'python' \
-  'rails' \
   'rsync' \
   'ruby' \
-  'wakeonlan' \
-  'yum'
+  'wakeonlan'
 
 #
 # Editor
