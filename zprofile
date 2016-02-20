@@ -15,6 +15,16 @@ if [[ "$OSTYPE" == darwin* ]]; then
 fi
 
 #
+# GPG Agent
+#
+if [ -f "~/.gpg-agent-info" ]; then
+ . "~/.gpg-agent-info"
+ export GPG_AGENT_INFO
+ export SSH_AUTH_SOCK
+fi
+export GPG_TTY=$(tty)
+
+#
 # Editors
 #
 
