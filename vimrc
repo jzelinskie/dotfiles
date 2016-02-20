@@ -126,6 +126,9 @@ if has('nvim')
   tmap <esc><esc> <c-\><c-n>
 endif
 
+" par formatting
+set formatprg=par\ -w80
+
 " vim settings
 set colorcolumn=80
 set completeopt-=preview
