@@ -59,3 +59,6 @@ if [[ -a '/usr/local/share/zsh/site-functions' ]]; then
   fpath=('/usr/local/share/zsh/site-functions' $fpath)
   autoload -Uz compinit && compinit -i
 fi
+
+# iterm2 shell integration
+test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
