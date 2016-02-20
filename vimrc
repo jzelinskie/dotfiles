@@ -1,46 +1,45 @@
 " leader
 let mapleader = ','
 
-" vundle
+" plug
 set nocompatible
 filetype off
-set rtp+=$HOME/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'bling/vim-airline'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'cespare/vim-toml'
-Plugin 'derekwyatt/vim-scala'
-Plugin 'digitaltoad/vim-jade'
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'evanmiller/nginx-vim-syntax'
-Plugin 'fatih/vim-go'
-Plugin 'gmarik/vundle'
-Plugin 'gregsexton/MatchTag'
-Plugin 'groenewege/vim-less'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'idris-hackers/idris-vim'
-Plugin 'jzelinskie/molokai'
-Plugin 'jzelinskie/vim-sensible'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'oscarh/vimerl'
-Plugin 'othree/html5.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'rodjek/vim-puppet'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'vim-scripts/a.vim'
-Plugin 'vim-scripts/django.vim'
-Plugin 'wting/rust.vim'
-call vundle#end()
+call plug#begin('~/.vim/plugged')
+Plug 'bling/vim-airline'
+Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
+Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
+Plug 'ekalinin/Dockerfile.vim', { 'for': 'dockerfile' }
+Plug 'ervandew/supertab'
+Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'gregsexton/MatchTag'
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+Plug 'idris-hackers/idris-vim', { 'for': 'idris' }
+Plug 'jamessan/vim-gnupg'
+Plug 'jzelinskie/molokai'
+Plug 'jzelinskie/vim-sensible'
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffeescript' }
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'oscarh/vimerl', { 'for': 'erlang' }
+Plug 'othree/html5.vim', { 'for': 'html' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-git', { 'for': 'git' }
+Plug 'tpope/vim-haml', { 'for': 'haml' }
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'vim-scripts/a.vim'
+Plug 'wting/rust.vim', { 'for': 'rust' }
+call plug#end()
 filetype plugin indent on
 
 " colors
