@@ -5,9 +5,9 @@ let mapleader = ','
 set nocompatible
 filetype off
 call plug#begin('~/.vim/plugged')
-Plug 'bling/vim-airline'
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'dockerfile' }
@@ -20,9 +20,7 @@ Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'idris-hackers/idris-vim', { 'for': 'idris' }
 Plug 'jamessan/vim-gnupg'
 Plug 'jzelinskie/molokai'
-Plug 'jzelinskie/vim-sensible'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffeescript' }
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'oscarh/vimerl', { 'for': 'erlang' }
 Plug 'othree/html5.vim', { 'for': 'html' }
@@ -34,8 +32,11 @@ Plug 'tpope/vim-git', { 'for': 'git' }
 Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'vim-scripts/a.vim'
 Plug 'wting/rust.vim', { 'for': 'rust' }
