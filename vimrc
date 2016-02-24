@@ -54,7 +54,8 @@ else
   set clipboard=unnamed
 endif
 
-" speed up ctrl+p with find
+" ctrl+p
+nmap  <C-B> :CtrlPBuffer<CR>
 if has("unix")
   let g:ctrlp_user_command = "find %s -path '*.git*' -prune -o -type f"
 endif
