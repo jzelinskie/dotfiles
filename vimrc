@@ -4,6 +4,11 @@ let mapleader = ','
 " vim-plug: plugin management with lazy loading
 set nocompatible
 filetype off
+if has("nvim") && empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 call plug#begin('~/.vim/plugged')
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
