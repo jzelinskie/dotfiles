@@ -9,7 +9,7 @@ if has("nvim") && empty(glob('~/.config/nvim/autoload/plug.vim'))
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'ctrlpvim/ctrlp.vim'
@@ -27,6 +27,7 @@ Plug 'jamessan/vim-gnupg'
 Plug 'jzelinskie/molokai'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffeescript' }
 Plug 'majutsushi/tagbar'
+Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'oscarh/vimerl', { 'for': 'erlang' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -51,6 +52,9 @@ filetype plugin indent on
 " colors
 let g:rehash256 = 1
 colorscheme molokai
+
+" why doesn't supertab default to this?
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 " sync default register to clipboard
 if has('unnamedplus')
