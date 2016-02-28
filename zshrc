@@ -38,7 +38,7 @@ fi
 
 # Quickly get into Go workdirs
 function goworkon() {
-  cd $1
+  _z $1
   export GOPATH=`echo $PWD | sed -e 's/\/src.*//g'`
 }
 
