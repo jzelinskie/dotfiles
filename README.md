@@ -4,5 +4,11 @@ I primarily use OSX, but can work on GNU/Linux as well; ideally these should wor
 
 ## install
 
-* Clone this directory to ~/.dotfiles
-* `./install.zsh` symlinks from ~/.file to ~/.dotfiles/file
+```sh
+$ git clone git@github.com:jzelinskie/dotfiles.git $HOME/.dotfiles
+$ ./$HOME/.dotfiles/install.zsh
+```
+
+All installation does is:
+- symlink files like `$HOME/.dotfiles/.$FILE` to `$HOME/.$FILE`
+- git clone [prezto](https://github.com/sorin-ionescu/prezto)
