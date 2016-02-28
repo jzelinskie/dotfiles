@@ -26,9 +26,11 @@
 	mnemonicprefix = true
 	algorithm = patience
 [merge]
-	tool = vimdiff
-[difftool]
-	prompt = false
+  tool = vimdiff
+[mergetool]
+  prompt = true
+[mergetool "vimdiff"]
+  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [url "git@github.com:"]
 	insteadOf = git://github.com/
 	insteadOf = https://github.com/
