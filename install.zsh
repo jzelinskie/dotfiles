@@ -1,7 +1,13 @@
 #!/bin/zsh
 
 setopt EXTENDED_GLOB
-for dotfile in "${ZDOTDIR:-$HOME}"/.dotfiles/^(install.zsh|README.md)(.N); do
-  ln -s "$dotfile" "${ZDOTDIR:-$HOME}/.${dotfile:t}"
+
+for dotfile in "${ZDOTDIR:-$HOME}"/.dotfiles/(.??*)(.N); do
+  if [[ ! -a "${ZDOTDIR:-$HOME}/${dotfile:t}" ]]; then
+    ln -s "$dotfile" "${ZDOTDIR:-$HOME}/${dotfile:t}"
+  fi
 done
-git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
+if [[ ! -a "${ZDOTDIR:-$HOME}/.zprezto" ]]; then
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+fi
