@@ -19,3 +19,4 @@ Thumbs.db
 *.so
 *.pyc
 .git
+.python-version
