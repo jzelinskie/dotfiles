@@ -38,8 +38,8 @@ fi
 
 # Quickly get into Go workdirs
 function goworkon() {
-  echo ${0:a:h}/$1 | export GOPATH=`awk '{split($0,a,"/src"); print a[1]}'`
   cd $1
+  export GOPATH=`echo $PWD | sed -e 's/\/src.*//g'`
 }
 
 # Brew aliases
