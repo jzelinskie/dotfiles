@@ -16,19 +16,16 @@ export SSLKEYLOGFILE=/var/log/sslkeylog.log
 
 # Go environment
 if [[ "$OSTYPE" == darwin* ]]; then
-  export GOOS=darwin
-  export GOARCH=amd64
   export GOROOT=/usr/local/opt/go/libexec # homebrew
-elif [[ "$OSTYPE" == linux-gnu* ]]; then
-  export GOOS=linux
-  export GOARCH=amd64
-  #TODO export GOROOT=/whereever/linux/installs/go
+  export GOBIN=$HOME/bin
+fi
+if [[ "$OSTYPE" == cygwin* ]]; then
+  export GOBIN=`cygpath -aw $HOME/bin`
 fi
 if [[ -a $HOME/.golang ]]; then
   export GOROOT=$HOME/.golang
   source $GOROOT/misc/zsh/go
 fi
-export GOBIN=$HOME/bin
 export PATH=$GOBIN:$PATH
 
 # Python

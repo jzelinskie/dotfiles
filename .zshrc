@@ -39,9 +39,21 @@ else
 fi
 
 # Quickly get into Go workdirs
-function goworkon() {
+function gwo() {
   _z $1
-  export GOPATH=`echo $PWD | sed -e 's/\/src.*//g'`
+  if [[ "$OSTYPE" == cygwin* ]]; then
+    export GOPATH=$(cygpath -w `echo $PWD | sed -e 's/\/src.*//g'`)
+  else
+    export GOPATH=`echo $PWD | sed -e 's/\/src.*//g'`
+  fi
+}
+function goworkon() {
+  cd $1
+  if [[ "$OSTYPE" == cygwin* ]]; then
+    export GOPATH=$(cygpath -w `echo $PWD | sed -e 's/\/src.*//g'`)
+  else
+    export GOPATH=`echo $PWD | sed -e 's/\/src.*//g'`
+  fi
 }
 
 # Brew aliases
