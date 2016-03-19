@@ -53,7 +53,7 @@ filetype plugin indent on
 let g:rehash256 = 1
 colorscheme molokai
 
-" why doesn't supertab default to this?
+" supertab omni-complete
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 " sync default register to clipboard
@@ -63,7 +63,7 @@ else
   set clipboard=unnamed
 endif
 
-" ctrl+p
+" ctrl+p buffer search
 nmap  <C-B> :CtrlPBuffer<CR>
 if has("unix")
   let g:ctrlp_user_command = "find %s -path '*.git*' -prune -o -type f"
@@ -144,7 +144,12 @@ if has('nvim')
 endif
 
 " par formatting
-set formatprg=par\ -w80
+if system('par')
+  set formatprg=par\ -w80
+endif
+
+" set an undo directory
+set undodir=~/.vimundo
 
 " vim settings
 set colorcolumn=80
