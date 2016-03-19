@@ -31,8 +31,9 @@ if [[ "$OSTYPE" == cygwin* ]]; then
   SSHAGENT=/usr/bin/ssh-agent
   SSHAGENTARGS="-s"
   if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
-    eval `$SSHAGENT $SSHAGENTARGS >& /dev/null`
+    eval `$SSHAGENT $SSHAGENTARGS`
     trap "kill $SSH_AGENT_PID" 0
+    /usr/bin/ssh-add $HOME/.ssh/id_rsa
   fi
 fi
 
