@@ -22,6 +22,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	safecrlf = true
+	trustctime = false
 [diff]
 	mnemonicprefix = true
 	algorithm = patience
