@@ -22,7 +22,20 @@ if [ -f "~/.gpg-agent-info" ]; then
  export GPG_AGENT_INFO
  export SSH_AUTH_SOCK
 fi
-export GPG_TTY=$(tty)
+if which tty > /dev/null; then export GPG_TTY=$(tty); fi
+
+#
+# SSH Agent per shell session for cygwin
+#
+if [[ "$OSTYPE" == cygwin* ]]; then
+  SSHAGENT=/usr/bin/ssh-agent
+  SSHAGENTARGS="-s"
+  if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
+    eval `$SSHAGENT $SSHAGENTARGS >& /dev/null`
+    trap "kill $SSH_AGENT_PID" 0
+  fi
+fi
+
 
 #
 # Editors
@@ -54,6 +67,7 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+  /usr/bin
   /usr/local/{bin,sbin}
   $path
 )
