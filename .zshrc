@@ -34,6 +34,8 @@ alias docker=docker-env
 if which nvim > /dev/null; then
   alias vi=nvim
   alias vim=nvim
+else
+  alias nvim=vim
 fi
 
 # Quickly get into Go workdirs
@@ -58,6 +60,12 @@ if [[ -a '/usr/local/etc/profile.d/z.sh' ]]; then source /usr/local/etc/profile.
 if [[ -a '/usr/local/share/zsh/site-functions' ]]; then
   fpath=('/usr/local/share/zsh/site-functions' $fpath)
   autoload -Uz compinit && compinit -i
+fi
+
+# source autocomplete on cygwin
+# run "compaudit | xargs chmod g-w" if you're having auditing problems
+if [[ -a "$HOME/.zcompdump" ]]; then
+  autoload -U compinit && compinit
 fi
 
 # iterm2 shell integration
