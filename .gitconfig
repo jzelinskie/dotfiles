@@ -19,6 +19,7 @@
 	pullr = pull --rebase
 	cherrypick = cherry-pick
 	dif = diff
+  comit = commit
 [core]
 	excludesfile = ~/.gitignore
 	safecrlf = true
