@@ -55,6 +55,10 @@ function goworkon() {
     export GOPATH=`echo $PWD | sed -e 's/\/src.*//g'`
   fi
 }
+function goworkhere() {
+  export GOPATH=`echo $PWD | sed -e 's/\/src.*//g'`
+}
+
 
 # Brew aliases
 alias cask="brew cask"
