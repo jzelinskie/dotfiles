@@ -35,3 +35,5 @@ export PYTHONDONTWRITEBYTECODE=1
 if [[ -a /usr/local/heroku/bin ]]; then
   export PATH="$PATH:/usr/local/heroku/bin"
 fi
+
+setopt ignoreeof
