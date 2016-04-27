@@ -1,6 +1,7 @@
 [user]
 	name = Jimmy Zelinskie
 	email = jimmy.zelinskie+git@gmail.com
+	signingkey = A49C1F7C
 [color]
 	ui = auto
 [alias]
