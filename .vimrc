@@ -30,6 +30,7 @@ Plug 'jamessan/vim-gnupg'
 Plug 'jzelinskie/molokai'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffeescript' }
 Plug 'majutsushi/tagbar'
+Plug 'milkypostman/vim-togglelist'
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'oscarh/vimerl', { 'for': 'erlang' }
 Plug 'othree/html5.vim', { 'for': 'html' }
