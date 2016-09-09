@@ -42,8 +42,16 @@ fi
 # Editors
 #
 
-export EDITOR='nvim'
-export VISUAL='nvim'
+# Prefer neovim to vim, if it exists
+if which nvim > /dev/null; then
+  alias vi=nvim
+  alias vim=nvim
+else
+  alias nvim=vim
+fi
+
+export EDITOR='vim'
+export VISUAL='vim'
 export PAGER='less'
 
 #
@@ -68,8 +76,8 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-  /usr/bin
   /usr/local/{bin,sbin}
+  /usr/bin
   $path
 )
 
