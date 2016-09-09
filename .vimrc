@@ -18,6 +18,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'dockerfile' }
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'ervandew/supertab'
 Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -34,7 +35,6 @@ Plug 'oscarh/vimerl', { 'for': 'erlang' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-git', { 'for': 'git' }
 Plug 'tpope/vim-haml', { 'for': 'haml' }
@@ -48,6 +48,11 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'vim-scripts/a.vim'
 Plug 'wting/rust.vim', { 'for': 'rust' }
+if has ('nvim')
+  Plug 'neomake/neomake'
+else
+  Plug 'scrooloose/syntastic'
+endif
 call plug#end()
 filetype plugin indent on
 
@@ -82,11 +87,20 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq   = 0
 
+" neomake
+if has('nvim')
+  autocmd! BufReadPost,BufWritePost * Neomake
+endif
+
 " airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_theme = 'monochrome'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+  let g:airline_symbols.maxlinenr = ''
+endif
 
 " python
 autocmd FileType python set ts=2 sw=2 et
@@ -137,7 +151,7 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
-" neovim
+" fix nvim escape timeouts
 if has('nvim')
   set nottimeout
   set rtp+=/usr/share/vim
@@ -147,7 +161,7 @@ endif
 
 " par formatting
 if system('par')
-  set formatprg=par\ -w80
+  let &formatprg=par\ -w80
 endif
 
 " set an undo directory
