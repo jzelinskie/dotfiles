@@ -20,7 +20,9 @@
 	pullr = pull --rebase
 	cherrypick = cherry-pick
 	dif = diff
-  comit = commit
+	comit = commit
+	commit = commit
+	rebase-i = rebase -i
 [core]
 	excludesfile = ~/.gitignore
 	safecrlf = true
@@ -28,12 +30,13 @@
 [diff]
 	mnemonicprefix = true
 	algorithm = patience
+	compactionHeuristic = true
 [merge]
-  tool = vimdiff
+	tool = vimdiff
 [mergetool]
-  prompt = true
+	prompt = true
 [mergetool "vimdiff"]
-  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [url "git@github.com:"]
 	insteadOf = git://github.com/
 	insteadOf = https://github.com/
