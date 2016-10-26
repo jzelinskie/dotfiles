@@ -10,14 +10,18 @@ dirmngr
 docker
 docker-machine
 erlang
+figlet
 gawk
 gdbm
 gettext
+git
+git-crypt
 gnu-sed
 gnupg2
 go
 gpg-agent
 gpgme
+graphviz
 jpeg
 jq
 kubernetes-cli
@@ -53,6 +57,7 @@ protobuf
 pstree
 pth
 pyenv
+pyenv-pip-rehash
 pyenv-virtualenv
 python3
 readline
@@ -63,6 +68,7 @@ rust
 screenfetch
 speedtest_cli
 sqlite
+terraform
 tmux
 toilet
 tree
