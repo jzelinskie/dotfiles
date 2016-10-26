@@ -26,7 +26,12 @@ if [[ -a $HOME/.golang ]]; then
   export GOROOT=$HOME/.golang
   source $GOROOT/misc/zsh/go
 fi
-export PATH=$GOBIN:$PATH
+export PATH=$PATH:$GOBIN
+
+# Rust
+if [[ -a $HOME/.cargo/bin ]]; then
+  export PATH="$PATH:$HOME/.cargo/bin"
+fi
 
 # Python
 export PYTHONDONTWRITEBYTECODE=1

@@ -7,7 +7,3 @@ for dotfile in "${ZDOTDIR:-$HOME}"/.dotfiles/(.??*)(.N); do
     ln -s "$dotfile" "${ZDOTDIR:-$HOME}/${dotfile:t}"
   fi
 done
-
-if [[ ! -a "${ZDOTDIR:-$HOME}/.zprezto" ]]; then
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-fi
