@@ -13,7 +13,7 @@ zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-autosuggestions"
 
 # upstream autocompletions
-zplug "docker/docker", use:"contrib/completion/zsh/_docker", lazy:true
+zplug "docker/docker", use:"contrib/completion/zsh/_docker", lazy:true, if:"which docker > /dev/null"
 
 # z
 zplug "rupa/z", use:z.sh
@@ -27,6 +27,7 @@ zplug "modules/directory", from:prezto
 zplug "modules/spectrum", from:prezto
 zplug "modules/utility", from:prezto
 zplug "modules/prompt", from:prezto
+zplug "modules/git", from:prezto
 
 # prezto config
 zstyle ':prezto:*:*' case-sensitive 'no'
