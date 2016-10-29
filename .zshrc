@@ -6,18 +6,13 @@ fi
 source ~/.zplug/init.zsh
 zplug "zplug/zplug"
 
-# zsh-users
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
-
 # upstream autocompletions
 zplug "docker/docker", use:"contrib/completion/zsh/_docker", lazy:true, if:"which docker > /dev/null"
 
 # z
 zplug "rupa/z", use:z.sh
 
-# prezto packages
+# prezto
 zplug "modules/environment", from:prezto
 zplug "modules/terminal", from:prezto
 zplug "modules/editor", from:prezto
@@ -25,10 +20,11 @@ zplug "modules/history", from:prezto
 zplug "modules/directory", from:prezto
 zplug "modules/spectrum", from:prezto
 zplug "modules/utility", from:prezto
+zplug "modules/completion", from:prezto, nice:10
 zplug "modules/prompt", from:prezto
+zplug "modules/syntax-highlighting", from:prezto
+zplug "modules/history-substring-search", from:prezto
 zplug "modules/git", from:prezto
-
-# prezto config
 zstyle ':prezto:*:*' case-sensitive 'no'
 zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
