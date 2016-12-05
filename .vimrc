@@ -27,7 +27,7 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'idris-hackers/idris-vim', { 'for': 'idris' }
 Plug 'jamessan/vim-gnupg'
-Plug 'jzelinskie/molokai'
+Plug 'jzelinskie/monokai-soda.vim'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffeescript' }
 Plug 'majutsushi/tagbar'
 Plug 'milkypostman/vim-togglelist'
@@ -58,8 +58,7 @@ call plug#end()
 filetype plugin indent on
 
 " colors
-let g:rehash256 = 1
-colorscheme molokai
+colorscheme monokai-soda
 
 " supertab omni-complete
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
@@ -170,6 +169,7 @@ set undodir=~/.vimundo
 
 " vim settings
 set colorcolumn=80
+set cursorline
 set completeopt-=preview
 set cpoptions=ces$
 set ffs=unix,dos
@@ -201,3 +201,6 @@ set vb
 set virtualedit=all
 set visualbell
 set wrapscan
+if has("nvim")
+  set termguicolors
+endif
