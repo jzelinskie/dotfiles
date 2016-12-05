@@ -36,6 +36,7 @@ Plug 'oscarh/vimerl', { 'for': 'erlang' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-git', { 'for': 'git' }
 Plug 'tpope/vim-haml', { 'for': 'haml' }
@@ -48,8 +49,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'vim-scripts/a.vim'
-Plug 'wting/rust.vim', { 'for': 'rust' }
-if has ('nvim')
+if has('nvim')
   Plug 'neomake/neomake'
 else
   Plug 'scrooloose/syntastic'
@@ -119,6 +119,12 @@ au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 let g:go_fmt_command = "gofmt"
 let g:go_fmt_options = "-s"
+
+" rust.vim
+let g:rustfmt_autosave = 1
+let g:rustfmt_fail_silently = 1
+let g:neomake_rust_enabled_makers = []
+autocmd! BufReadPost,BufWritePost *.rs Neomake! cargo
 
 " tags
 nmap <silent> <leader>o :TagbarToggle<CR>
