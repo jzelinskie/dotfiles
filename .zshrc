@@ -99,6 +99,15 @@ function goworkhere() {
   export GOPATH=`echo $PWD | sed -e 's/\/src.*//g'`
   echo 'GOPATH:' $GOPATH
 }
+function tmpgg() {
+  tempdir=`mktemp -d`
+  export GOPATH=$tempdir
+  export GOBIN=$PWD
+  go get $1
+  unset GOPATH
+  unset GOBIN
+  rm -rf $tempdir
+}
 
 # Rust
 if [[ -a $HOME/.cargo/bin ]]; then
