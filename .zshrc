@@ -77,9 +77,8 @@ if [[ -a $HOME/.golang ]]; then
 fi
 export PATH=$GOBIN:$PATH
 
-# Go project navigation
-function gwo() {
-  _z $1
+# goworkhere attempts to detect a Go environment in $PWD and sets the $GOPATH.
+function goworkhere() {
   if [[ "$OSTYPE" == cygwin* ]]; then
     export GOPATH=$(cygpath -w `echo $PWD | sed -e 's/\/src.*//g'`)
   else
@@ -87,25 +86,41 @@ function gwo() {
   fi
   echo 'GOPATH:' $GOPATH
 }
+
+# goworkon cds into the provided directory then calls `goworkhere`.
 function goworkon() {
   cd $1
-  if [[ "$OSTYPE" == cygwin* ]]; then
-    export GOPATH=$(cygpath -w `echo $PWD | sed -e 's/\/src.*//g'`)
-  else
-    export GOPATH=`echo $PWD | sed -e 's/\/src.*//g'`
-  fi
+  goworkhere
 }
-function goworkhere() {
-  export GOPATH=`echo $PWD | sed -e 's/\/src.*//g'`
-  echo 'GOPATH:' $GOPATH
+
+# gwo calls z  on the provided argument then calls `goworkhere`.
+function gwo() {
+  _z $1
+  goworkhere
 }
+
+# tmpgg creates a temporary Go environment used to "go get" a binary.
+# tmpgg stands for "temporary go get".
 function tmpgg() {
+  # Create a temp directory
   tempdir=`mktemp -d`
+
+  # Save the current environment
+  local OLDGOPATH=$GOPATH
+  local OLDGOBIN=$GOBIN
+
+  # Set up the temporary environment
   export GOPATH=$tempdir
   export GOBIN=$PWD
+
+  # Install the program
   go get $1
-  unset GOPATH
-  unset GOBIN
+
+  # Restore the previous environment
+  export GOPATH=$OLDGOPATH
+  export GOBIN=$OLDGOBIN
+
+  # Cleanup temp directory
   rm -rf $tempdir
 }
 
