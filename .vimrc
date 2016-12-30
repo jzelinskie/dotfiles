@@ -26,7 +26,6 @@ Plug 'gregsexton/MatchTag'
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'idris-hackers/idris-vim', { 'for': 'idris' }
-Plug 'jamessan/vim-gnupg'
 Plug 'jzelinskie/monokai-soda.vim'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffeescript' }
 Plug 'majutsushi/tagbar'
