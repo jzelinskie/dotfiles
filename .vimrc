@@ -11,6 +11,7 @@ if empty(glob(config_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 call plug#begin('~/.config/nvim/plugged')
+Plug 'bogado/file-line'
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'ctrlpvim/ctrlp.vim'
