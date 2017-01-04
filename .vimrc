@@ -41,7 +41,6 @@ Plug 'tpope/vim-git', { 'for': 'git' }
 Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
@@ -52,6 +51,7 @@ if has('nvim')
   Plug 'neomake/neomake'
 else
   Plug 'scrooloose/syntastic'
+  Plug 'tpope/vim-sensible'
 endif
 call plug#end()
 
