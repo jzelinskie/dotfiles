@@ -6,7 +6,6 @@ let config_dir = has("nvim") ? '~/.config/nvim' : '~/.vim'
 
 " vim-plug: plugin management with lazy loading
 set nocompatible
-filetype off
 if empty(glob(config_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo ' . config_dir . '/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall
@@ -54,7 +53,6 @@ else
   Plug 'scrooloose/syntastic'
 endif
 call plug#end()
-filetype plugin indent on
 
 " colors
 colorscheme monokai-soda
