@@ -171,6 +171,9 @@ endif
 " set an undo directory
 set undodir=~/.vimundo
 
+" clear hlsearch on redraw
+nnoremap <C-L> :nohlsearch<CR><C-L>
+
 " vim settings
 set colorcolumn=80
 set cursorline
