@@ -145,6 +145,11 @@ fi
 export EDITOR='vim'
 export VISUAL='vim'
 
+# cross-platform clipboard
+if [[ "$OSTYPE" != darwin* ]]; then
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
 
 # less
 export PAGER='less'
