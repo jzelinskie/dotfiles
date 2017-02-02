@@ -30,13 +30,12 @@ Plug 'jzelinskie/monokai-soda.vim'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffeescript' }
 Plug 'majutsushi/tagbar'
 Plug 'milkypostman/vim-togglelist'
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'oscarh/vimerl', { 'for': 'erlang' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-git', { 'for': 'git' }
 Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
@@ -47,16 +46,25 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'vim-scripts/a.vim'
-if has('nvim')
-  Plug 'neomake/neomake'
-else
-  Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
+if has('nvim') == 0
   Plug 'tpope/vim-sensible'
 endif
 call plug#end()
 
+" loading the runtime for python is VERY slow
+let g:python_host_skip_check = 1
+let g:python3_host_skip_check = 1
+
 " colors
 colorscheme monokai-soda
+
+" ale
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_sign_column_always = 1
 
 " supertab omni-complete
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
@@ -72,22 +80,6 @@ endif
 nmap  <C-B> :CtrlPBuffer<CR>
 if has("unix")
   let g:ctrlp_user_command = "find %s -path '*.git*' -prune -o -type f"
-endif
-
-" syntastic
-au FileType qf setlocal wrap linebreak
-let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_go_checkers = ['govet', 'golint', 'gofmt']
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_warning_symbol = "⚠"
-let g:syntastic_enable_signs  = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq   = 0
-
-" neomake
-if has('nvim')
-  autocmd! BufReadPost,BufWritePost * Neomake
 endif
 
 " airline
@@ -122,7 +114,6 @@ let g:go_fmt_options = "-s"
 let g:rustfmt_autosave = 1
 let g:rustfmt_fail_silently = 1
 let g:neomake_rust_enabled_makers = []
-autocmd! BufReadPost,BufWritePost *.rs Neomake! cargo
 
 " tags
 nmap <silent> <leader>o :TagbarToggle<CR>
