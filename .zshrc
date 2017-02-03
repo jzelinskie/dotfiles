@@ -137,13 +137,15 @@ setopt ignoreeof
 
 # vim (preferring neovim)
 if which nvim > /dev/null; then
+  export EDITOR=nvim
   alias vi=nvim
   alias vim=nvim
 else
+  export EDITOR=vim
   alias nvim=vim
 fi
-export EDITOR='vim'
-export VISUAL='vim'
+export GIT_EDITOR=$EDITOR
+export VISUAL=$EDITOR
 
 # cross-platform clipboard
 if [[ "$OSTYPE" != darwin* ]]; then
