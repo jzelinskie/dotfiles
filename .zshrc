@@ -30,9 +30,13 @@ zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 zstyle ':prezto:module:editor' keymap 'vi'
 zstyle ':prezto:module:pacman' frontend 'packer'
-zstyle ':prezto:module:prompt' theme 'sorin'
 zstyle ':prezto:module:syntax-highlighting' highlighters 'main' 'brackets' 'pattern' 'cursor'
 zstyle ':prezto:module:terminal' auto-title 'yes'
+if [[ "$OSTYPE" != darwin* || "$SSH_CLIENT" != "" ]]; then
+  zstyle ':prezto:module:prompt' theme 'steeef'
+else
+  zstyle ':prezto:module:prompt' theme 'sorin'
+fi
 
 # install zplug plugins and load zplug
 if ! zplug check --verbose; then
