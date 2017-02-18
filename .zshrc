@@ -132,6 +132,7 @@ function tmpgg() {
 if [[ -a $HOME/.cargo/bin ]]; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
+export RUST_BACKTRACE=1
 
 # Python environment
 export PYTHONDONTWRITEBYTECODE=1
