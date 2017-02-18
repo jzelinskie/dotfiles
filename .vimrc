@@ -116,7 +116,6 @@ let g:go_fmt_options = "-s"
 " rust.vim
 let g:rustfmt_autosave = 1
 let g:rustfmt_fail_silently = 1
-let g:neomake_rust_enabled_makers = []
 
 " tags
 nmap <silent> <leader>o :TagbarToggle<CR>
