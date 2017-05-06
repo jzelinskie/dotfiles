@@ -202,5 +202,6 @@ set virtualedit=all
 set visualbell
 set wrapscan
 if has("nvim")
+  set cpoptions+=_
   set termguicolors
 endif
