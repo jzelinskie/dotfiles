@@ -7,7 +7,7 @@ source ~/.zplug/init.zsh
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # upstream autocompletions
-zplug "docker/docker", use:"contrib/completion/zsh/_docker", lazy:true, if:"which docker > /dev/null"
+zplug "moby/moby", use:"contrib/completion/zsh/_docker", lazy:true, if:"which docker > /dev/null"
 
 # z
 zplug "rupa/z", use:z.sh
