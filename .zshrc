@@ -81,6 +81,9 @@ if [[ -a $HOME/.golang ]]; then
 fi
 export PATH=$GOBIN:$PATH
 
+# GVM
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
 # goworkhere attempts to detect a Go environment in $PWD and sets the $GOPATH.
 function goworkhere() {
   if [[ "$OSTYPE" == cygwin* ]]; then
