@@ -4,7 +4,7 @@ if [[ ! -d ~/.zplug ]]; then
   source ~/.zplug/init.zsh && zplug update --self
 fi
 source ~/.zplug/init.zsh
-zplug "zplug/zplug"
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # upstream autocompletions
 zplug "docker/docker", use:"contrib/completion/zsh/_docker", lazy:true, if:"which docker > /dev/null"
