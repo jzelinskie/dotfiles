@@ -22,7 +22,7 @@
 	dif = diff
 	comit = commit
 	commit = commit
-	rebase-i = rebase -i
+	rebase-i = rebase -i --autostash
 	copr = "!f() { git fetch $1 pull/$2/head:pr-$2 && git checkout pr-$2; }; f"
 	cob = "!f() { git checkout master; git pull; git checkout -b $1; }; f"
 [core]
