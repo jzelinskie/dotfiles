@@ -47,6 +47,9 @@ if ! zplug check --verbose; then
 fi
 zplug load
 
+# santiy
+if which gsed > /dev/null; then alias sed=gsed; fi
+
 # iTerm2 shell integration
 test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
 
