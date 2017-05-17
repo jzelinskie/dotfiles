@@ -29,6 +29,7 @@ Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'idris-hackers/idris-vim', { 'for': 'idris' }
 Plug 'jzelinskie/monokai-soda.vim'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffeescript' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'majutsushi/tagbar'
 Plug 'milkypostman/vim-togglelist'
 Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
