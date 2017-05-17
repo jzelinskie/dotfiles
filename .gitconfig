@@ -25,6 +25,7 @@
 	rebase-i = rebase -i --autostash
 	copr = "!f() { git fetch $1 pull/$2/head:pr-$2 && git checkout pr-$2; }; f"
 	cob = "!f() { git checkout master; git pull; git checkout -b $1; }; f"
+	fixup = "!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
 [core]
 	excludesfile = ~/.gitignore
 	safecrlf = true
