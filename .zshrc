@@ -7,27 +7,25 @@ if [[ ! -d ~/.zplug ]]; then
   source ~/.zplug/init.zsh && zplug update --self
 fi
 source ~/.zplug/init.zsh
+
+# zplug
+function pmodload() {}; # this is a hack noop prezto's internal dep resolution
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-
-# upstream autocompletions
-zplug "moby/moby", use:"contrib/completion/zsh/_docker", lazy:true, if:"which docker > /dev/null"
-
-# z
-zplug "rupa/z", use:z.sh
-
-# prezto
 zplug "modules/environment", from:prezto
 zplug "modules/terminal", from:prezto
 zplug "modules/editor", from:prezto
 zplug "modules/history", from:prezto
 zplug "modules/directory", from:prezto
+zplug "modules/helper", from:prezto
 zplug "modules/spectrum", from:prezto
 zplug "modules/utility", from:prezto
 zplug "modules/completion", from:prezto, defer:3
 zplug "modules/prompt", from:prezto
 zplug "modules/syntax-highlighting", from:prezto, defer:3
-zplug "modules/history-substring-search", from:prezto
 zplug "modules/git", from:prezto
+zplug "rupa/z", use:z.sh
+
+# prezto
 zstyle ':prezto:*:*' case-sensitive 'no'
 zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
@@ -156,7 +154,6 @@ function docker-rmr() {
 }
 
 # kubernetes autocompletion
-if which kubectl > /dev/null; then source <(kubectl completion zsh); fi
 if which helm > /dev/null; then source <(helm completion zsh); fi
 if which kubectl > /dev/null; then
   alias k=kubectl
