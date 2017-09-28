@@ -22,7 +22,7 @@ Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'ervandew/supertab'
 Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'google/yapf', { 'for': 'python', 'rtp': 'plugins' }
+Plug 'google/yapf', { 'for': 'python', 'rtp': 'plugins/vim' }
 Plug 'gregsexton/MatchTag'
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
@@ -99,6 +99,7 @@ endif
 
 " python
 autocmd FileType python set ts=2 sw=2 et
+autocmd BufWritePre *.py :call yapf#YAPF()
 
 " vim-go
 au FileType go nmap <Leader>i <Plug>(go-info)
