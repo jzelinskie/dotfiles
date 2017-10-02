@@ -160,6 +160,8 @@ if which kubectl > /dev/null; then
   alias kks='kubectl -n kube-system'
   alias kts='kubectl -n tectonic-system'
 fi
+function kcrd() {kubectl "$1" customresourcedefinitions "${@:2}"; }
+function ktpr() {kubectl "$1" thirdpartyresources "${@:2}"; }
 
 # unescape JSON
 alias unescapejson="sed -E 's/\\(.)/\1/g' | sed -e 's/^"//' -e 's/"$//'"
