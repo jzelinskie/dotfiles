@@ -99,7 +99,7 @@ endif
 
 " python
 autocmd FileType python set ts=2 sw=2 et
-autocmd BufWritePre *.py :call yapf#YAPF()
+"autocmd BufWritePre *.py :call yapf#YAPF()
 
 " vim-go
 au FileType go nmap <Leader>i <Plug>(go-info)
