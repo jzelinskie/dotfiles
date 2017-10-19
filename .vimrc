@@ -108,7 +108,7 @@ nmap <Right> >>
 vmap <Left> <gv
 vmap <Right> >gv
 
-" strip trailing whitespace on save
+" strip trailing whitespace
 function! <SID>StripTrailingWhitespaces()
   " preparation: save last search, and cursor position.
   let _s=@/
@@ -120,7 +120,7 @@ function! <SID>StripTrailingWhitespaces()
   let @/=_s
   call cursor(l, c)
 endfunction
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+command! -nargs=0 StripWhitespace call <SID>StripTrailingWhitespaces()
 
 " nvim terminal escape
 if has('nvim')
