@@ -84,8 +84,6 @@ au FileType go nmap gd <Plug>(go-def)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-let g:go_fmt_command = "gofmt"
-let g:go_fmt_options = "-s"
 
 " rust.vim
 let g:rustfmt_autosave = 1
