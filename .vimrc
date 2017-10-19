@@ -54,10 +54,12 @@ else
   set clipboard=unnamed
 endif
 
-" ctrl+p buffer search
+" ctrl+p
 nmap  <C-B> :CtrlPBuffer<CR>
-if has("unix")
-  let g:ctrlp_user_command = "find %s -path '*.git*' -prune -o -type f"
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
 endif
 
 " airline
