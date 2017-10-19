@@ -5,6 +5,7 @@ let mapleader = ','
 let config_dir = has("nvim") ? '~/.config/nvim' : '~/.vim'
 
 " vim-plug: plugin management with lazy loading
+" TODO(jzelinskie): investigate dein.vim
 set nocompatible
 if empty(glob(config_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo ' . config_dir . '/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -12,41 +13,20 @@ if empty(glob(config_dir . '/autoload/plug.vim'))
 endif
 call plug#begin('~/.config/nvim/plugged')
 Plug 'bogado/file-line'
-Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
-Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
-Plug 'ekalinin/Dockerfile.vim', { 'for': 'dockerfile' }
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'ervandew/supertab'
-Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'google/yapf', { 'for': 'python', 'rtp': 'plugins/vim' }
-Plug 'gregsexton/MatchTag'
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-Plug 'idris-hackers/idris-vim', { 'for': 'idris' }
+Plug 'google/vim-jsonnet', { 'for': 'jsonnet' }
 Plug 'jzelinskie/monokai-soda.vim'
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffeescript' }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'majutsushi/tagbar'
 Plug 'milkypostman/vim-togglelist'
-Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-Plug 'oscarh/vimerl', { 'for': 'erlang' }
-Plug 'othree/html5.vim', { 'for': 'html' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'tpope/vim-git', { 'for': 'git' }
-Plug 'tpope/vim-haml', { 'for': 'haml' }
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'vim-scripts/a.vim'
 Plug 'w0rp/ale'
 if has('nvim') == 0
