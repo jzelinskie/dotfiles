@@ -22,6 +22,7 @@ Plug 'majutsushi/tagbar'
 Plug 'milkypostman/vim-togglelist'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
