@@ -34,22 +34,15 @@ if has('nvim') == 0
 endif
 call plug#end()
 
-" loading the runtime for python is VERY slow
-let g:python_host_skip_check = 1
-let g:python3_host_skip_check = 1
-
 " colors
 colorscheme monokai-soda
 
 " ale
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
-let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_sign_column_always = 1
 let g:ale_echo_msg_format = '[%linter%] %s'
-let g:ale_linters = {'go': ['gofmt', 'golint', 'govet']}
-
 
 " supertab omni-complete
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
@@ -76,10 +69,6 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
   let g:airline_symbols.maxlinenr = ''
 endif
-
-" python
-autocmd FileType python set ts=2 sw=2 et
-"autocmd BufWritePre *.py :call yapf#YAPF()
 
 " vim-go
 au FileType go nmap <Leader>i <Plug>(go-info)
@@ -131,11 +120,8 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
-" fix nvim escape timeouts
+" nvim terminal escape
 if has('nvim')
-  set nottimeout
-  set rtp+=/usr/share/vim
-  set rtp+=/usr/share/vim/vim73
   tmap <esc><esc> <c-\><c-n>
 endif
 
