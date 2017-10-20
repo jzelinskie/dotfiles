@@ -91,16 +91,12 @@ test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_in
 # Go environment
 if [[ "$OSTYPE" == darwin* ]]; then
   export GOROOT=/usr/local/opt/go/libexec # homebrew
+fi
+
+if [[ -x $HOME/bin ]]; then 
   export GOBIN=$HOME/bin
+  export PATH=$GOBIN:$PATH
 fi
-if [[ "$OSTYPE" == cygwin* ]]; then
-  export GOBIN=`cygpath -aw $HOME/bin`
-fi
-if [[ -a $HOME/.golang ]]; then
-  export GOROOT=$HOME/.golang
-  source $GOROOT/misc/zsh/go
-fi
-export PATH=$GOBIN:$PATH
 
 # GVM
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
