@@ -19,7 +19,7 @@ zplug "modules/directory", from:prezto
 zplug "modules/helper", from:prezto
 zplug "modules/spectrum", from:prezto
 zplug "modules/utility", from:prezto
-zplug "modules/completion", from:prezto, defer:3
+zplug "modules/completion", from:prezto
 zplug "modules/prompt", from:prezto
 zplug "modules/syntax-highlighting", from:prezto, defer:3
 zplug "modules/git", from:prezto
