@@ -6,7 +6,7 @@ setopt EXTENDED_GLOB
 # Default values for configurable variables
 export INSTALL_DIR=${INSTALL_DIR:-$HOME}
 export DOTFILES_DIR=${DOTFILES_DIR:-$HOME/.dotfiles}
-export XDG_HOME=${XDG_HOME:-$INSTALL_DIR/.config}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$INSTALL_DIR/.config}
 
 # Prompt the user
 echo "Installing dotfiles in $DOTFILES_DIR into $INSTALL_DIR"
@@ -21,11 +21,11 @@ fi
 # Handle vim first, b/c we need to do extra work to support both vim & neovim.
 echo
 echo "Linking nvim/vim compatible files..."
-mkdir -p $XDG_HOME/nvim
+mkdir -p $XDG_CONFIG_HOME/nvim
 local VIM_LINKS=(
-  "$DOTFILES_DIR/.vimrc:$XDG_HOME/nvim/init.vim"
-  "$XDG_HOME/nvim/init.vim:$INSTALL_DIR/.vimrc"
-  "$XDG_HOME/nvim:$INSTALL_DIR/.vim"
+  "$DOTFILES_DIR/.vimrc:$XDG_CONFIG_HOME/nvim/init.vim"
+  "$XDG_CONFIG_HOME/nvim/init.vim:$INSTALL_DIR/.vimrc"
+  "$XDG_CONFIG_HOME/nvim:$INSTALL_DIR/.vim"
 )
 for LINK in $VIM_LINKS; do
   local FILE=`echo $LINK | awk -F":" '{print $1}'`
