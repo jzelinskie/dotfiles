@@ -161,3 +161,9 @@ function ktpr() {kubectl "$1" thirdpartyresources "${@:2}"; }
 
 # unescape JSON
 alias unescapejson="sed -E 's/\\(.)/\1/g' | sed -e 's/^"//' -e 's/"$//'"
+
+# time aliases
+alias ber='TZ=Europe/Berlin date'
+alias nyc='TZ=America/New_York date'
+alias sfo='TZ=America/Los_Angeles date'
+alias utc='TZ=Etc/UTC date'
