@@ -125,11 +125,19 @@ function gwo() {
 if [[ -a $HOME/.cargo/bin ]]; then export PATH="$HOME/.cargo/bin:$PATH"; fi
 if which rustc > /dev/null; then export RUST_BACKTRACE=1; fi
 
-# pyenv
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-if which pyenv-virtualenv-init > /dev/null; then
-  eval "$(pyenv virtualenv-init -)"
-  export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+# lazy load pyenv
+if type pyenv &> /dev/null; then
+  local PYENV_SHIMS="${PYENV_ROOT:-${HOME}/.pyenv}/shims"
+  export PATH="${PYENV_SHIMS}:${PATH}"
+  function pyenv() {
+    unset pyenv
+    eval "$(command pyenv init -)"
+    if which pyenv-virtualenv-init > /dev/null; then
+      eval "$(pyenv virtualenv-init -)"
+      export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+    fi
+    pyenv $@
+  }
 fi
 
 # don't generate .pyc files
@@ -147,10 +155,9 @@ function docker-rmr() {
   docker images | grep $1 | gsed 's/\s\+/ /g' | cut -d " " -f 1-2 | gsed 's/\s/:/' | xargs docker rmi
 }
 
-# kubernetes autocompletion
-if which helm > /dev/null; then source <(helm completion zsh); fi
+# kubernetes
+if which helm > /dev/null; then source <(command helm completion zsh); fi
 if which kubectl > /dev/null; then
-  source <(kubectl completion zsh)
   alias k=kubectl
   alias kks='kubectl -n kube-system'
   alias kts='kubectl -n tectonic-system'
