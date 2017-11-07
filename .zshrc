@@ -1,52 +1,47 @@
-# uncomment to profile
-#zmodload zsh/zprof
+# profile startup
+zmodload zsh/zprof
 
-# install and update zplug
-if [[ ! -d ~/.zplug ]]; then
-  git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
+# zgen
+if [[ ! -d ${HOME}/.zgen ]]; then
+  git clone git@github.com:tarjoilija/zgen.git "${HOME}/.zgen"
 fi
-source ~/.zplug/init.zsh
+source "${HOME}/.zgen/zgen.zsh"
+if ! zgen saved; then
+  # plugins
+  zgen load rupa/z
+  zgen load zsh-users/zsh-completions src
+  zgen load zsh-users/zsh-syntax-highlighting
+  zgen load zsh-users/zsh-history-substring-search
 
-# zplug
-function pmodload() {}; # this is a hack noop prezto's internal dep resolution
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug "modules/environment", from:prezto
-zplug "modules/terminal", from:prezto
-zplug "modules/editor", from:prezto
-zplug "modules/history", from:prezto
-zplug "modules/directory", from:prezto
-zplug "modules/helper", from:prezto
-zplug "modules/spectrum", from:prezto
-zplug "modules/utility", from:prezto
-zplug "modules/completion", from:prezto
-zplug "modules/prompt", from:prezto
-zplug "modules/syntax-highlighting", from:prezto, defer:3
-zplug "modules/git", from:prezto
-zplug "rupa/z", use:z.sh
-
-# prezto
-zstyle ':prezto:*:*' case-sensitive 'no'
-zstyle ':prezto:*:*' color 'yes'
-zstyle ':prezto:module:editor' dot-expansion 'yes'
-zstyle ':prezto:module:editor' keymap 'vi'
-zstyle ':prezto:module:pacman' frontend 'packer'
-zstyle ':prezto:module:syntax-highlighting' highlighters 'main' 'brackets' 'pattern' 'cursor'
-zstyle ':prezto:module:terminal' auto-title 'yes'
-if [[ "$OSTYPE" != darwin* || "$SSH_CLIENT" != "" ]]; then
-  zstyle ':prezto:module:prompt' theme 'steeef'
-else
-  zstyle ':prezto:module:prompt' theme 'sorin'
-fi
-
-# install zplug plugins and load zplug
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
+  # prezto plugins
+  zgen prezto
+  zgen prezto environment
+  zgen prezto terminal
+  zgen prezto editor
+  zgen prezto history
+  zgen prezto directory
+  zgen prezto helper
+  zgen prezto spectrum
+  zgen prezto utility
+  zgen prezto completion
+  zgen prezto prompt
+  zgen prezto syntax-highlighting
+  zgen prezto git
+  zgen prezto editor key-bindings 'emacs'
+  zgen prezto '*:*' case-sensitive 'no'
+  zgen prezto '*:*' color 'yes'
+  zgen prezto 'module:editor' dot-expansion 'yes'
+  zgen prezto 'module:editor' key-bindings 'emacs'
+  zgen prezto 'module:syntax-highlighting' highlighters 'main' 'brackets' 'pattern' 'cursor'
+  zgen prezto 'module:terminal' auto-title 'yes'
+  if [[ ${OSTYPE} == darwin* ]]; then
+    zgen prezto prompt theme 'sorin'
+  else
+    zgen prezto prompt theme 'steeef'
   fi
+
+  zgen save
 fi
-zplug load
 
 # disable ctrl+d EOF
 setopt ignoreeof
@@ -82,17 +77,16 @@ if which exa > /dev/null; then alias ls=exa; fi
 # colored cat
 if which ccat > /dev/null; then alias cat=cat; fi
 
-# use gnu coreutils if available
+# prefer GNU sed b/c BSD sed doesn't handle whitespace the same
 if which gsed > /dev/null; then alias sed=gsed; fi
 
 # iTerm2 shell integration
 test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
 
-# Go environment
-if [[ "$OSTYPE" == darwin* ]]; then
-  export GOROOT=/usr/local/opt/go/libexec # homebrew
-fi
+# use homebrew's Go on macOS
+if [[ "$OSTYPE" == darwin* ]]; then export GOROOT=/usr/local/opt/go/libexec; fi
 
+# if ~/bin exists, use it as a global $GOBIN
 if [[ -x $HOME/bin ]]; then 
   export GOBIN=$HOME/bin
   export PATH=$GOBIN:$PATH
@@ -124,18 +118,18 @@ function gwo() {
 }
 
 # Rust
-if [[ -a $HOME/.cargo/bin ]]; then
-  export PATH="$HOME/.cargo/bin:$PATH"
-fi
-export RUST_BACKTRACE=1
+if [[ -a $HOME/.cargo/bin ]]; then export PATH="$HOME/.cargo/bin:$PATH"; fi
+if which rustc > /dev/null; then export RUST_BACKTRACE=1; fi
 
 # pyenv
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then
+  eval "$(pyenv virtualenv-init -)"
+  export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+fi
 
 # don't generate .pyc files
-export PYTHONDONTWRITEBYTECODE=1
+if which python > /dev/null; then export PYTHONDONTWRITEBYTECODE=1; fi
 
 # docker aliases
 alias docker-ip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
@@ -152,12 +146,13 @@ function docker-rmr() {
 # kubernetes autocompletion
 if which helm > /dev/null; then source <(helm completion zsh); fi
 if which kubectl > /dev/null; then
+  source <(kubectl completion zsh)
   alias k=kubectl
   alias kks='kubectl -n kube-system'
   alias kts='kubectl -n tectonic-system'
+  function kcrd() { kubectl "$1" customresourcedefinitions "${@:2}"; }
+  function ktpr() { kubectl "$1" thirdpartyresources "${@:2}"; }
 fi
-function kcrd() {kubectl "$1" customresourcedefinitions "${@:2}"; }
-function ktpr() {kubectl "$1" thirdpartyresources "${@:2}"; }
 
 # unescape JSON
 alias unescapejson="sed -E 's/\\(.)/\1/g' | sed -e 's/^"//' -e 's/"$//'"
