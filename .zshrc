@@ -156,7 +156,6 @@ function docker-rmr() {
 }
 
 # kubernetes
-if which helm > /dev/null; then source <(command helm completion zsh); fi
 if which kubectl > /dev/null; then
   alias k=kubectl
   alias kks='kubectl -n kube-system'
