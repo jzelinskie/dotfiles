@@ -79,7 +79,7 @@ fi
 if which exa > /dev/null; then alias ls=exa; fi
 
 # colored cat
-if which ccat > /dev/null; then alias cat=cat; fi
+if which ccat > /dev/null; then alias cat=ccat; fi
 
 # prefer GNU sed b/c BSD sed doesn't handle whitespace the same
 if which gsed > /dev/null; then alias sed=gsed; fi
