@@ -15,7 +15,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'bogado/file-line'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ervandew/supertab'
-Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'fatih/vim-go', { 'for': 'go', 'tag': 'v1.17' }
 Plug 'google/vim-jsonnet', { 'for': 'jsonnet' }
 Plug 'jzelinskie/monokai-soda.vim'
 Plug 'majutsushi/tagbar'
