@@ -163,8 +163,15 @@ if which kubectl > /dev/null; then
   alias k=kubectl
   alias kks='kubectl -n kube-system'
   alias kts='kubectl -n tectonic-system'
+  if which minikube > /dev/null; then alias mk=minikube; fi
   function kcrd() { kubectl "$1" customresourcedefinitions "${@:2}"; }
   function ktpr() { kubectl "$1" thirdpartyresources "${@:2}"; }
+  function waitforpods() {
+    until [ $(kubectl -n $NAMESPACE get pods  -o json | jq '.items | map(.status.containerStatuses[] | .ready) | all' -r) == "true" ]; do
+      echo 'waiting for all pods to be ready'
+      sleep 5
+    done
+  }
 fi
 
 # unescape JSON
