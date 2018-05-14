@@ -153,9 +153,9 @@ alias docker-rm-all='docker rm `docker ps -a -q`'
 alias docker-clear='docker-kill-all;docker-rm-all'
 alias docker-rmi-all='docker rmi -f `docker images -q`'
 alias docker-rmi='docker rmi `docker images -f "dangling=true" -q`'
-alias docker-rmi-none="docker images | gsed 's/\s\+/ /g' | grep '<none>' | cut -d ' ' -f 3 | xargs docker rmi"
+alias docker-rmi-none="docker images | sed 's/\s\+/ /g' | grep '<none>' | cut -d ' ' -f 3 | xargs docker rmi"
 function docker-rmr() {
-  docker images | grep $1 | gsed 's/\s\+/ /g' | cut -d " " -f 1-2 | gsed 's/\s/:/' | xargs docker rmi
+  docker images | grep $1 | sed 's/\s\+/ /g' | cut -d " " -f 1-2 | sed 's/\s/:/' | xargs docker rmi
 }
 
 # kubernetes
