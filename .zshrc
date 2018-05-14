@@ -1,6 +1,9 @@
 # profile startup
 zmodload zsh/zprof
 
+# brew installs some binaries like openvpn to /usr/local/sbin
+export PATH=/usr/local/sbin:$PATH
+
 # zgen
 if [[ ! -d ${HOME}/.zgen ]]; then
   git clone git@github.com:tarjoilija/zgen.git "${HOME}/.zgen"
