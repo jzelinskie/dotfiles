@@ -14,13 +14,14 @@ export ZGEN_SYSTEM_UPDATE_DAYS=30
 source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
   # plugins
-  zgen load rupa/z
   zgen load docker/cli contrib/completion/zsh
-  zgen load unixorn/autoupdate-zgen
+  zgen load lukechilds/zsh-nvm
   zgen load peterhurford/git-it-on.zsh
+  zgen load rupa/z
+  zgen load unixorn/autoupdate-zgen
   zgen load zsh-users/zsh-completions src
-  zgen load zsh-users/zsh-syntax-highlighting
   zgen load zsh-users/zsh-history-substring-search
+  zgen load zsh-users/zsh-syntax-highlighting
 
   # prezto plugins
   zgen prezto
