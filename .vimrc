@@ -27,6 +27,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'uber/prototool', { 'rtp': 'vim/prototool' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/a.vim'
@@ -45,6 +46,7 @@ let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_text_changed = 0
 let g:ale_sign_column_always = 1
 let g:ale_echo_msg_format = '[%linter%] %s'
+let g:ale_linters = {'proto': ['prototool']}
 
 " supertab omni-complete
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
