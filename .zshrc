@@ -150,17 +150,11 @@ fi
 # don't generate .pyc files
 if which python > /dev/null; then export PYTHONDONTWRITEBYTECODE=1; fi
 
-# docker aliases
-alias docker-ip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
-alias docker-kill-all='docker kill `docker ps -q`'
-alias docker-rm-all='docker rm `docker ps -a -q`'
-alias docker-clear='docker-kill-all;docker-rm-all'
-alias docker-rmi-all='docker rmi -f `docker images -q`'
-alias docker-rmi='docker rmi `docker images -f "dangling=true" -q`'
-alias docker-rmi-none="docker images | sed 's/\s\+/ /g' | grep '<none>' | cut -d ' ' -f 3 | xargs docker rmi"
-function docker-rmr() {
-  docker images | grep $1 | sed 's/\s\+/ /g' | cut -d " " -f 1-2 | sed 's/\s/:/' | xargs docker rmi
-}
+# docker
+if which docker > /dev/null; then
+  alias docker-ip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+  alias docker4mac='screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty'
+fi
 
 # kubernetes
 if which kubectl > /dev/null; then
