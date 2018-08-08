@@ -11,6 +11,7 @@ fi
 export ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
 export ZGEN_PLUGIN_UPDATE_DAYS=30
 export ZGEN_SYSTEM_UPDATE_DAYS=30
+export NVM_LAZY_LOAD=true
 source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
   # plugins
