@@ -1,18 +1,23 @@
 # profile startup
 zmodload zsh/zprof
 
+# add the argument to $PATH only if it's not already present
+function extend_path() {
+  [[ ":$PATH:" != *":$1:"* ]] && export PATH="$1:$PATH"
+}
+
 # brew installs some binaries like openvpn to /usr/local/sbin
-export PATH=/usr/local/sbin:$PATH
+[[ $OSTYPE == darwin* ]] && extend_path "/usr/local/sbin"
 
 # zgen
-if [[ ! -d ${HOME}/.zgen ]]; then
-  git clone git@github.com:tarjoilija/zgen.git "${HOME}/.zgen"
+if [[ ! -d $HOME/.zgen ]]; then
+  git clone git@github.com:tarjoilija/zgen.git "$HOME/.zgen"
 fi
-export ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
+export ZGEN_RESET_ON_CHANGE=($HOME/.zshrc)
 export ZGEN_PLUGIN_UPDATE_DAYS=30
 export ZGEN_SYSTEM_UPDATE_DAYS=30
 export NVM_LAZY_LOAD=true
-source "${HOME}/.zgen/zgen.zsh"
+source "$HOME/.zgen/zgen.zsh"
 if ! zgen saved; then
   # plugins
   zgen load docker/cli contrib/completion/zsh
@@ -24,7 +29,7 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-history-substring-search
   zgen load zsh-users/zsh-syntax-highlighting
 
-  # prezto plugins
+  # prezto config
   zgen prezto
   zgen prezto environment
   zgen prezto terminal
@@ -45,7 +50,7 @@ if ! zgen saved; then
   zgen prezto 'module:editor' key-bindings 'emacs'
   zgen prezto 'module:syntax-highlighting' highlighters 'main' 'brackets' 'pattern' 'cursor'
   zgen prezto 'module:terminal' auto-title 'yes'
-  if [[ ${OSTYPE} == darwin* ]]; then
+  if [[ $OSTYPE == darwin* ]]; then
     zgen prezto prompt theme 'sorin'
   else
     zgen prezto prompt theme 'steeef'
@@ -92,15 +97,15 @@ if which ccat > /dev/null; then alias cat=ccat; fi
 if which gsed > /dev/null; then alias sed=gsed; fi
 
 # iTerm2 shell integration
-test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
+test -e $HOME/.iterm2_shell_integration.zsh && source $HOME/.iterm2_shell_integration.zsh
 
 # use homebrew's Go on macOS
-if [[ "$OSTYPE" == darwin* ]]; then export GOROOT=/usr/local/opt/go/libexec; fi
+[[ "$OSTYPE" == darwin* ]] && export GOROOT=/usr/local/opt/go/libexec
 
-# if ~/bin exists, use it as a global $GOBIN
+# if ~/bin exists, add it to $PATH and use it as a global $GOBIN
 if [[ -x $HOME/bin ]]; then 
-  export GOBIN=$HOME/bin
-  export PATH=$GOBIN:$PATH
+  extend_path "$HOME/bin"
+  export GOBIN="$HOME/bin"
 fi
 
 # GVM
@@ -129,13 +134,12 @@ function gwo() {
 }
 
 # Rust
-if [[ -a $HOME/.cargo/bin ]]; then export PATH="$HOME/.cargo/bin:$PATH"; fi
+[[ -a $HOME/.cargo/bin ]] && extend_path "$HOME/.cargo/bin"
 if which rustc > /dev/null; then export RUST_BACKTRACE=1; fi
 
 # lazy load pyenv
 if type pyenv &> /dev/null; then
-  local PYENV_SHIMS="${PYENV_ROOT:-${HOME}/.pyenv}/shims"
-  export PATH="${PYENV_SHIMS}:${PATH}"
+  extend_path "${PYENV_ROOT:-${HOME}/.pyenv}/shims"
   function pyenv() {
     unset pyenv
     eval "$(command pyenv init -)"
