@@ -12,6 +12,7 @@ if empty(glob(config_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 call plug#begin('~/.config/nvim/plugged')
+Plug 'andrewstuart/vim-kubernetes'
 Plug 'bogado/file-line'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ervandew/supertab'
