@@ -161,6 +161,7 @@ if which docker > /dev/null; then
 fi
 
 # kubernetes
+if which minikube > /dev/null; then alias mk=minikube; fi
 if which kubectl > /dev/null; then
   alias k=kubectl
   alias kks='kubectl -n kube-system'
