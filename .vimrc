@@ -15,6 +15,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'andrewstuart/vim-kubernetes'
 Plug 'bogado/file-line'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'elmcast/elm-vim', { 'for': 'elm' }
 Plug 'ervandew/supertab'
 Plug 'fatih/vim-go', { 'for': 'go', 'tag': 'v1.17' }
 Plug 'google/vim-jsonnet', { 'for': 'jsonnet' }
@@ -42,12 +43,14 @@ call plug#end()
 colorscheme monokai-soda
 
 " ale
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_text_changed = 0
 let g:ale_sign_column_always = 1
 let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_linters = {'proto': ['prototool']}
+if has('macunix')
+  let g:ale_sign_error = '✗'
+  let g:ale_sign_warning = '⚠'
+endif
 
 " supertab omni-complete
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
