@@ -157,7 +157,7 @@ if which python > /dev/null; then export PYTHONDONTWRITEBYTECODE=1; fi
 # docker
 if which docker > /dev/null; then
   alias docker-ip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
-  alias docker4mac='screen $HOME/Library/Containers/com.docker.docker/Data/vms/0/tty"
+  alias docker4mac="screen $HOME/Library/Containers/com.docker.docker/Data/vms/0/tty"
 fi
 
 # kubernetes
