@@ -6,6 +6,11 @@ function extend_path() {
   [[ ":$PATH:" != *":$1:"* ]] && export PATH="$1:$PATH"
 }
 
+# add the argument's directory to $PATH if the argument exists
+function conditional_extend_path() {
+  [[ -a $1 ]] && extend_path $(dirname $1)
+}
+
 # brew installs some binaries like openvpn to /usr/local/sbin
 [[ $OSTYPE == darwin* ]] && extend_path "/usr/local/sbin"
 
@@ -102,11 +107,9 @@ test -e $HOME/.iterm2_shell_integration.zsh && source $HOME/.iterm2_shell_integr
 # use homebrew's Go on macOS
 [[ "$OSTYPE" == darwin* ]] && export GOROOT=/usr/local/opt/go/libexec
 
-# if ~/bin exists, add it to $PATH and use it as a global $GOBIN
-if [[ -x $HOME/bin ]]; then 
-  extend_path "$HOME/bin"
-  export GOBIN="$HOME/bin"
-fi
+# if ~/bin or ~/.local/bin exists, add it to $PATH, and use it as $GOBIN
+[[ -x "$HOME/bin" ]] && extend_path "$HOME/bin" && export GOBIN="$HOME/bin"
+[[ -x "$HOME/.local/bin" ]] && extend_path "$HOME/.local/bin"
 
 # GVM
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
@@ -138,8 +141,10 @@ function gwo() {
 if which rustc > /dev/null; then export RUST_BACKTRACE=1; fi
 
 # lazy load pyenv
-if type pyenv &> /dev/null; then
-  extend_path "${PYENV_ROOT:-${HOME}/.pyenv}/shims"
+export PYENV_ROOT="${PYENV_ROOT:-${HOME}/.pyenv}"
+conditional_extend_path "$PYENV_ROOT/bin/pyenv"
+if type pyenv &> /dev/null || [[ -a "$PYENV_ROOT/bin/pyenv" ]]; then
+  extend_path "$PYENV_ROOT/shims"
   function pyenv() {
     unset pyenv
     eval "$(command pyenv init -)"
