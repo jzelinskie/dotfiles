@@ -92,8 +92,13 @@ if [[ "$OSTYPE" != darwin* ]]; then
   alias pbpaste='xclip -selection clipboard -o'
 fi
 
-# exa
-if which exa > /dev/null; then alias ls=exa; fi
+# exa (improved ls)
+if which exa > /dev/null; then
+  alias ls=exa;
+  alias ll="exa --long --header --group --inode --blocks --links --modified --accessed --created --git"
+  alias la="ll -a"
+  alias tree="exa -T"
+fi
 
 # colored cat
 if which ccat > /dev/null; then alias cat=ccat; fi
