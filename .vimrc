@@ -42,10 +42,11 @@ call plug#end()
 colorscheme monokai-soda
 
 " ale
-let g:ale_lint_on_text_changed = 0
+nmap gd <Plug>(ale_go_to_definition)
+let g:ale_lint_on_text_changed = 1
 let g:ale_sign_column_always = 1
 let g:ale_echo_msg_format = '[%linter%] %s'
-let g:ale_linters = {'proto': ['prototool']}
+let g:ale_set_highlights = 0
 if has('macunix')
   let g:ale_sign_error = '✗'
   let g:ale_sign_warning = '⚠'
