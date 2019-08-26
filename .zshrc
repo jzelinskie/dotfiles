@@ -100,8 +100,8 @@ if which exa > /dev/null; then
   alias tree="exa -T"
 fi
 
-# colored cat
-if which ccat > /dev/null; then alias cat=ccat; fi
+# bat (improved cat)
+if which bat > /dev/null; then alias cat=bat; fi
 
 # prefer GNU sed b/c BSD sed doesn't handle whitespace the same
 if which gsed > /dev/null; then alias sed=gsed; fi
