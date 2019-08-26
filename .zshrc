@@ -106,6 +106,10 @@ if which bat > /dev/null; then alias cat=bat; fi
 # prefer GNU sed b/c BSD sed doesn't handle whitespace the same
 if which gsed > /dev/null; then alias sed=gsed; fi
 
+if [[ -a $HOME/.nix-profile/etc/profile.d/nix.sh ]]; then
+  source $HOME/.nix-profile/etc/profile.d/nix.sh
+fi
+
 # iTerm2 shell integration
 test -e $HOME/.iterm2_shell_integration.zsh && source $HOME/.iterm2_shell_integration.zsh
 
