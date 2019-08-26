@@ -153,9 +153,9 @@ if which rustc > /dev/null; then export RUST_BACKTRACE=1; fi
 export PYENV_ROOT="${PYENV_ROOT:-${HOME}/.pyenv}"
 conditional_extend_path "$PYENV_ROOT/bin/pyenv"
 if type pyenv &> /dev/null || [[ -a "$PYENV_ROOT/bin/pyenv" ]]; then
-  extend_path "$PYENV_ROOT/shims"
   function pyenv() {
     unset pyenv
+    extend_path "$PYENV_ROOT/shims"
     eval "$(command pyenv init -)"
     if which pyenv-virtualenv-init > /dev/null; then
       eval "$(pyenv virtualenv-init -)"
