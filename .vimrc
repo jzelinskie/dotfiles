@@ -4,39 +4,41 @@ let mapleader = ','
 " figure out our config directory
 let config_dir = has("nvim") ? '~/.config/nvim' : '~/.vim'
 
-" vim-plug: plugin management with lazy loading
-" TODO(jzelinskie): investigate dein.vim
+" setup minpac, a vim-plug clone that uses native vim packages
 set nocompatible
-if empty(glob(config_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo ' . config_dir . '/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall
+if empty(glob(config_dir . '/autoload/plugpac.vim'))
+  silent execute '!git clone https://github.com/k-takata/minpac.git ' . config_dir . '/pack/minpac/opt/minpac'
+  silent execute '!curl -fLo ' . config_dir . '/autoload/plugpac.vim --create-dirs https://raw.githubusercontent.com/bennyyip/plugpac.vim/master/plugpac.vim'
+  autocmd VimEnter * PackInstall
 endif
-call plug#begin('~/.config/nvim/plugged')
-Plug 'andrewstuart/vim-kubernetes'
-Plug 'bogado/file-line'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'elmcast/elm-vim', { 'for': 'elm' }
-Plug 'ervandew/supertab'
-Plug 'fatih/vim-go', { 'for': 'go', 'tag': 'v1.17' }
-Plug 'google/vim-jsonnet', { 'for': 'jsonnet' }
-Plug 'jzelinskie/monokai-soda.vim'
-Plug 'majutsushi/tagbar'
-Plug 'milkypostman/vim-togglelist'
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/a.vim'
-Plug 'w0rp/ale'
+" enable plugins
+call plugpac#begin()
+Pack 'andrewstuart/vim-kubernetes', { 'for': 'yaml' }
+Pack 'bogado/file-line'
+Pack 'ctrlpvim/ctrlp.vim'
+Pack 'elmcast/elm-vim', { 'for': 'elm' }
+Pack 'ervandew/supertab'
+Pack 'fatih/vim-go', { 'for': 'go', 'tag': 'v1.20' }
+Pack 'google/vim-jsonnet', { 'for': 'jsonnet' }
+Pack 'jzelinskie/monokai-soda.vim'
+Pack 'k-takata/minpac', { 'type': 'opt' }
+Pack 'majutsushi/tagbar'
+Pack 'milkypostman/vim-togglelist'
+Pack 'racer-rust/vim-racer', { 'for': 'rust' }
+Pack 'rust-lang/rust.vim', { 'for': 'rust' }
+Pack 'sheerun/vim-polyglot'
+Pack 'tpope/vim-commentary'
+Pack 'tpope/vim-repeat'
+Pack 'tpope/vim-surround'
+Pack 'tpope/vim-unimpaired'
+Pack 'vim-airline/vim-airline'
+Pack 'vim-airline/vim-airline-themes'
+Pack 'vim-scripts/a.vim'
+Pack 'w0rp/ale'
 if has('nvim') == 0
-  Plug 'tpope/vim-sensible'
+  Pack 'tpope/vim-sensible'
 endif
-call plug#end()
+call plugpac#end()
 
 " colors
 colorscheme monokai-soda
@@ -95,6 +97,11 @@ au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 let g:go_fmt_options = { 'gofmt': '-s' }
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+if executable('golangci-lint')
+  let g:go_metalinter_command='golangci-lint'
+endif
 
 " rust.vim
 let g:rustfmt_autosave = 1

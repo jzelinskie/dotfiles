@@ -11,6 +11,10 @@ function conditional_extend_path() {
   [[ -a $1 ]] && extend_path $(dirname $1)
 }
 
+# add ~/bin and ~/.local/bin to $PATH if they exist
+[[ -d "$HOME/bin" ]] && extend_path "$HOME/bin"
+[[ -d "$HOME/.local/bin" ]] && extend_path "$HOME/.local/bin"
+
 # brew installs some binaries like openvpn to /usr/local/sbin
 [[ $OSTYPE == darwin* ]] && extend_path "/usr/local/sbin"
 
@@ -100,6 +104,12 @@ if which exa > /dev/null; then
   alias tree="exa -T"
 fi
 
+# wsl-open as a browser for Windows
+if [[ $(uname -r) == *Microsoft ]]; then
+  export BROWSER=wsl-open
+  alias open=xdg-open
+fi
+
 # bat (improved cat)
 if which bat > /dev/null; then alias cat=bat; fi
 
@@ -116,9 +126,8 @@ test -e $HOME/.iterm2_shell_integration.zsh && source $HOME/.iterm2_shell_integr
 # use homebrew's Go on macOS
 [[ "$OSTYPE" == darwin* ]] && export GOROOT=/usr/local/opt/go/libexec
 
-# if ~/bin or ~/.local/bin exists, add it to $PATH, and use it as $GOBIN
-[[ -x "$HOME/bin" ]] && extend_path "$HOME/bin" && export GOBIN="$HOME/bin"
-[[ -x "$HOME/.local/bin" ]] && extend_path "$HOME/.local/bin"
+# use ~/bin as $GOBIN if it exists
+[[ -d "$HOME/bin" ]] && export GOBIN="$HOME/bin"
 
 # GVM
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
