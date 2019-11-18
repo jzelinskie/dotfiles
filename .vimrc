@@ -16,6 +16,7 @@ call plugpac#begin()
 Pack 'andrewstuart/vim-kubernetes', { 'for': 'yaml' }
 Pack 'bogado/file-line'
 Pack 'ctrlpvim/ctrlp.vim'
+Pack 'dense-analysis/ale'
 Pack 'elmcast/elm-vim', { 'for': 'elm' }
 Pack 'ervandew/supertab'
 Pack 'fatih/vim-go', { 'for': 'go', 'tag': 'v1.20' }
@@ -34,7 +35,6 @@ Pack 'tpope/vim-unimpaired'
 Pack 'vim-airline/vim-airline'
 Pack 'vim-airline/vim-airline-themes'
 Pack 'vim-scripts/a.vim'
-Pack 'w0rp/ale'
 if has('nvim') == 0
   Pack 'tpope/vim-sensible'
 endif
