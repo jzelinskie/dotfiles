@@ -9,13 +9,15 @@ export DOTFILES_DIR=${DOTFILES_DIR:-$HOME/.dotfiles}
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$INSTALL_DIR/.config}
 
 # Prompt the user
-echo "Installing dotfiles in $DOTFILES_DIR into $INSTALL_DIR"
-echo "You can override these with \$DOTFILES_DIR and \$INSTALL_DIR, respectively"
-echo -n "Continue? "
-read REPLY
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-  echo "Cowardly refusing to link dotfiles"
-  exit 1
+if [ -z ${DOTFILES_NONINTERACTIVE+x} ]; then
+  echo "Installing dotfiles in $DOTFILES_DIR into $INSTALL_DIR"
+  echo "You can override these with \$DOTFILES_DIR and \$INSTALL_DIR, respectively"
+  echo -n "Continue? "
+  read REPLY
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Cowardly refusing to link dotfiles"
+    exit 1
+  fi
 fi
 
 # Handle vim first, b/c we need to do extra work to support both vim & neovim.
