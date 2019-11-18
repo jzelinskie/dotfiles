@@ -5,28 +5,26 @@
 [color]
 	ui = auto
 [alias]
-	s = status
-	ss = rev-parse --short
-	h = show HEAD
-	d = diff
+	s = status --short --branch --ignore-submodules=untracked
+	find = log --pretty=\"format:%Cgreen%H\n%s\n\n%b\" --name-status --grep
+	amend = commit --amend --no-edit
+	sha = rev-parse --short
 	dc = diff --cached
 	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) -%an%Creset' --abbrev-commit
 	co = checkout
-	br = branch
-	remotes = remote
-	fetch = fetch --all
-	discard = checkout HEAD --
 	unadd = reset HEAD
 	pullr = pull --rebase
-	cherrypick = cherry-pick
-	dif = diff
-	comit = commit
-	commit = commit
 	stage-head = git reset --soft HEAD~
 	rebase-i = rebase -i --autostash
 	copr = "!f() { git fetch $1 pull/$2/head:pr-$2 && git checkout pr-$2; }; f"
 	cob = "!f() { git checkout master; git pull; git checkout -b $1; }; f"
 	fixup = "!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
+	grep-open = "!f() { git grep $1 | cut -d: -f1 | xargs $EDITOR; }; f"
+	cherrypick = cherry-pick
+	remotes = remote
+	dif = diff
+	comit = commit
+	ammend = amend
 [core]
 	excludesfile = ~/.gitignore
 	safecrlf = true
