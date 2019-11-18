@@ -56,6 +56,7 @@ endif
 
 " supertab omni-complete
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+inoremap <S-Tab> <C-v><Tab>
 
 " sync default register to clipboard
 if has('unnamedplus')
