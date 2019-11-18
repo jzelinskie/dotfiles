@@ -59,12 +59,7 @@ if ! zgen saved; then
   zgen prezto 'module:editor' key-bindings 'emacs'
   zgen prezto 'module:syntax-highlighting' highlighters 'main' 'brackets' 'pattern' 'cursor'
   zgen prezto 'module:terminal' auto-title 'yes'
-  if [[ $OSTYPE == darwin* ]]; then
-    zgen prezto prompt theme 'sorin'
-  else
-    zgen prezto prompt theme 'steeef'
-  fi
-
+  if [[ $OSTYPE == darwin* ]]; then zgen prezto prompt theme 'sorin'; else zgen prezto prompt theme 'skwp'; fi
   zgen save
 fi
 
