@@ -1,38 +1,38 @@
 [user]
-	name = Jimmy Zelinskie
 	email = jimmy.zelinskie+git@gmail.com
+	name = Jimmy Zelinskie
 	signingkey = A49C1F7C
 [color]
 	ui = auto
 [alias]
-	s = status --short --branch --ignore-submodules=untracked
-	find = log --pretty=\"format:%Cgreen%H\n%s\n\n%b\" --name-status --grep
 	amend = commit --amend --no-edit
-	sha = rev-parse --short
-	dc = diff --cached
-	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) -%an%Creset' --abbrev-commit
+	ammend = amend
+	cherrypick = cherry-pick
 	co = checkout
-	unadd = reset HEAD
-	pullr = pull --rebase
-	stage-head = git reset --soft HEAD~
-	rebase-i = rebase -i --autostash
-	copr = "!f() { git fetch $1 pull/$2/head:pr-$2 && git checkout pr-$2; }; f"
 	cob = "!f() { git checkout master; git pull; git checkout -b $1; }; f"
+	comit = commit
+	copr = "!f() { git fetch $1 pull/$2/head:pr-$2 && git checkout pr-$2; }; f"
+	dc = diff --cached
+	dif = diff
+	find = log --pretty=\"format:%Cgreen%H\n%s\n\n%b\" --name-status --grep
 	fixup = "!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
 	grep-open = "!f() { git grep $1 | cut -d: -f1 | xargs $EDITOR; }; f"
-	cherrypick = cherry-pick
+	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) -%an%Creset' --abbrev-commit
+	pullr = pull --rebase
+	rebase-i = rebase -i --autostash
 	remotes = remote
-	dif = diff
-	comit = commit
-	ammend = amend
+	s = status --short --branch --ignore-submodules=untracked
+	sha = rev-parse --short
+	stage-head = git reset --soft HEAD~
+	unadd = reset HEAD
 [core]
 	excludesfile = ~/.gitignore
 	safecrlf = true
 	trustctime = false
 [diff]
-	mnemonicprefix = true
 	algorithm = patience
 	compactionHeuristic = true
+	mnemonicprefix = true
 [merge]
 	tool = vimdiff
 [mergetool]
