@@ -25,7 +25,6 @@ Pack 'jzelinskie/monokai-soda.vim'
 Pack 'k-takata/minpac', { 'type': 'opt' }
 Pack 'majutsushi/tagbar'
 Pack 'milkypostman/vim-togglelist'
-Pack 'racer-rust/vim-racer', { 'for': 'rust' }
 Pack 'rust-lang/rust.vim', { 'for': 'rust' }
 Pack 'sheerun/vim-polyglot'
 Pack 'tpope/vim-commentary'
@@ -107,7 +106,6 @@ endif
 " rust.vim
 let g:rustfmt_autosave = 1
 let g:rustfmt_fail_silently = 1
-let g:racer_cmd = $HOME . "/.cargo/bin/racer"
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
