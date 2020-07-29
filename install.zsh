@@ -52,3 +52,18 @@ for FILE in $DOTFILES_DIR/(.??*)(.N); do
     print -P -- "  %F{011}Link already exists:%f $FILE => $TARGET"
   fi
 done
+
+# Homebrew installation
+if [ -z ${DOTFILES_NONINTERACTIVE+x} ] && which brew > /dev/null; then
+  echo
+  echo "Homebrew installation detected."
+  echo "Do you want to install Brewfile contents?"
+  echo -n "Continue? "
+  read REPLY
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Cowardly refusing to install brew packagfes"
+    exit 1
+  else
+    cat $DOTFILES_DIR/Brewfile | xargs brew install
+  fi
+fi
