@@ -121,8 +121,11 @@ test -e $HOME/.iterm2_shell_integration.zsh && source $HOME/.iterm2_shell_integr
 # use homebrew's Go on macOS
 [[ "$OSTYPE" == darwin* ]] && export GOROOT=/usr/local/opt/go/libexec
 
-# use ~/bin as $GOBIN if it exists
-[[ -d "$HOME/bin" ]] && export GOBIN="$HOME/bin"
+# If Go is installed, keep everything in ~/.go and add $GOBIN to the path
+if which go > /dev/null; then
+  export GOPATH=$HOME/.go
+  [[ -a $GOPATH/bin ]] && extend_path "$GOPATH/bin"
+fi
 
 # GVM
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
