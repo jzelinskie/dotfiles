@@ -198,8 +198,3 @@ alias ber='TZ=Europe/Berlin date'
 alias nyc='TZ=America/New_York date'
 alias sfo='TZ=America/Los_Angeles date'
 alias utc='TZ=Etc/UTC date'
-
-# red hat sso with 1password
-function rhpw() {
-  echo -n "$(op get item "PIN Prefix" | jq '.details.fields[] | select(.designation == "password").value' -r)$(op get totp "PIN Prefix")"
-}
