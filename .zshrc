@@ -11,8 +11,7 @@ function conditional_extend_path() {
   [[ -a $1 ]] && extend_path $(dirname $1)
 }
 
-# add ~/bin and ~/.local/bin to $PATH if they exist
-[[ -d "$HOME/bin" ]] && extend_path "$HOME/bin"
+# add ~/.local/bin to $PATH if it exists
 [[ -d "$HOME/.local/bin" ]] && extend_path "$HOME/.local/bin"
 
 # brew installs some binaries like openvpn to /usr/local/sbin
@@ -37,6 +36,7 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions src
   zgen load zsh-users/zsh-history-substring-search
   zgen load zsh-users/zsh-syntax-highlighting
+  zgen load $HOME/.zfunc
 
   # prezto config
   zgen prezto
@@ -152,7 +152,7 @@ function gwo() {
   goworkhere
 }
 
-# Rust
+# Add cargo to $PATH and turn on backtraces for Rust
 [[ -a $HOME/.cargo/bin ]] && extend_path "$HOME/.cargo/bin"
 if which rustc > /dev/null; then export RUST_BACKTRACE=1; fi
 
