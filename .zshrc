@@ -185,7 +185,6 @@ fi
 if which kubectl > /dev/null; then
   alias k=kubectl
   alias kks='kubectl -n kube-system'
-  alias kts='kubectl -n tectonic-system'
   if which kubectl-krew > /dev/null; then extend_path "$HOME/.krew/bin"; fi
   if which minikube > /dev/null; then alias mk=minikube; fi
   function waitforpods() {
