@@ -29,6 +29,7 @@ neofetch
 neovim
 netcat
 nmap
+node
 optipng
 p7zip
 par
