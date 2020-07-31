@@ -45,3 +45,5 @@
 	user = jzelinskie
 [rerere]
 	enabled = true
+[pull]
+	ff = only
