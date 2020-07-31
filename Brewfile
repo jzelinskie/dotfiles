@@ -25,6 +25,7 @@ kubernetes-helm
 lolcat
 mercurial
 mitmproxy
+mkcert
 neofetch
 neovim
 netcat
