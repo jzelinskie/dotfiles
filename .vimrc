@@ -16,7 +16,6 @@ call plugpac#begin()
 Pack 'andrewstuart/vim-kubernetes', { 'for': 'yaml' }
 Pack 'bogado/file-line'
 Pack 'ctrlpvim/ctrlp.vim'
-Pack 'dense-analysis/ale'
 Pack 'elmcast/elm-vim', { 'for': 'elm' }
 Pack 'ervandew/supertab'
 Pack 'fatih/vim-go', { 'for': 'go', 'tag': 'v1.22' }
@@ -34,7 +33,10 @@ Pack 'tpope/vim-unimpaired'
 Pack 'vim-airline/vim-airline'
 Pack 'vim-airline/vim-airline-themes'
 Pack 'vim-scripts/a.vim'
-if has('nvim') == 0
+if has('nvim') == 1
+  Pack 'neovim/nvim-lsp'
+else
+  Pack 'dense-analysis/ale'
   Pack 'tpope/vim-sensible'
 endif
 call plugpac#end()
@@ -42,15 +44,35 @@ call plugpac#end()
 " colors
 colorscheme monokai-soda
 
-" ale
-nmap gd <Plug>(ale_go_to_definition)
-let g:ale_lint_on_text_changed = 1
-let g:ale_sign_column_always = 1
-let g:ale_echo_msg_format = '[%linter%] %s'
-let g:ale_set_highlights = 0
-if has('macunix')
-  let g:ale_sign_error = '✗'
-  let g:ale_sign_warning = '⚠'
+" nvim should use language server
+if has('nvim') == 1
+  packadd nvim-lsp
+  lua << EOF
+local nvim_lsp = require'nvim_lsp'
+nvim_lsp.rust_analyzer.setup{}
+nvim_lsp.gopls.setup{}
+EOF
+  setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+  nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+  nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+else
+  " regular vim uses ale
+  nmap gd <Plug>(ale_go_to_definition)
+  let g:ale_lint_on_text_changed = 1
+  let g:ale_sign_column_always = 1
+  let g:ale_echo_msg_format = '[%linter%] %s'
+  let g:ale_set_highlights = 0
+  if has('macunix')
+    let g:ale_sign_error = '✗'
+    let g:ale_sign_warning = '⚠'
+  endif
 endif
 
 " supertab omni-complete
