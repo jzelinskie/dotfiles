@@ -51,8 +51,9 @@ if has('nvim') == 1
 local nvim_lsp = require'nvim_lsp'
 nvim_lsp.rust_analyzer.setup{}
 nvim_lsp.gopls.setup{}
+nvim_lsp.pyls.setup{}
 EOF
-  setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  autocmd Filetype * setlocal omnifunc=v:lua.vim.lsp.omnifunc
   nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
   nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
@@ -62,6 +63,7 @@ EOF
   nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
   nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
   nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+  nnoremap <silent> gl    <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
 else
   " regular vim uses ale
   nmap gd <Plug>(ale_go_to_definition)
