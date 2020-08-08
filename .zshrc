@@ -178,7 +178,7 @@ if which python > /dev/null; then export PYTHONDONTWRITEBYTECODE=1; fi
 # docker
 if which docker > /dev/null; then
   alias docker-ip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
-  alias docker4mac="screen $HOME/Library/Containers/com.docker.docker/Data/vms/0/tty"
+  alias docker-host="docker run -it --rm --privileged --pid=host justincormack/nsenter1"
 fi
 
 # kubernetes
@@ -188,7 +188,7 @@ if which kubectl > /dev/null; then
   if which kubectl-krew > /dev/null; then extend_path "$HOME/.krew/bin"; fi
   if which minikube > /dev/null; then alias mk=minikube; fi
   function waitforpods() {
-    until [ $(kubectl -n $NAMESPACE get pods  -o json | jq '.items | map(.status.containerStatuses[] | .ready) | all' -r) == "true" ]; do
+    until [ $(kubectl -n $1 get pods -o json | jq '.items | map(.status.containerStatuses[] | .ready) | all' -r) == "true" ]; do
       echo 'waiting for all pods to be ready'
       sleep 5
     done
