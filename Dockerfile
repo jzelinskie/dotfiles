@@ -27,7 +27,7 @@ RUN \
 		percona-toolkit percona-toolkit-doc \
 		postgresql \
 		py3-sshuttle \
-		python python3 \
+		python2 python3 \
 		ripgrep \
 		rsync \
 		skim skim-doc skim-zsh-completion \
