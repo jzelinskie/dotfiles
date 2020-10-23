@@ -179,6 +179,7 @@ if which python > /dev/null; then export PYTHONDONTWRITEBYTECODE=1; fi
 if which docker > /dev/null; then
   alias docker-ip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
   alias docker-host="docker run -it --rm --privileged --pid=host justincormack/nsenter1"
+  alias compose="docker-compose"
 fi
 
 # kubernetes
