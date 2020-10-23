@@ -30,7 +30,6 @@
 	safecrlf = true
 	trustctime = false
 [diff]
-	algorithm = patience
 	compactionHeuristic = true
 	mnemonicprefix = true
 [merge]
@@ -47,3 +46,5 @@
 	enabled = true
 [pull]
 	ff = only
+[rebase]
+	autoStash = true
