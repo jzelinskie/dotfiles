@@ -16,6 +16,7 @@ git-crypt
 gnu-sed
 go
 goreman
+hugo
 imagemagick
 jzelinskie/faq/faq
 kind
@@ -26,6 +27,8 @@ lolcat
 mercurial
 mitmproxy
 mkcert
+mkcert
+nektos/tap/act
 neofetch
 neovim
 netcat
@@ -43,11 +46,13 @@ ripgrep
 rsync
 sk
 sqlite
+tcpdump
 tmux
 txn2/tap/kubefwd
 upx
 watch
 wget
+yarn
 youtube-dl
 zsh
 zstd
