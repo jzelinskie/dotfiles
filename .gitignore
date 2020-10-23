@@ -17,3 +17,5 @@ Icon?
 Thumbs.db
 ehthumbs.db
 id_rsa
+.env
+**/node_modules/**
