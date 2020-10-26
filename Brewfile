@@ -6,6 +6,7 @@ cloc
 coreutils
 cowsay
 ctags
+cuelang/tap/cue
 curl
 entr
 exa
