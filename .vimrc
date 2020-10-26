@@ -47,13 +47,17 @@ colorscheme monokai-soda
 " nvim should use language server
 if has('nvim') == 1
   packadd nvim-lsp
-  lua << EOF
-local nvim_lsp = require'nvim_lsp'
-nvim_lsp.rust_analyzer.setup{}
-nvim_lsp.gopls.setup{}
-nvim_lsp.pyls.setup{}
-EOF
   autocmd Filetype * setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  if executable('pyls')
+    lua require'nvim_lsp'.pyls.setup{}
+    autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 1000)
+  endif
+  if system('gopls')
+    lua require'nvim_lsp'.gopls.setup{}
+  endif
+  if system('rust-analyzer')
+    lua require'nvim_lsp'.rust_analyzer.setup{}
+  endif
   nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
   nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
