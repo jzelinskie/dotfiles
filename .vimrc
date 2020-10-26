@@ -96,7 +96,7 @@ endif
 nmap  <C-B> :CtrlPBuffer<CR>
 if executable('rg')
   set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_user_command = 'rg %s --files --color=never -g "**" -g "!.git/*"'
   let g:ctrlp_use_caching = 0
 else
   let g:ctrlp_user_command = "find %s -path '*.git*' -prune -o -type f"
