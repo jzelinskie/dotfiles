@@ -87,7 +87,7 @@ if (( $+commands[lesspipe.sh] )); then
 fi
 
 # cross-platform clipboard
-if [[ "$OSTYPE" != darwin* ]]; then
+if which xclip > /dev/null; then
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
 fi
@@ -112,7 +112,8 @@ if which bat > /dev/null; then alias cat=bat; fi
 # prefer GNU sed b/c BSD sed doesn't handle whitespace the same
 if which gsed > /dev/null; then alias sed=gsed; fi
 
-if [[ -a $HOME/.nix-profile/etc/profile.d/nix.sh ]]; then
+# nix
+if [[ -s $HOME/.nix-profile/etc/profile.d/nix.sh ]]; then
   source $HOME/.nix-profile/etc/profile.d/nix.sh
 fi
 
@@ -122,39 +123,17 @@ test -e $HOME/.iterm2_shell_integration.zsh && source $HOME/.iterm2_shell_integr
 # use homebrew's Go on macOS
 [[ "$OSTYPE" == darwin* ]] && export GOROOT=/usr/local/opt/go/libexec
 
-# If Go is installed, keep everything in ~/.go and add $GOBIN to the path
+# Keep Go state in ~/.go and add the default GOBIN to the path
 if which go > /dev/null; then
   export GOPATH=$HOME/.go
-  [[ -a $GOPATH/bin ]] && extend_path "$GOPATH/bin"
+  [[ -d $GOPATH/bin ]] && extend_path "$GOPATH/bin"
 fi
 
 # GVM
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
-# goworkhere attempts to detect a Go environment in $PWD and sets the $GOPATH.
-function goworkhere() {
-  if [[ "$OSTYPE" == cygwin* ]]; then
-    export GOPATH=$(cygpath -w `echo $PWD | sed -e 's/\/src.*//g'`)
-  else
-    export GOPATH=`echo $PWD | sed -e 's/\/src.*//g'`
-  fi
-  echo 'GOPATH:' $GOPATH
-}
-
-# goworkon cds into the provided directory then calls `goworkhere`.
-function goworkon() {
-  cd $1
-  goworkhere
-}
-
-# gwo calls z  on the provided argument then calls `goworkhere`.
-function gwo() {
-  _z $1
-  goworkhere
-}
-
 # Add cargo to $PATH and turn on backtraces for Rust
-[[ -a $HOME/.cargo/bin ]] && extend_path "$HOME/.cargo/bin"
+[[ -d $HOME/.cargo/bin ]] && extend_path "$HOME/.cargo/bin"
 if which rustc > /dev/null; then export RUST_BACKTRACE=1; fi
 
 # lazy load pyenv
@@ -176,14 +155,11 @@ fi
 # don't generate .pyc files
 if which python > /dev/null; then export PYTHONDONTWRITEBYTECODE=1; fi
 
-# docker
-if which docker > /dev/null; then
-  alias docker-ip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
-  alias docker-host="docker run -it --rm --privileged --pid=host justincormack/nsenter1"
-  alias compose="docker-compose"
-fi
+# docker aliases
+if which docker > /dev/null; then docker-host="docker run -it --rm --privileged --pid=host justincormack/nsenter1"; fi
+if which docker-compose > /dev/null; then alias compose="docker-compose"; fi
 
-# kubernetes
+# kubernetes aliases
 if which kubectl > /dev/null; then
   alias k=kubectl
   alias kks='kubectl -n kube-system'
