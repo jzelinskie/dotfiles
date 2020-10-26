@@ -14,8 +14,9 @@ function conditional_extend_path() {
 # add ~/.local/bin to $PATH if it exists
 [[ -d "$HOME/.local/bin" ]] && extend_path "$HOME/.local/bin"
 
-# brew installs some binaries like openvpn to /usr/local/sbin
-[[ $OSTYPE == darwin* ]] && extend_path "/usr/local/sbin"
+# detect brew and source its environment
+if which brew > /dev/null; then eval $(brew shellenv);
+elif [[ -d "$HOME/.linuxbrew" ]]; then eval $($HOME/.linuxbrew/bin/brew shellenv); fi
 
 # zgen
 if [[ ! -d $HOME/.zgen ]]; then
