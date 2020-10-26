@@ -1,3 +1,4 @@
+**/node_modules/**
 *.class
 *.dll
 *.exe
@@ -11,11 +12,11 @@
 .Spotlight-V100
 .Trashes
 ._*
-.git
+.env
+.git/**
 .python-version
 Icon?
 Thumbs.db
 ehthumbs.db
 id_rsa
-.env
-**/node_modules/**
+id_ed25519
