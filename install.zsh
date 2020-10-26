@@ -61,7 +61,7 @@ if [ -z ${DOTFILES_NONINTERACTIVE+x} ] && which brew > /dev/null; then
   echo -n "Continue? "
   read REPLY
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo "Cowardly refusing to install brew packagfes"
+    echo "Cowardly refusing to install brew packages"
     exit 1
   else
     cat $DOTFILES_DIR/Brewfile | xargs brew install
