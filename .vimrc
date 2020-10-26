@@ -19,6 +19,7 @@ Pack 'ctrlpvim/ctrlp.vim'
 Pack 'elmcast/elm-vim', { 'for': 'elm' }
 Pack 'ervandew/supertab'
 Pack 'fatih/vim-go', { 'for': 'go', 'tag': 'v1.22' }
+Pack 'jjo/vim-cue', { 'for': 'cue' }
 Pack 'jzelinskie/monokai-soda.vim'
 Pack 'k-takata/minpac', { 'type': 'opt' }
 Pack 'majutsushi/tagbar'
