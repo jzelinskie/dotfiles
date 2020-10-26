@@ -6,11 +6,6 @@ function extend_path() {
   [[ ":$PATH:" != *":$1:"* ]] && export PATH="$1:$PATH"
 }
 
-# add the argument's directory to $PATH if the argument exists
-function conditional_extend_path() {
-  [[ -a $1 ]] && extend_path $(dirname $1)
-}
-
 # add ~/.local/bin to $PATH if it exists
 [[ -d "$HOME/.local/bin" ]] && extend_path "$HOME/.local/bin"
 
@@ -92,7 +87,7 @@ if which xclip > /dev/null; then
   alias pbpaste='xclip -selection clipboard -o'
 fi
 
-# exa (improved ls)
+# prefer exa and fix prezto aliases when using it
 if which exa > /dev/null; then
   alias ls=exa;
   alias ll="exa --long --header --group --inode --blocks --links --modified --accessed --created --git"
@@ -101,27 +96,28 @@ if which exa > /dev/null; then
 fi
 
 # wsl-open as a browser for Windows
-if [[ $(uname -r) == *Microsoft ]]; then
-  export BROWSER=wsl-open
-  alias open=xdg-open
-fi
+if [[ $(uname -r) == *Microsoft ]]; then export BROWSER=wsl-open; fi
 
-# bat (improved cat)
-if which bat > /dev/null; then alias cat=bat; fi
+# create an alias to the first argument, if the second argument exists
+function alias_if_exists() {
+  if which $2 > /dev/null; then alias $1=$2; fi
+}
 
-# prefer GNU sed b/c BSD sed doesn't handle whitespace the same
-if which gsed > /dev/null; then alias sed=gsed; fi
+alias_if_exists "cat" "bat"
+alias_if_exists "compose" "docker-compose"
+alias_if_exists "k" "kubectl"
+alias_if_exists "mk" "minikube"
+alias_if_exists "open" "xdg-open"
+alias_if_exists "sed" "gsed"
 
-# nix
-if [[ -s $HOME/.nix-profile/etc/profile.d/nix.sh ]]; then
-  source $HOME/.nix-profile/etc/profile.d/nix.sh
-fi
+# source a script, if it exists
+function source_if_exists() {
+  [[ -s $1 ]] && source $1
+}
 
-# iTerm2 shell integration
-test -e $HOME/.iterm2_shell_integration.zsh && source $HOME/.iterm2_shell_integration.zsh
-
-# use homebrew's Go on macOS
-[[ "$OSTYPE" == darwin* ]] && export GOROOT=/usr/local/opt/go/libexec
+source_if_exists "$HOME/.gvm/scripts/gvm"
+source_if_exists "$HOME/.iterm2_shell_integration.zsh"
+source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh"
 
 # Keep Go state in ~/.go and add the default GOBIN to the path
 if which go > /dev/null; then
@@ -129,16 +125,16 @@ if which go > /dev/null; then
   [[ -d $GOPATH/bin ]] && extend_path "$GOPATH/bin"
 fi
 
-# GVM
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-
 # Add cargo to $PATH and turn on backtraces for Rust
 [[ -d $HOME/.cargo/bin ]] && extend_path "$HOME/.cargo/bin"
 if which rustc > /dev/null; then export RUST_BACKTRACE=1; fi
 
+# never generate .pyc files: it's slower, but maintains your sanity
+if which python > /dev/null; then export PYTHONDONTWRITEBYTECODE=1; fi
+
 # lazy load pyenv
 export PYENV_ROOT="${PYENV_ROOT:-${HOME}/.pyenv}"
-conditional_extend_path "$PYENV_ROOT/bin/pyenv"
+[[ -a "$PYENV_ROOT/bin/pyenv" ]] && extend_path "$PYENV_ROOT/bin"
 if type pyenv &> /dev/null || [[ -a "$PYENV_ROOT/bin/pyenv" ]]; then
   function pyenv() {
     unset pyenv
@@ -152,19 +148,14 @@ if type pyenv &> /dev/null || [[ -a "$PYENV_ROOT/bin/pyenv" ]]; then
   }
 fi
 
-# don't generate .pyc files
-if which python > /dev/null; then export PYTHONDONTWRITEBYTECODE=1; fi
 
-# docker aliases
-if which docker > /dev/null; then docker-host="docker run -it --rm --privileged --pid=host justincormack/nsenter1"; fi
-if which docker-compose > /dev/null; then alias compose="docker-compose"; fi
+# alias for accessing the docker host as a container
+if which docker > /dev/null; then alias docker-host="docker run -it --rm --privileged --pid=host justincormack/nsenter1"; fi
 
 # kubernetes aliases
 if which kubectl > /dev/null; then
-  alias k=kubectl
   alias kks='kubectl -n kube-system'
   if which kubectl-krew > /dev/null; then extend_path "$HOME/.krew/bin"; fi
-  if which minikube > /dev/null; then alias mk=minikube; fi
   function waitforpods() {
     until [ $(kubectl -n $1 get pods -o json | jq '.items | map(.status.containerStatuses[] | .ready) | all' -r) == "true" ]; do
       echo 'waiting for all pods to be ready'
