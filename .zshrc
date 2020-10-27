@@ -10,13 +10,11 @@ function extend_path() {
 [[ -d "$HOME/.local/bin" ]] && extend_path "$HOME/.local/bin"
 
 # detect brew and source its environment
-if which brew > /dev/null; then eval $(brew shellenv);
-elif [[ -d "$HOME/.linuxbrew" ]]; then eval $($HOME/.linuxbrew/bin/brew shellenv); fi
+which brew > /dev/null && eval $(brew shellenv)
+[[ -d "$HOME/.linuxbrew" ]] && eval $($HOME/.linuxbrew/bin/brew shellenv)
 
 # zgen
-if [[ ! -d $HOME/.zgen ]]; then
-  git clone git@github.com:tarjoilija/zgen.git "$HOME/.zgen"
-fi
+[[ ! -d $HOME/.zgen ]] && git clone git@github.com:tarjoilija/zgen.git "$HOME/.zgen"
 export ZGEN_RESET_ON_CHANGE=($HOME/.zshrc)
 export ZGEN_PLUGIN_UPDATE_DAYS=30
 export ZGEN_SYSTEM_UPDATE_DAYS=30
@@ -95,14 +93,13 @@ if which exa > /dev/null; then
   alias tree="exa -T"
 fi
 
+if which rg > /dev/null; then export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc; fi
+
 # wsl-open as a browser for Windows
-if [[ $(uname -r) == *Microsoft ]]; then export BROWSER=wsl-open; fi
+[[ $(uname -r) == *Microsoft ]] && export BROWSER=wsl-open
 
 # create an alias to the first argument, if the second argument exists
-function alias_if_exists() {
-  if which $2 > /dev/null; then alias $1=$2; fi
-}
-
+function alias_if_exists() { which $2 > /dev/null && alias $1=$2; }
 alias_if_exists "cat" "bat"
 alias_if_exists "compose" "docker-compose"
 alias_if_exists "k" "kubectl"
@@ -111,10 +108,7 @@ alias_if_exists "open" "xdg-open"
 alias_if_exists "sed" "gsed"
 
 # source a script, if it exists
-function source_if_exists() {
-  [[ -s $1 ]] && source $1
-}
-
+function source_if_exists() { [[ -s $1 ]] && source $1 }
 source_if_exists "$HOME/.gvm/scripts/gvm"
 source_if_exists "$HOME/.iterm2_shell_integration.zsh"
 source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh"
@@ -150,12 +144,12 @@ fi
 
 
 # alias for accessing the docker host as a container
-if which docker > /dev/null; then alias docker-host="docker run -it --rm --privileged --pid=host justincormack/nsenter1"; fi
+which docker > /dev/null && alias docker-host="docker run -it --rm --privileged --pid=host justincormack/nsenter1"
 
 # kubernetes aliases
 if which kubectl > /dev/null; then
   alias kks='kubectl -n kube-system'
-  if which kubectl-krew > /dev/null; then extend_path "$HOME/.krew/bin"; fi
+  which kubectl-krew > /dev/null && extend_path "$HOME/.krew/bin"
   function waitforpods() {
     until [ $(kubectl -n $1 get pods -o json | jq '.items | map(.status.containerStatuses[] | .ready) | all' -r) == "true" ]; do
       echo 'waiting for all pods to be ready'
