@@ -103,6 +103,7 @@ function alias_if_exists() { which $2 > /dev/null && alias $1=$2; }
 alias_if_exists "cat" "bat"
 alias_if_exists "compose" "docker-compose"
 alias_if_exists "k" "kubectl"
+alias_if_exists "kctx" "kubectx"
 alias_if_exists "mk" "minikube"
 alias_if_exists "open" "xdg-open"
 alias_if_exists "sed" "gsed"
