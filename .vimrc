@@ -49,14 +49,14 @@ if has('nvim') == 1
   packadd nvim-lsp
   autocmd Filetype * setlocal omnifunc=v:lua.vim.lsp.omnifunc
   if executable('pyls')
-    lua require'nvim_lsp'.pyls.setup{}
+    lua require'lspconfig'.pyls.setup{}
     autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 1000)
   endif
   if system('gopls')
-    lua require'nvim_lsp'.gopls.setup{}
+    lua require'lspconfig'.gopls.setup{}
   endif
   if system('rust-analyzer')
-    lua require'nvim_lsp'.rust_analyzer.setup{}
+    lua require'lspconfig'.rust_analyzer.setup{}
   endif
   nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
   nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
