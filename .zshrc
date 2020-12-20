@@ -159,6 +159,15 @@ if which kubectl > /dev/null; then
   }
 fi
 
+# gcloud
+[[ -d "$HOME/.gcloud" ]] && export GCLOUD_SDK_PATH="$HOME/.gcloud" && extend_path "$HOME/.gcloud/bin"
+if which gcloud > /dev/null; then
+  GCLOUD_FALLBACK_PATH=$(dirname $(dirname $(which gcloud)))
+  export GCLOUD_SDK_PATH="${GCLOUD_SDK_PATH:-GCLOUD_FALLBACK_PATH}"
+  source_if_exists "$GCLOUD_SDK_PATH/path.zsh.inc"
+  source_if_exists "$GCLOUD_SDK_PATH/completion.zsh.inc"
+fi
+
 # time aliases
 alias ber='TZ=Europe/Berlin date'
 alias nyc='TZ=America/New_York date'
