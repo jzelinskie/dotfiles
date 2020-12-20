@@ -10,6 +10,7 @@ cuelang/tap/cue
 curl
 entr
 exa
+ffmpeg
 gawk
 gh
 git
@@ -25,6 +26,7 @@ kubectx
 kubernetes-cli
 kubernetes-helm
 lolcat
+mediainfo
 mercurial
 mitmproxy
 mkcert
@@ -45,6 +47,7 @@ pyenv-virtualenv
 redis
 ripgrep
 rsync
+shellcheck
 sk
 sqlite
 tcpdump
@@ -53,6 +56,7 @@ txn2/tap/kubefwd
 upx
 watch
 wget
+xz
 yarn
 youtube-dl
 zsh
