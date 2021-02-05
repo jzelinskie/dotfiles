@@ -20,6 +20,7 @@ go
 goreman
 hugo
 imagemagick
+jpegoptim
 jzelinskie/faq/faq
 kind
 kubectx
@@ -41,6 +42,7 @@ optipng
 p7zip
 par
 parallel
+pngcrush
 pstree
 pyenv
 pyenv-virtualenv
