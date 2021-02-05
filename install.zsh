@@ -22,12 +22,10 @@ fi
 
 # Handle vim first, b/c we need to do extra work to support both vim & neovim.
 echo
-echo "Linking nvim/vim compatible files..."
+echo "Linking nvim configuration..."
 mkdir -p $XDG_CONFIG_HOME/nvim
 local VIM_LINKS=(
-  "$DOTFILES_DIR/.vimrc:$XDG_CONFIG_HOME/nvim/init.vim"
-  "$XDG_CONFIG_HOME/nvim/init.vim:$INSTALL_DIR/.vimrc"
-  "$XDG_CONFIG_HOME/nvim:$INSTALL_DIR/.vim"
+  "$DOTFILES_DIR/init.lua:$XDG_CONFIG_HOME/nvim/init.lua"
 )
 for LINK in $VIM_LINKS; do
   local FILE=`echo $LINK | awk -F":" '{print $1}'`
