@@ -56,6 +56,7 @@ local packer = require('packer').startup {
     use { 'wbthomason/packer.nvim', opt = true }
   end,
 }
+if not packer_exists then packer.install() end -- install plugins during initial bootstrap
 
 -- language server
 local lspcfg = {
