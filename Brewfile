@@ -17,6 +17,7 @@ git
 git-crypt
 gnu-sed
 go
+golangci-lint
 goreman
 hugo
 imagemagick
@@ -53,6 +54,7 @@ shellcheck
 sk
 sqlite
 tcpdump
+telnet
 tmux
 txn2/tap/kubefwd
 upx
