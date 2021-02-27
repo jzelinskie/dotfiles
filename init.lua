@@ -131,8 +131,8 @@ vim.cmd('let g:airline#extensions#tabline#buffer_nr_show = 1')
 -- ctrl+p
 nnoremap('<C-B>', ':CtrlPBuffer<CR>')
 if vim.fn.executable('rg') then
-  vim.g.grepprg = 'rg --color=never'
-  vim.g.ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  vim.g.grepprg = 'rg --vimgrep'
+  vim.g.ctrlp_user_command = 'rg %s --files --fixed-strings --color=never --ignore-case --no-ignore --follow --glob "!.git/*"'
   vim.g.ctrlp_use_caching = true
 else
   vim.g.ctrlp_user_command = 'find %s -path "*.git*" -prune -o -type f'
