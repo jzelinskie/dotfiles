@@ -25,6 +25,7 @@
 	sha = rev-parse --short
 	stage-head = git reset --soft HEAD~
 	unadd = reset HEAD
+	unstage = restore --staged
 [core]
 	excludesfile = ~/.gitignore
 	safecrlf = true
