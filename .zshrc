@@ -6,6 +6,9 @@ function extend_path() {
   [[ ":$PATH:" != *":$1:"* ]] && export PATH="$1:$PATH"
 }
 
+# XDG
+export XDG_DATA_HOME=$HOME/.local/share
+
 # add ~/.local/bin to $PATH if it exists
 [[ -d "$HOME/.local/bin" ]] && extend_path "$HOME/.local/bin"
 
@@ -117,7 +120,7 @@ source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh"
 
 # Keep Go state in ~/.go and add the default GOBIN to the path
 if which go > /dev/null; then
-  export GOPATH=$HOME/.go
+  export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
   [[ -d $GOPATH/bin ]] && extend_path "$GOPATH/bin"
 fi
 
@@ -158,10 +161,13 @@ if which kubectl > /dev/null; then
       sleep 5
     done
   }
+  function rmfinalizers() {
+    kubectl get deployment $1 -o json | jq '.metadata.finalizers = null' | k apply -f -
+  }
 fi
 
 # gcloud
-[[ -d "$HOME/.gcloud" ]] && export GCLOUD_SDK_PATH="$HOME/.gcloud" && extend_path "$HOME/.gcloud/bin"
+[[ -d "$XDG_DATA_HOME/gcloud" ]] && export GCLOUD_SDK_PATH="$XDG_DATA_HOME/gcloud" && extend_path "$XDG_DATA_HOME/gcloud/bin"
 if which gcloud > /dev/null; then
   GCLOUD_FALLBACK_PATH=$(dirname $(dirname $(which gcloud)))
   export GCLOUD_SDK_PATH="${GCLOUD_SDK_PATH:-GCLOUD_FALLBACK_PATH}"
