@@ -98,6 +98,9 @@ fi
 
 if which rg > /dev/null; then export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc; fi
 
+# add sandboxed tailscale to path
+[[ -s /Applications/Tailscale.app/Contents/MacOS ]] && extend_path /Applications/Tailscale.app/Contents/MacOS
+
 # wsl-open as a browser for Windows
 [[ $(uname -r) == *Microsoft ]] && export BROWSER=wsl-open
 
