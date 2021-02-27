@@ -132,7 +132,7 @@ if which rustc > /dev/null; then export RUST_BACKTRACE=1; fi
 if which python > /dev/null; then export PYTHONDONTWRITEBYTECODE=1; fi
 
 # lazy load pyenv
-export PYENV_ROOT="${PYENV_ROOT:-${HOME}/.pyenv}"
+export PYENV_ROOT="${PYENV_ROOT:-$HOME/.pyenv}"
 [[ -a "$PYENV_ROOT/bin/pyenv" ]] && extend_path "$PYENV_ROOT/bin"
 if type pyenv &> /dev/null || [[ -a "$PYENV_ROOT/bin/pyenv" ]]; then
   function pyenv() {
@@ -147,6 +147,16 @@ if type pyenv &> /dev/null || [[ -a "$PYENV_ROOT/bin/pyenv" ]]; then
   }
 fi
 
+# lazy load rbenv
+export RBENV_ROOT="${RBENV_ROOT:-$HOME/.rbenv}"
+[[ -a "$RBENV_ROOT/bin/rbenv" ]] && extend_path "$RBENV_ROOT/bin"
+if type rbenv &> /dev/null || [[ -a "$RBENV_ROOT/bin/rbenv" ]]; then
+  function rbenv() {
+    unset rbenv
+    extend_path "$RBENV_ROOT/shims"
+    eval "$(command rbenv init -)"
+  }
+fi
 
 # alias for accessing the docker host as a container
 which docker > /dev/null && alias docker-host="docker run -it --rm --privileged --pid=host justincormack/nsenter1"
