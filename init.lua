@@ -10,6 +10,9 @@ local inoremap =    function(lhs, rhs) vim.api.nvim_set_keymap('i', lhs, rhs, { 
 local bufsnoremap = function(lhs, rhs) vim.api.nvim_buf_set_keymap(0, 'n', lhs, rhs, { noremap = true, silent = true }) end
 local lspremap =    function(keymap, fn_name) bufsnoremap(keymap, '<cmd>lua vim.lsp.' .. fn_name .. '()<CR>') end
 
+-- exclusions for polyglot
+vim.g.polyglot_disabled = {'cue'}
+
 -- Define autocommands in lua
 -- https://github.com/neovim/neovim/pull/12378
 -- https://github.com/norcalli/nvim_utils/blob/71919c2f05920ed2f9718b4c2e30f8dd5f167194/lua/nvim_utils.lua#L554-L567
@@ -36,11 +39,11 @@ end
 -- packer
 local packer = require('packer').startup {
   function(use)
-    use { 'andrewstuart/vim-kubernetes', ft = 'yaml', opt = true }
+    use { 'andrewstuart/vim-kubernetes', ft = 'yaml' }
     use { 'bogado/file-line' }
     use { 'ctrlpvim/ctrlp.vim' }
     use { 'ervandew/supertab' }
-    use { 'jjo/vim-cue', ft = 'cue', opt = true }
+    use { 'jjo/vim-cue' }
     use { 'jzelinskie/monokai-soda.vim' }
     use { 'majutsushi/tagbar' }
     use { 'milkypostman/vim-togglelist' }
