@@ -161,6 +161,9 @@ if type rbenv &> /dev/null || [[ -a "$RBENV_ROOT/bin/rbenv" ]]; then
   }
 fi
 
+# global node installs (gross)
+[[ -d "$XDG_DATA_HOME/node/bin" ]] && extend_path "$XDG_DATA_HOME/node/bin"
+
 # alias for accessing the docker host as a container
 which docker > /dev/null && alias docker-host="docker run -it --rm --privileged --pid=host justincormack/nsenter1"
 
