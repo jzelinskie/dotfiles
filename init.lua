@@ -165,7 +165,7 @@ command! -nargs=0 StripWhitespace call StripTrailingWhitespaces()
 
 -- misc global opts
 settings = {
-  'set colorcolumn=80',
+  'set colorcolumn=80,100',
   'set cursorline',
   'set completeopt-=preview',
   'set cpoptions=ces$',
