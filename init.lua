@@ -40,7 +40,6 @@ end
 local packer = require('packer').startup {
   function(use)
     use { 'bogado/file-line' }
-    use { 'ctrlpvim/ctrlp.vim' }
     use { 'ervandew/supertab' }
     use { 'fatih/vim-go' }
     use { 'jjo/vim-cue' }
@@ -48,6 +47,7 @@ local packer = require('packer').startup {
     use { 'majutsushi/tagbar' }
     use { 'milkypostman/vim-togglelist' }
     use { 'neovim/nvim-lspconfig' }
+    use { 'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
     use { 'sheerun/vim-polyglot' }
     use { 'tpope/vim-commentary' }
     use { 'tpope/vim-repeat' }
@@ -112,6 +112,14 @@ vmap('<Right>', '>gv')
 -- clear hlsearch on redraw
 nnoremap('<C-L>', ':nohlsearch<CR><C-L>')
 
+-- telescope
+nnoremap('<c-p>', "<cmd>lua require('telescope.builtin').find_files()<cr>")
+nnoremap('<c-b>', "<cmd>lua require('telescope.builtin').buffers()<cr>")
+nnoremap('<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>")
+nnoremap('<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>")
+nnoremap('<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>")
+nnoremap('<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
+
 -- supertab
 vim.g.SuperTabDefaultCompletionType = "<c-x><c-o>"
 inoremap('<S-Tab>', '<C-v><Tab>')
@@ -127,16 +135,6 @@ vim.g.airline_theme = 'monochrome'
 vim.g.airline_powerline_fonts = '0'
 vim.cmd('let g:airline#extensions#tabline#enabled = 1')
 vim.cmd('let g:airline#extensions#tabline#buffer_nr_show = 1')
-
--- ctrl+p
-nnoremap('<C-B>', ':CtrlPBuffer<CR>')
-if vim.fn.executable('rg') then
-  vim.g.grepprg = 'rg --vimgrep'
-  vim.g.ctrlp_user_command = 'rg %s --files --fixed-strings --color=never --ignore-case --no-ignore --follow --glob "!.git/*"'
-  vim.g.ctrlp_use_caching = true
-else
-  vim.g.ctrlp_user_command = 'find %s -path "*.git*" -prune -o -type f'
-end
 
 -- tags
 snmap('<leader>o', ':TagbarToggle<CR>')
