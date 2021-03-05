@@ -59,6 +59,7 @@ sqlite
 stern
 tcpdump
 telnet
+tldr
 tmate
 tmux
 txn2/tap/kubefwd
