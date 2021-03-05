@@ -39,10 +39,10 @@ end
 -- packer
 local packer = require('packer').startup {
   function(use)
-    use { 'andrewstuart/vim-kubernetes', ft = 'yaml' }
     use { 'bogado/file-line' }
     use { 'ctrlpvim/ctrlp.vim' }
     use { 'ervandew/supertab' }
+    use { 'fatih/vim-go' }
     use { 'jjo/vim-cue' }
     use { 'jzelinskie/monokai-soda.vim' }
     use { 'majutsushi/tagbar' }
