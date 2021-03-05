@@ -143,23 +143,8 @@ snmap('<leader>o', ':TagbarToggle<CR>')
 snmap('<leader>p', ':set invpaste<CR>:set paste?<CR>')
 snmap('<leader>w', ':set invwrap<CR>:set wrap?<CR>')
 
--- add a command to strip trailing whitespace
--- TODO: rewrite in lua
-vim.api.nvim_exec(
-[[
-function! StripTrailingWhitespaces()
-  " preparation: save last search, and cursor position.
-  let _s=@/
-  let l = line('.')
-  let c = col('.')
-  " do the business:
-  %s/\s\+$//e
-  " restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
-endfunction
-command! -nargs=0 StripWhitespace call StripTrailingWhitespaces()
-]], true)
+-- strip trailing whitespace
+nnoremap('<leader>sws', ':%s/\\s\\+$//e<CR>')
 
 -- misc global opts
 settings = {
