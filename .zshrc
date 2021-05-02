@@ -115,6 +115,7 @@ alias_if_exists "mk" "minikube"
 alias_if_exists "open" "xdg-open"
 alias_if_exists "open" "wsl-open"
 alias_if_exists "sed" "gsed"
+alias_if_exists "jq" "faq"
 
 # source a script, if it exists
 function source_if_exists() { [[ -s $1 ]] && source $1 }
@@ -197,3 +198,6 @@ alias ber='TZ=Europe/Berlin date'
 alias nyc='TZ=America/New_York date'
 alias sfo='TZ=America/Los_Angeles date'
 alias utc='TZ=Etc/UTC date'
+
+# theme for faq syntax highlighting
+export FAQ_STYLE=github
