@@ -47,6 +47,7 @@ local packer = require('packer').startup {
     use { 'majutsushi/tagbar' }
     use { 'milkypostman/vim-togglelist' }
     use { 'neovim/nvim-lspconfig' }
+    use { 'norcalli/nvim-colorizer.lua' }
     use { 'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
     use { 'sheerun/vim-polyglot' }
     use { 'tpope/vim-commentary' }
@@ -61,6 +62,51 @@ local packer = require('packer').startup {
 }
 if not packer_exists then packer.install() end -- install plugins during initial bootstrap
 
+-- misc global opts
+settings = {
+  'set colorcolumn=80,100',
+  'set cursorline',
+  'set completeopt-=preview',
+  'set cpoptions=ces$',
+  'set ffs=unix,dos',
+  'set fillchars=vert:·',
+  'set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo',
+  'set guioptions-=T',
+  'set guioptions-=m',
+  'set hidden',
+  'set hlsearch',
+  'set ignorecase',
+  'set lazyredraw',
+  'set list listchars=tab:·\\ ,eol:¬',
+  'set nobackup',
+  'set noerrorbells',
+  'set noshowmode',
+  'set noswapfile',
+  'set number',
+  'set shellslash',
+  'set showfulltag',
+  'set showmatch',
+  'set showmode',
+  'set smartcase',
+  'set synmaxcol=2048',
+  'set t_Co=256',
+  'set title',
+  'set ts=2 sts=2 sw=2 et ci',
+  'set ttyfast',
+  'set vb',
+  'set virtualedit=all',
+  'set visualbell',
+  'set wrapscan',
+  'set termguicolors',
+  'set cpoptions+=_',
+  'colorscheme monokai-soda',
+}
+for _, setting in ipairs(settings) do
+  vim.cmd(setting)
+end
+
+-- setup colorizer
+require('colorizer').setup()
 
 -- language server
 local lspcfg = {
@@ -160,46 +206,3 @@ snmap('<leader>w', ':set invwrap<CR>:set wrap?<CR>')
 
 -- strip trailing whitespace
 nnoremap('<leader>sws', ':%s/\\s\\+$//e<CR>')
-
--- misc global opts
-settings = {
-  'set colorcolumn=80,100',
-  'set cursorline',
-  'set completeopt-=preview',
-  'set cpoptions=ces$',
-  'set ffs=unix,dos',
-  'set fillchars=vert:·',
-  'set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo',
-  'set guioptions-=T',
-  'set guioptions-=m',
-  'set hidden',
-  'set hlsearch',
-  'set ignorecase',
-  'set lazyredraw',
-  'set list listchars=tab:·\\ ,eol:¬',
-  'set nobackup',
-  'set noerrorbells',
-  'set noshowmode',
-  'set noswapfile',
-  'set number',
-  'set shellslash',
-  'set showfulltag',
-  'set showmatch',
-  'set showmode',
-  'set smartcase',
-  'set synmaxcol=2048',
-  'set t_Co=256',
-  'set title',
-  'set ts=2 sts=2 sw=2 et ci',
-  'set ttyfast',
-  'set vb',
-  'set virtualedit=all',
-  'set visualbell',
-  'set wrapscan',
-  'set termguicolors',
-  'set cpoptions+=_',
-  'colorscheme monokai-soda',
-}
-for _, setting in ipairs(settings) do
-  vim.cmd(setting)
-end
