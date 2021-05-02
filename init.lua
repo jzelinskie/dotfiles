@@ -187,9 +187,6 @@ nnoremap('<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 vim.g.SuperTabDefaultCompletionType = "<c-x><c-o>"
 inoremap('<S-Tab>', '<C-v><Tab>')
 
--- par format
-if vim.fn.executable('par') then vim.o.formatprg = 'par -w80' end
-
 -- clipboard
 if vim.fn.has('unnamedplus') then vim.o.clipboard = 'unnamedplus' else vim.o.clipboard = 'unnamed' end
 
