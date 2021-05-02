@@ -110,12 +110,14 @@ require('colorizer').setup()
 
 -- language server
 local lspcfg = {
-  gopls =         { binary = 'gopls',                    format_on_save = '*.go' },
-  golangcilsp =   { binary = 'golangci-lint-langserver', format_on_save = nil    },
-  pyls =          { binary = 'pyls',                     format_on_save = '*.py' },
-  pyright =       { binary = 'pyright',                  format_on_save = nil    },
-  rust_analyzer = { binary = 'rust-analyzer',            format_on_save = '*.rs' },
-  yamlls =        { binary = 'yamlls',                   format_on_save = nil    },
+  gopls =         { binary = 'gopls',                    format_on_save = '*.go'       },
+  golangcilsp =   { binary = 'golangci-lint-langserver', format_on_save = nil          },
+  pyls =          { binary = 'pyls',                     format_on_save = '*.py'       },
+  pyright =       { binary = 'pyright',                  format_on_save = nil          },
+  rust_analyzer = { binary = 'rust-analyzer',            format_on_save = '*.rs'       },
+  yamlls =        { binary = 'yamlls',                   format_on_save = nil          },
+  bashls =        { binary = 'bash-language-server',     format_on_save = nil          },
+  dockerls =      { binary = 'docker-langserver',        format_on_save = 'Dockerfile' },
 }
 local lsp = require('lspconfig')
 local custom_lsp_attach = function(client)
