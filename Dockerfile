@@ -26,7 +26,6 @@ RUN \
 		p7zip p7zip-doc \
 		percona-toolkit percona-toolkit-doc \
 		postgresql \
-		py3-sshuttle \
 		python2 python3 \
 		ripgrep \
 		rsync \
@@ -34,6 +33,7 @@ RUN \
 		skopeo \
 		speedtest-cli \
 		sqlite sqlite-doc \
+		sshuttle \
 		terraform \
 		tmux tmux-doc \
 		upx upx-doc \
