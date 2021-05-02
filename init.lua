@@ -61,13 +61,15 @@ local packer = require('packer').startup {
 }
 if not packer_exists then packer.install() end -- install plugins during initial bootstrap
 
+
 -- language server
 local lspcfg = {
-  gopls =         { binary = 'gopls',         format_on_save = '*.go'  },
-  pyls =          { binary = 'pyls',          format_on_save = '*.py'  },
-  pyright =       { binary = 'pyright',       format_on_save = nil,    },
-  rust_analyzer = { binary = 'rust-analyzer', format_on_save = '*.rs'  },
-  yamlls =        { binary = 'yamlls',        format_on_save = nil     },
+  gopls =         { binary = 'gopls',                    format_on_save = '*.go' },
+  golangcilsp =   { binary = 'golangci-lint-langserver', format_on_save = nil    },
+  pyls =          { binary = 'pyls',                     format_on_save = '*.py' },
+  pyright =       { binary = 'pyright',                  format_on_save = nil    },
+  rust_analyzer = { binary = 'rust-analyzer',            format_on_save = '*.rs' },
+  yamlls =        { binary = 'yamlls',                   format_on_save = nil    },
 }
 local lsp = require('lspconfig')
 local custom_lsp_attach = function(client)
@@ -93,6 +95,19 @@ local custom_lsp_attach = function(client)
   lspremap('gW',    'buf.workspace_symbol')
   lspremap('gl',    'diagnostic.show_line_diagnostics')
 end
+
+-- golangci-lint lsp
+local lspconfigs = require('lspconfig/configs')
+lspconfigs.golangcilsp = {
+  default_config = {
+    cmd = {'golangci-lint-langserver'};
+    filetypes = {'go', 'gomod'};
+    root_dir = lsp.util.root_pattern('.git', 'go.mod');
+    init_options = {
+      command = { 'golangci-lint', 'run', '--out-format', 'json' };
+    }
+  };
+}
 
 -- only setup lsp clients for binaries that exist
 for srv, opts in pairs(lspcfg) do
