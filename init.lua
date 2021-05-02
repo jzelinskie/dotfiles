@@ -43,7 +43,7 @@ local packer = require('packer').startup {
     use { 'ervandew/supertab' }
     use { 'fatih/vim-go' }
     use { 'jjo/vim-cue' }
-    use { 'jzelinskie/monokai-soda.vim' }
+    use { 'jzelinskie/monokai-soda.vim', requires = 'tjdevries/colorbuddy.vim' }
     use { 'majutsushi/tagbar' }
     use { 'milkypostman/vim-togglelist' }
     use { 'neovim/nvim-lspconfig' }
