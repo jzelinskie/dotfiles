@@ -19,6 +19,7 @@ gnu-sed
 go
 golangci-lint
 goreman
+graphviz
 hugo
 imagemagick
 jpegoptim
@@ -27,12 +28,14 @@ kind
 kubectx
 kubernetes-cli
 kubernetes-helm
+llvm
 lolcat
 mediainfo
 mercurial
 mitmproxy
 mkcert
 mkcert
+mtr
 nektos/tap/act
 neofetch
 neovim
@@ -45,6 +48,7 @@ par
 parallel
 pngcrush
 pstree
+pulumi
 pyenv
 pyenv-virtualenv
 rbenv
