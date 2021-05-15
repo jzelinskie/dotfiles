@@ -73,5 +73,6 @@ wget
 xz
 yarn
 youtube-dl
+zig
 zsh
 zstd
