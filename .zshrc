@@ -7,8 +7,8 @@ function extend_path() {
 }
 
 # XDG
-export XDG_DATA_HOME=$HOME/.local/share
-export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
 # add ~/.local/bin to $PATH if it exists
 [[ -d "$HOME/.local/bin" ]] && extend_path "$HOME/.local/bin"
