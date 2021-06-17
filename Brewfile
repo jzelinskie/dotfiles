@@ -1,7 +1,10 @@
+automake
 awscli
 azure-cli
 bat
 binwalk
+bison
+bufbuild/buf/buf
 cloc
 coreutils
 cowsay
