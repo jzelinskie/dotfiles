@@ -133,6 +133,17 @@ local lspcfg = {
   bashls =        { binary = 'bash-language-server',     format_on_save = nil          },
   dockerls =      { binary = 'docker-langserver',        format_on_save = 'Dockerfile' },
 }
+local lsp_keymaps = {
+  { capability = 'declaration',      mapping = 'gd',    command = 'buf.declaration' },
+  { capability = 'implementation',   mapping = 'gD',    command = 'buf.implementation' },
+  { capability = 'goto_definition',  mapping = '<c-]>', command = 'buf.definition' },
+  { capability = 'type_definition',  mapping = '1gD',   command = 'buf.type_definition' },
+  { capability = 'hover',            mapping = 'K',     command = 'buf.hover' },
+  { capability = 'signature_help',   mapping = '<c-k>', command = 'buf.signature_help' },
+  { capability = 'find_references',  mapping = 'gr',    command = 'buf.references' },
+  { capability = 'document_symbol',  mapping = 'g0',    command = 'buf.document_symbol' },
+  { capability = 'workspace_symbol', mapping = 'gW',    command = 'buf.workspace_symbol' },
+}
 local lsp = require('lspconfig')
 local custom_lsp_attach = function(client)
   require'lsp_signature'.on_attach { hint_enable = false }
@@ -146,16 +157,14 @@ local custom_lsp_attach = function(client)
     nvim_create_augroups({[client.name] = {{'BufWritePre', opts['format_on_save'], ':lua vim.lsp.buf.formatting_sync(nil, 1000)'}}})
   end
 
-  -- keymaps
-  lspremap('gd',    'buf.declaration')
-  lspremap('<c-]>', 'buf.definition')
-  lspremap('K',     'buf.hover')
-  lspremap('gD',    'buf.implementation')
-  lspremap('<c-k>', 'buf.signature_help')
-  lspremap('1gD',   'buf.type_definition')
-  lspremap('gr',    'buf.references')
-  lspremap('g0',    'buf.document_symbol')
-  lspremap('gW',    'buf.workspace_symbol')
+  -- conditional keymaps
+  for _, keymap in ipairs(lsp_keymaps) do
+    if client.resolved_capabilities[keymap.capability] then
+      lspremap(keymap.mapping, keymap.command)
+    end
+  end
+
+  -- unconditional keymaps
   lspremap('gl',    'diagnostic.show_line_diagnostics')
 end
 
