@@ -44,12 +44,15 @@ local packer = require('packer').startup {
     use { 'ervandew/supertab' }
     use { 'fatih/vim-go' }
     use { 'jjo/vim-cue' }
+    use { 'junegunn/vim-easy-align' }
     use { 'jzelinskie/monokai-soda.vim', requires = 'tjdevries/colorbuddy.vim' }
     use { 'majutsushi/tagbar' }
     use { 'milkypostman/vim-togglelist' }
     use { 'neovim/nvim-lspconfig' }
     use { 'norcalli/nvim-colorizer.lua' }
     use { 'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use { 'ray-x/lsp_signature.nvim' }
     use { 'sheerun/vim-polyglot' }
     use { 'tpope/vim-commentary' }
     use { 'tpope/vim-repeat' }
@@ -109,6 +112,12 @@ end
 -- setup colorizer
 require('colorizer').setup()
 
+-- setup treesitter
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = { enable = true },
+}
+
 -- language server
 local lspcfg = {
   gopls =         { binary = 'gopls',                    format_on_save = '*.go'       },
@@ -122,6 +131,7 @@ local lspcfg = {
 }
 local lsp = require('lspconfig')
 local custom_lsp_attach = function(client)
+  require'lsp_signature'.on_attach { hint_enable = false }
   local opts = lspcfg[client.name]
 
   -- autocommplete
@@ -175,6 +185,10 @@ vmap('<Right>', '>gv')
 
 -- clear hlsearch on redraw
 nnoremap('<C-L>', ':nohlsearch<CR><C-L>')
+
+-- easy align
+xmap('ga', '<Plug>(EasyAlign)')
+nmap('ga', '<Plug>(EasyAlign)')
 
 -- telescope
 nnoremap('<c-p>', "<cmd>lua require('telescope.builtin').find_files()<cr>")
