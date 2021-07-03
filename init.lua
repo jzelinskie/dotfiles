@@ -2,13 +2,14 @@
 vim.g.mapleader = ','
 
 -- mapping functions
-local nmap =        function(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, {}) end
-local vmap =        function(lhs, rhs) vim.api.nvim_set_keymap('v', lhs, rhs, {}) end
-local snmap =       function(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, { silent = true}) end
-local nnoremap =    function(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, { noremap = true }) end
-local inoremap =    function(lhs, rhs) vim.api.nvim_set_keymap('i', lhs, rhs, { noremap = true }) end
+local nmap        = function(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, {}) end
+local vmap        = function(lhs, rhs) vim.api.nvim_set_keymap('v', lhs, rhs, {}) end
+local xmap        = function(lhs, rhs) vim.api.nvim_set_keymap('v', lhs, rhs, {}) end
+local snmap       = function(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, { silent = true}) end
+local nnoremap    = function(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, { noremap = true }) end
+local inoremap    = function(lhs, rhs) vim.api.nvim_set_keymap('i', lhs, rhs, { noremap = true }) end
 local bufsnoremap = function(lhs, rhs) vim.api.nvim_buf_set_keymap(0, 'n', lhs, rhs, { noremap = true, silent = true }) end
-local lspremap =    function(keymap, fn_name) bufsnoremap(keymap, '<cmd>lua vim.lsp.' .. fn_name .. '()<CR>') end
+local lspremap    = function(keymap, fn_name) bufsnoremap(keymap, '<cmd>lua vim.lsp.' .. fn_name .. '()<CR>') end
 
 -- exclusions for polyglot
 vim.g.polyglot_disabled = {'cue'}
