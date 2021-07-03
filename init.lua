@@ -64,10 +64,15 @@ local packer = require('packer').startup {
     use { 'wbthomason/packer.nvim', opt = true }
   end,
 }
-if not packer_exists then packer.install() end -- install plugins during initial bootstrap
+
+-- install plugins during initial bootstrap
+if not packer_exists then
+  packer.install()
+  packer.sync()
+end
 
 -- misc global opts
-settings = {
+local settings = {
   'set colorcolumn=80,100',
   'set cursorline',
   'set completeopt-=preview',
