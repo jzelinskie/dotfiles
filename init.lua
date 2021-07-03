@@ -123,6 +123,10 @@ require'nvim-treesitter.configs'.setup {
   highlight = { enable = true },
 }
 
+-- stop vim-go from outputting LSP debug info
+-- https://github.com/fatih/vim-go/issues/2904#issuecomment-637102187
+vim.g.go_echo_go_info = 0
+
 -- language server
 local lspcfg = {
   gopls =         { binary = 'gopls',                    format_on_save = '*.go'       },
