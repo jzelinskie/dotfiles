@@ -64,12 +64,7 @@ local packer = require('packer').startup {
     use { 'wbthomason/packer.nvim', opt = true }
   end,
 }
-
--- install plugins during initial bootstrap
-if not packer_exists then
-  packer.install()
-  packer.sync()
-end
+if not packer_exists then packer.sync() end -- install on first run
 
 -- misc global opts
 local settings = {
@@ -110,9 +105,7 @@ local settings = {
   'set cpoptions+=_',
   'colorscheme monokai-soda',
 }
-for _, setting in ipairs(settings) do
-  vim.cmd(setting)
-end
+for _, setting in ipairs(settings) do vim.cmd(setting) end
 
 -- setup colorizer
 require('colorizer').setup()
