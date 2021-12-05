@@ -1,81 +1,93 @@
-automake
-awscli
-azure-cli
-bat
-binwalk
-bison
-bufbuild/buf/buf
-cloc
-coreutils
-cowsay
-ctags
-cuelang/tap/cue
-curl
-entr
-exa
-ffmpeg
-gawk
-gh
-git
-git-crypt
-gnu-sed
-go
-golangci-lint
-goreman
-graphviz
-hugo
-imagemagick
-jpegoptim
-jzelinskie/faq/faq
-kind
-kubectx
-kubernetes-cli
-kubernetes-helm
-llvm
-lolcat
-mediainfo
-mercurial
-mitmproxy
-mkcert
-mkcert
-mtr
-nektos/tap/act
-neofetch
-neovim
-netcat
-nmap
-node
-optipng
-p7zip
-par
-parallel
-pngcrush
-pstree
-pulumi
-pyenv
-pyenv-virtualenv
-rbenv
-rbenv-gemset
-redis
-ripgrep
-rsync
-shellcheck
-sk
-socat
-sqlite
-stern
-tcpdump
-telnet
-tldr
-tmate
-tmux
-txn2/tap/kubefwd
-upx
-watch
-wget
-xz
-yarn
-youtube-dl
-zig
-zsh
-zstd
+# vim: syntax=ruby
+brew "automake"
+brew "awscli"
+brew "azure-cli"
+brew "bat"
+brew "binwalk"
+brew "bison"
+brew "bufbuild/buf/buf"
+brew "cloc"
+brew "clojure-lsp/brew/clojure-lsp-native"
+brew "clojure/tools/clojure"
+brew "coreutils"
+brew "cowsay"
+brew "ctags"
+brew" cue-lang/tap/cue"
+brew "curl"
+brew "entr"
+brew "exa"
+brew "ffmpeg"
+brew "gawk"
+brew "gh"
+brew "git"
+brew "git-crypt"
+brew "gnu-sed"
+brew "go"
+brew "golangci-lint"
+brew "goreman"
+brew "gradle"
+brew "graphviz"
+brew "grpc"
+brew "grpcurl"
+brew "hugo"
+brew "imagemagick"
+brew "jpegoptim"
+brew "jzelinskie/faq/faq"
+brew "kind"
+brew "kubectx"
+brew "kubernetes-cli"
+brew "kubernetes-helm"
+brew "leiningen"
+brew "llvm"
+brew "lolcat"
+brew "markdownlint-cli"
+brew "mas"
+brew "mediainfo"
+brew "mercurial"
+brew "mitmproxy"
+brew "mkcert"
+brew "mkcert"
+brew "moreutils"
+brew "mtr"
+brew "nektos/tap/act"
+brew "neofetch"
+brew "neovim"
+brew "netcat"
+brew "nmap"
+brew "node"
+brew "optipng"
+brew "p7zip"
+brew "par"
+brew "pngcrush"
+brew "protoc-gen-grpc-web"
+brew "pstree"
+brew "pulumi"
+brew "pyenv"
+brew "pyenv-virtualenv"
+brew "rbenv"
+brew "rbenv-gemset"
+brew "redis"
+brew "ripgrep"
+brew "rsync"
+brew "shellcheck"
+brew "sk"
+brew "socat"
+brew "sqlite"
+brew "stern"
+brew "tcpdump"
+brew "telnet"
+brew "tldr"
+brew "tmate"
+brew "tmux"
+brew "txn2/tap/kubefwd"
+brew "upx"
+brew "watch"
+brew "wget"
+brew "xz"
+brew "yarn"
+brew "youtube-dl"
+brew "zig"
+brew "zsh"
+brew "zstd"
+
+mas "1Password", id: 1333542190
