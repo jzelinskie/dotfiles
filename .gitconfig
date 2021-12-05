@@ -26,6 +26,7 @@
 	stage-head = git reset --soft HEAD~
 	unadd = reset HEAD
 	unstage = restore --staged
+	sw = switch
 [core]
 	excludesfile = ~/.gitignore
 	safecrlf = true
@@ -51,6 +52,9 @@
 	autoStash = true
 [init]
 	defaultBranch = main
-
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
+[status]
+	submodulesummary = 1
+[submodule]
+	recurse = true
