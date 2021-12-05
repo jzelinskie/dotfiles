@@ -11,9 +11,6 @@ local inoremap    = function(lhs, rhs) vim.api.nvim_set_keymap('i', lhs, rhs, { 
 local bufsnoremap = function(lhs, rhs) vim.api.nvim_buf_set_keymap(0, 'n', lhs, rhs, { noremap = true, silent = true }) end
 local lspremap    = function(keymap, fn_name) bufsnoremap(keymap, '<cmd>lua vim.lsp.' .. fn_name .. '()<CR>') end
 
--- exclusions for polyglot
-vim.g.polyglot_disabled = {'cue'}
-
 -- Define autocommands in lua
 -- https://github.com/neovim/neovim/pull/12378
 -- https://github.com/norcalli/nvim_utils/blob/71919c2f05920ed2f9718b4c2e30f8dd5f167194/lua/nvim_utils.lua#L554-L567
@@ -33,35 +30,33 @@ end
 local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 if not packer_exists then
   local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
-  vim.fn.system('git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+  vim.fn.system('git clone --depth 1 https://github.com/wbthomason/packer.nvim ' .. install_path)
   vim.cmd [[packadd packer.nvim]]
 end
 
 -- packer
 local packer = require('packer').startup {
   function(use)
-    use { 'bogado/file-line' }
-    use { 'ervandew/supertab' }
-    use { 'fatih/vim-go' }
-    use { 'jjo/vim-cue' }
-    use { 'junegunn/vim-easy-align' }
-    use { 'jzelinskie/monokai-soda.vim', requires = 'tjdevries/colorbuddy.vim' }
-    use { 'majutsushi/tagbar' }
-    use { 'milkypostman/vim-togglelist' }
-    use { 'neovim/nvim-lspconfig' }
-    use { 'norcalli/nvim-colorizer.lua' }
-    use { 'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use { 'ray-x/lsp_signature.nvim' }
-    use { 'sheerun/vim-polyglot' }
-    use { 'tpope/vim-commentary' }
-    use { 'tpope/vim-repeat' }
-    use { 'tpope/vim-surround' }
-    use { 'tpope/vim-unimpaired' }
-    use { 'vim-airline/vim-airline' }
-    use { 'vim-airline/vim-airline-themes' }
-    use { 'vim-scripts/a.vim' }
-    use { 'wbthomason/packer.nvim', opt = true }
+    use {'bogado/file-line'}
+    use {'ervandew/supertab'}
+    use {'fatih/vim-go'}
+    use {'jjo/vim-cue'}
+    use {'junegunn/vim-easy-align'}
+    use {'jzelinskie/monokai-soda.vim', requires = 'tjdevries/colorbuddy.vim'}
+    use {'majutsushi/tagbar'}
+    use {'milkypostman/vim-togglelist'}
+    use {'neovim/nvim-lspconfig'}
+    use {'norcalli/nvim-colorizer.lua'}
+    use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use {'ray-x/lsp_signature.nvim'}
+    use {'tpope/vim-commentary'}
+    use {'tpope/vim-repeat'}
+    use {'tpope/vim-surround'}
+    use {'tpope/vim-unimpaired'}
+    use {'vim-airline/vim-airline-themes', requires = 'vim-airline/vim-airline'}
+    use {'vim-scripts/a.vim'}
+    use {'wbthomason/packer.nvim', opt = true}
   end,
 }
 if not packer_exists then packer.sync() end -- install on first run
@@ -116,34 +111,34 @@ require'nvim-treesitter.configs'.setup {
   highlight = { enable = true },
 }
 
--- stop vim-go from outputting LSP debug info
--- https://github.com/fatih/vim-go/issues/2904#issuecomment-637102187
-vim.g.go_echo_go_info = 0
+-- vim-go
+vim.g.go_echo_go_info = 0 -- https://github.com/fatih/vim-go/issues/2904#issuecomment-637102187
+vim.g.go_fmt_command = 'gofumports'
 
 -- language server
 local lspcfg = {
-  gopls =         { binary = 'gopls',                    format_on_save = '*.go'       },
-  pyls =          { binary = 'pyls',                     format_on_save = '*.py'       },
-  pyright =       { binary = 'pyright',                  format_on_save = nil          },
-  rust_analyzer = { binary = 'rust-analyzer',            format_on_save = '*.rs'       },
-  yamlls =        { binary = 'yamlls',                   format_on_save = nil          },
-  bashls =        { binary = 'bash-language-server',     format_on_save = nil          },
-  dockerls =      { binary = 'docker-langserver',        format_on_save = 'Dockerfile' },
+  gopls =         {binary = 'gopls',                    format_on_save = nil         },
+  pylsp =         {binary = 'pylsp',                    format_on_save = '*.py'      },
+  pyright =       {binary = 'pyright',                  format_on_save = nil         },
+  rust_analyzer = {binary = 'rust-analyzer',            format_on_save = '*.rs'      },
+  clojure_lsp =   {binary = 'clojure-lsp',              format_on_save = '*.clj'     },
+  yamlls =        {binary = 'yamlls',                   format_on_save = nil         },
+  bashls =        {binary = 'bash-language-server',     format_on_save = nil         },
+  dockerls =      {binary = 'docker-langserver',        format_on_save = 'Dockerfile'},
 }
 local lsp_keymaps = {
-  { capability = 'declaration',      mapping = 'gd',    command = 'buf.declaration' },
-  { capability = 'implementation',   mapping = 'gD',    command = 'buf.implementation' },
-  { capability = 'goto_definition',  mapping = '<c-]>', command = 'buf.definition' },
-  { capability = 'type_definition',  mapping = '1gD',   command = 'buf.type_definition' },
-  { capability = 'hover',            mapping = 'K',     command = 'buf.hover' },
-  { capability = 'signature_help',   mapping = '<c-k>', command = 'buf.signature_help' },
-  { capability = 'find_references',  mapping = 'gr',    command = 'buf.references' },
-  { capability = 'document_symbol',  mapping = 'g0',    command = 'buf.document_symbol' },
-  { capability = 'workspace_symbol', mapping = 'gW',    command = 'buf.workspace_symbol' },
+  {capability = 'declaration',      mapping = 'gd',    command = 'buf.declaration'     },
+  {capability = 'implementation',   mapping = 'gD',    command = 'buf.implementation'  },
+  {capability = 'goto_definition',  mapping = '<c-]>', command = 'buf.definition'      },
+  {capability = 'type_definition',  mapping = '1gD',   command = 'buf.type_definition' },
+  {capability = 'hover',            mapping = 'K',     command = 'buf.hover'           },
+  {capability = 'signature_help',   mapping = '<c-k>', command = 'buf.signature_help'  },
+  {capability = 'find_references',  mapping = 'gr',    command = 'buf.references'      },
+  {capability = 'document_symbol',  mapping = 'g0',    command = 'buf.document_symbol' },
+  {capability = 'workspace_symbol', mapping = 'gW',    command = 'buf.workspace_symbol'},
 }
-local lsp = require('lspconfig')
 local custom_lsp_attach = function(client)
-  require'lsp_signature'.on_attach { hint_enable = false }
+  require('lsp_signature').on_attach { hint_enable = false }
   local opts = lspcfg[client.name]
 
   -- autocommplete
@@ -162,10 +157,11 @@ local custom_lsp_attach = function(client)
   end
 
   -- unconditional keymaps
-  lspremap('gl',    'diagnostic.show_line_diagnostics')
+  lspremap('gl', 'diagnostic.show_line_diagnostics')
 end
 
 -- only setup lsp clients for binaries that exist
+local lsp = require('lspconfig')
 for srv, opts in pairs(lspcfg) do
   if vim.fn.executable(opts['binary']) then lsp[srv].setup { on_attach = custom_lsp_attach } end
 end
