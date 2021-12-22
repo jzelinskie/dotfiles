@@ -5,7 +5,7 @@ setopt EXTENDED_GLOB
 
 # Default values for configurable variables
 export INSTALL_DIR=${INSTALL_DIR:-$HOME}
-export DOTFILES_DIR=${DOTFILES_DIR:-$HOME/.dotfiles}
+export DOTFILES_DIR=${DOTFILES_DIR:-$PWD}
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$INSTALL_DIR/.config}
 
 # Prompt the user
@@ -20,17 +20,18 @@ if [ -z ${DOTFILES_NONINTERACTIVE+x} ]; then
   fi
 fi
 
-# Handle vim first, b/c we need to do extra work to support both vim & neovim.
+# Install everything that belows in $XDG_CONFIG_HOME
 echo
-echo "Linking nvim configuration..."
-mkdir -p $XDG_CONFIG_HOME/nvim
-local VIM_LINKS=(
+echo "Linking XDG_CONFIG_HOME configurations..."
+local XDG_LINKS=(
   "$DOTFILES_DIR/init.lua:$XDG_CONFIG_HOME/nvim/init.lua"
+  "$DOTFILES_DIR/kitty.conf:$XDG_CONFIG_HOME/kitty/kitty.conf"
 )
-for LINK in $VIM_LINKS; do
+for LINK in $XDG_LINKS; do
   local FILE=`echo $LINK | awk -F":" '{print $1}'`
   local TARGET=`echo $LINK | awk -F":" '{print $2}'`
   if [[ ! -a $TARGET ]]; then
+    mkdir -p `dirname '$TARGET'`
     print -P -- "  %F{002}Linking file:%f $FILE => $TARGET"
     ln -s $FILE $TARGET
   else
@@ -38,9 +39,9 @@ for LINK in $VIM_LINKS; do
   fi
 done
 
-# Symlink the rest of the dotfiles
+# Install everything that belongs as $HOME/.$FILE
 echo
-echo "Linking the rest of the dotfiles..."
+echo "Linking the dotfiles..."
 for FILE in $DOTFILES_DIR/(.??*)(.N); do
   local TARGET=$INSTALL_DIR/${FILE:t}
   if [[ ! -a $INSTALL_DIR/${FILE:t} ]]; then
@@ -62,6 +63,6 @@ if [ -z ${DOTFILES_NONINTERACTIVE+x} ] && which brew > /dev/null; then
     echo "Cowardly refusing to install brew packages"
     exit 1
   else
-    cat $DOTFILES_DIR/Brewfile | xargs brew install
+    brew bundle install $DOTFILES_DIR/Brewfile
   fi
 fi
