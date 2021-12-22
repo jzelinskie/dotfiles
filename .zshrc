@@ -15,6 +15,7 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
 # detect brew and source its environment
 which brew > /dev/null && eval $(brew shellenv)
+[[ -d "/opt/homebrew" ]] && eval $(/opt/homebrew/bin/brew shellenv)
 [[ -d "$HOME/.linuxbrew" ]] && eval $($HOME/.linuxbrew/bin/brew shellenv)
 
 # zgen
