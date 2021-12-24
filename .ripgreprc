@@ -1,2 +1,5 @@
---hidden
+--glob
+!{.git}
 --no-binary
+--hidden
+--no-ignore-vcs
