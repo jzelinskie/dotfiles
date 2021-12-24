@@ -140,6 +140,7 @@ source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh"
 if which go > /dev/null; then
   export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
   [[ -d $GOPATH/bin ]] && extend_path "$GOPATH/bin"
+  if which brew > /dev/null; then export CGO_LDFLAGS="-L$(brew --prefix)/lib"; fi
 fi
 
 # Add cargo to $PATH and turn on backtraces for Rust
