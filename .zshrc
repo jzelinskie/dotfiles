@@ -106,6 +106,10 @@ if which exa > /dev/null; then
   alias tree="exa -T"
 fi
 
+# icat
+if which kitty > /dev/null; then alias icat="kitty +kitten icat"; fi
+
+# global ripgrep config
 if which rg > /dev/null; then export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc; fi
 
 # add sandboxed tailscale to path
