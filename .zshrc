@@ -21,12 +21,13 @@ which brew > /dev/null && eval $(brew shellenv)
 [[ -d "$HOME/.linuxbrew" ]] && eval $($HOME/.linuxbrew/bin/brew shellenv)
 
 # zgen
-[[ ! -d $HOME/.zgen ]] && git clone git@github.com:tarjoilija/zgen.git "$HOME/.zgen"
+export ZGEN_DIR=$XDG_DATA_HOME/zgen
 export ZGEN_RESET_ON_CHANGE=($HOME/.zshrc)
 export ZGEN_PLUGIN_UPDATE_DAYS=30
 export ZGEN_SYSTEM_UPDATE_DAYS=30
 export NVM_LAZY_LOAD=true
-source "$HOME/.zgen/zgen.zsh"
+[[ ! -d $ZGEN_DIR ]] && git clone git@github.com:tarjoilija/zgen.git "$ZGEN_DIR"
+source "$ZGEN_DIR/zgen.zsh"
 if ! zgen saved; then
   # plugins
   zgen load docker/cli contrib/completion/zsh
