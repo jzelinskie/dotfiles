@@ -1,9 +1,11 @@
 # profile startup
 zmodload zsh/zprof
 
-# add the argument to $PATH only if it's not already present
+# add the arguments to $PATH only if it's not already present
 function extend_path() {
-  [[ ":$PATH:" != *":$1:"* ]] && export PATH="$1:$PATH"
+  for entry in "$@"; do
+    [[ ":$PATH:" != *":$entry:"* ]] && export PATH="$entry:$PATH"
+  done
 }
 
 # XDG
