@@ -15,10 +15,9 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 # add ~/.local/bin to $PATH if it exists
 [[ -d "$HOME/.local/bin" ]] && extend_path "$HOME/.local/bin"
 
-# detect brew and source its environment
-which brew > /dev/null && eval $(brew shellenv)
-[[ -d "/opt/homebrew" ]] && eval $(/opt/homebrew/bin/brew shellenv)
-[[ -d "$HOME/.linuxbrew" ]] && eval $($HOME/.linuxbrew/bin/brew shellenv)
+# add brew to $PATH (prezto brew module needs it on the path)
+[[ -d "/opt/homebrew/bin" ]] && extend_path /opt/homebrew/*bin
+[[ -d "$HOME/.linuxbrew" ]] && extend_path $HOME/.linuxbrew/*bin
 
 # zgen
 export ZGEN_DIR=$XDG_DATA_HOME/zgen
@@ -38,7 +37,8 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions src
   zgen load zsh-users/zsh-history-substring-search
   zgen load zsh-users/zsh-syntax-highlighting
-  zgen load $HOME/.zfunc
+  [[ -d "$HOME/.zfunc" ]] && zgen load "$HOME/.zfunc"
+  which brew > /dev/null && zgen load "$(brew --prefix)/share/zsh/site-functions"
 
   # prezto config
   zgen prezto
@@ -49,6 +49,7 @@ if ! zgen saved; then
   zgen prezto directory
   zgen prezto helper
   zgen prezto spectrum
+  zgen prezto homebrew
   zgen prezto utility
   zgen prezto prompt
   zgen prezto syntax-highlighting
