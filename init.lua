@@ -113,7 +113,8 @@ require'nvim-treesitter.configs'.setup {
 
 -- vim-go
 vim.g.go_echo_go_info = 0 -- https://github.com/fatih/vim-go/issues/2904#issuecomment-637102187
-vim.g.go_fmt_command = 'gofumports'
+vim.g.go_fmt_command = 'gopls'
+vim.g.go_gopls_gofumpt = 1
 
 -- language server
 local lspcfg = {
