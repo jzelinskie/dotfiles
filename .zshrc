@@ -93,10 +93,9 @@ if which xclip > /dev/null; then
   alias pbpaste='xclip -selection clipboard -o'
 fi
 
-if [[ $OSTYPE == darwin* ]]; then
-  bindkey "\e[1;3D" backward-word # ⌥←
-  bindkey "\e[1;3C" forward-word  # ⌥→
-fi
+# navigating text
+bindkey "\e[1;3D" backward-word # ⌥←
+bindkey "\e[1;3C" forward-word  # ⌥→
 
 # prefer exa and fix prezto aliases when using it
 if which exa > /dev/null; then
