@@ -20,7 +20,7 @@ if [ -z ${DOTFILES_NONINTERACTIVE+x} ]; then
   fi
 fi
 
-# Install everything that belows in $XDG_CONFIG_HOME
+# Install everything that belongs in $XDG_CONFIG_HOME
 echo
 echo "Linking XDG_CONFIG_HOME configurations..."
 local XDG_LINKS=(
@@ -39,7 +39,7 @@ for LINK in $XDG_LINKS; do
   fi
 done
 
-# Install everything that belongs as $HOME/.$FILE
+# Install everything that belongs in $HOME
 echo
 echo "Linking the dotfiles..."
 for FILE in $DOTFILES_DIR/(.??*)(.N); do
