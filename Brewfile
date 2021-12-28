@@ -1,4 +1,5 @@
 # vim: syntax=ruby
+brew "age"
 brew "authzed/tap/spicedb"
 brew "authzed/tap/zed"
 brew "automake"
