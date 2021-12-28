@@ -15,8 +15,9 @@
 .env
 .git/**
 .python-version
+Brewfile.lock.json
 Icon?
 Thumbs.db
 ehthumbs.db
-id_rsa
 id_ed25519
+id_rsa
