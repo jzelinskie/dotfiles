@@ -198,7 +198,7 @@ if which kubectl > /dev/null; then
 fi
 
 # gcloud
-[[ -d "$XDG_DATA_HOME/gcloud" ]] && export GCLOUD_SDK_PATH="$XDG_DATA_HOME/gcloud" && extend_path "$XDG_DATA_HOME/gcloud/bin"
+[[ -d "$XDG_DATA_HOME/google-cloud-sdk" ]] && export GCLOUD_SDK_PATH="$XDG_DATA_HOME/google-cloud-sdk" && extend_path "$XDG_DATA_HOME/google-cloud-sdk/bin"
 if which gcloud > /dev/null; then
   GCLOUD_FALLBACK_PATH=$(dirname $(dirname $(which gcloud)))
   export GCLOUD_SDK_PATH="${GCLOUD_SDK_PATH:-GCLOUD_FALLBACK_PATH}"
