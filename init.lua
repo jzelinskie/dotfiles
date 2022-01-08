@@ -40,6 +40,7 @@ local packer = require('packer').startup {
     use {'bogado/file-line'}
     use {'ervandew/supertab'}
     use {'fatih/vim-go'}
+    use {'folke/which-key.nvim'}
     use {'jjo/vim-cue'}
     use {'junegunn/vim-easy-align'}
     use {'jzelinskie/monokai-soda.vim', requires = 'tjdevries/colorbuddy.vim'}
