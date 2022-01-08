@@ -119,14 +119,15 @@ vim.g.go_gopls_gofumpt = 1
 
 -- language server
 local lspcfg = {
-  gopls =         {binary = 'gopls',                    format_on_save = nil         },
-  pylsp =         {binary = 'pylsp',                    format_on_save = '*.py'      },
-  pyright =       {binary = 'pyright',                  format_on_save = nil         },
-  rust_analyzer = {binary = 'rust-analyzer',            format_on_save = '*.rs'      },
-  clojure_lsp =   {binary = 'clojure-lsp',              format_on_save = '*.clj'     },
-  yamlls =        {binary = 'yamlls',                   format_on_save = nil         },
-  bashls =        {binary = 'bash-language-server',     format_on_save = nil         },
-  dockerls =      {binary = 'docker-langserver',        format_on_save = 'Dockerfile'},
+  gopls =            {binary = 'gopls',                    format_on_save = nil         },
+  golangci_lint_ls = {binary = 'golangci-lint-langserver', format_on_save = nil         },
+  pylsp =            {binary = 'pylsp',                    format_on_save = '*.py'      },
+  pyright =          {binary = 'pyright',                  format_on_save = nil         },
+  rust_analyzer =    {binary = 'rust-analyzer',            format_on_save = '*.rs'      },
+  clojure_lsp =      {binary = 'clojure-lsp',              format_on_save = '*.clj'     },
+  yamlls =           {binary = 'yamlls',                   format_on_save = nil         },
+  bashls =           {binary = 'bash-language-server',     format_on_save = nil         },
+  dockerls =         {binary = 'docker-langserver',        format_on_save = 'Dockerfile'},
 }
 local lsp_keymaps = {
   {capability = 'declaration',      mapping = 'gd',    command = 'buf.declaration'     },
@@ -143,7 +144,7 @@ local custom_lsp_attach = function(client)
   require('lsp_signature').on_attach { hint_enable = false }
   local opts = lspcfg[client.name]
 
-  -- autocommplete
+  -- autocomplete
   vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- format on save
@@ -165,7 +166,7 @@ end
 -- only setup lsp clients for binaries that exist
 local lsp = require('lspconfig')
 for srv, opts in pairs(lspcfg) do
-  if vim.fn.executable(opts['binary']) then lsp[srv].setup { on_attach = custom_lsp_attach } end
+  if vim.fn.executable(opts['binary']) then lsp[srv].setup({ on_attach = custom_lsp_attach }) end
 end
 
 -- productive arrow keys
