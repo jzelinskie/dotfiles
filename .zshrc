@@ -1,10 +1,11 @@
 # profile startup
 zmodload zsh/zprof
 
-# add the arguments to $PATH only if it's not already present
-function extend_path() {
-  for entry in "$@"; do
-    [[ ":$PATH:" != *":$entry:"* ]] && export PATH="$entry:$PATH"
+# add the arguments to a path only if it's not already present
+function extendp() {
+  for entry in "${@:2}"; do
+    local concat="$(printenv $1)"
+    if [[ ":$concat:" != *":$entry:"* ]] && export "$1"="$(echo "$entry:$concat" | sed 's/:$//')"
   done
 }
 
@@ -13,11 +14,12 @@ export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
 # add ~/.local/bin to $PATH if it exists
-[[ -d "$HOME/.local/bin" ]] && extend_path "$HOME/.local/bin"
+[[ -d "$HOME/.local/bin" ]] && extendp PATH "$HOME/.local/bin"
 
 # add brew to $PATH (prezto brew module needs it on the path)
-[[ -d "/opt/homebrew/bin" ]] && extend_path /opt/homebrew/*bin
-[[ -d "$HOME/.linuxbrew" ]] && extend_path $HOME/.linuxbrew/*bin
+[[ -d "/opt/homebrew/bin" ]] && extendp PATH /opt/homebrew/*bin
+[[ -d "$HOME/.linuxbrew" ]] && extendp PATH $HOME/.linuxbrew/*bin
+if which brew > /dev/null; then extendp DYLD_FALLBACK_LIBRARY_PATH "$(brew --prefix)/lib"; fi
 
 # zgen
 export ZGEN_DIR=$XDG_DATA_HOME/zgen
@@ -112,7 +114,7 @@ if which kitty > /dev/null; then alias icat="kitty +kitten icat"; fi
 if which rg > /dev/null; then export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc; fi
 
 # add sandboxed tailscale to path
-[[ -s /Applications/Tailscale.app/Contents/MacOS ]] && extend_path /Applications/Tailscale.app/Contents/MacOS
+[[ -s /Applications/Tailscale.app/Contents/MacOS ]] && extendp PATH /Applications/Tailscale.app/Contents/MacOS
 
 # wsl-open as a browser for Windows
 [[ $(uname -r) == *Microsoft ]] && export BROWSER=wsl-open
@@ -138,12 +140,12 @@ source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh"
 # Keep Go state in ~/.go and add the default GOBIN to the path
 if which go > /dev/null; then
   export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
-  [[ -d $GOPATH/bin ]] && extend_path "$GOPATH/bin"
+  [[ -d $GOPATH/bin ]] && extendp PATH "$GOPATH/bin"
   if which brew > /dev/null; then export CGO_LDFLAGS="-L$(brew --prefix)/lib"; fi
 fi
 
 # Add cargo to $PATH and turn on backtraces for Rust
-[[ -d $HOME/.cargo/bin ]] && extend_path "$HOME/.cargo/bin"
+[[ -d $HOME/.cargo/bin ]] && extendp PATH "$HOME/.cargo/bin"
 if which rustc > /dev/null; then export RUST_BACKTRACE=1; fi
 
 # never generate .pyc files: it's slower, but maintains your sanity
@@ -151,11 +153,11 @@ if which python > /dev/null; then export PYTHONDONTWRITEBYTECODE=1; fi
 
 # lazy load pyenv
 export PYENV_ROOT="${PYENV_ROOT:-$HOME/.pyenv}"
-[[ -a "$PYENV_ROOT/bin/pyenv" ]] && extend_path "$PYENV_ROOT/bin"
+[[ -a "$PYENV_ROOT/bin/pyenv" ]] && extendp PATH "$PYENV_ROOT/bin"
 if type pyenv &> /dev/null || [[ -a "$PYENV_ROOT/bin/pyenv" ]]; then
   function pyenv() {
     unset pyenv
-    extend_path "$PYENV_ROOT/shims"
+    extendp PATH "$PYENV_ROOT/shims"
     eval "$(command pyenv init -)"
     if which pyenv-virtualenv-init > /dev/null; then
       eval "$(pyenv virtualenv-init -)"
@@ -167,17 +169,17 @@ fi
 
 # lazy load rbenv
 export RBENV_ROOT="${RBENV_ROOT:-$HOME/.rbenv}"
-[[ -a "$RBENV_ROOT/bin/rbenv" ]] && extend_path "$RBENV_ROOT/bin"
+[[ -a "$RBENV_ROOT/bin/rbenv" ]] && extendp PATH "$RBENV_ROOT/bin"
 if type rbenv &> /dev/null || [[ -a "$RBENV_ROOT/bin/rbenv" ]]; then
   function rbenv() {
     unset rbenv
-    extend_path "$RBENV_ROOT/shims"
+    extendp PATH "$RBENV_ROOT/shims"
     eval "$(command rbenv init -)"
   }
 fi
 
 # global node installs (gross)
-[[ -d "$XDG_DATA_HOME/node/bin" ]] && extend_path "$XDG_DATA_HOME/node/bin"
+[[ -d "$XDG_DATA_HOME/node/bin" ]] && extendp PATH "$XDG_DATA_HOME/node/bin"
 
 # alias for accessing the docker host as a container
 which docker > /dev/null && alias docker-host="docker run -it --rm --privileged --pid=host justincormack/nsenter1"
@@ -185,7 +187,7 @@ which docker > /dev/null && alias docker-host="docker run -it --rm --privileged 
 # kubernetes aliases
 if which kubectl > /dev/null; then
   alias kks='kubectl -n kube-system'
-  which kubectl-krew > /dev/null && extend_path "$HOME/.krew/bin"
+  which kubectl-krew > /dev/null && extendp PATH "$HOME/.krew/bin"
   function waitforpods() {
     until [ $(kubectl -n $1 get pods -o json | jq '.items | map(.status.containerStatuses[] | .ready) | all' -r) == "true" ]; do
       echo 'waiting for all pods to be ready'
@@ -198,10 +200,8 @@ if which kubectl > /dev/null; then
 fi
 
 # gcloud
-[[ -d "$XDG_DATA_HOME/google-cloud-sdk" ]] && export GCLOUD_SDK_PATH="$XDG_DATA_HOME/google-cloud-sdk" && extend_path "$XDG_DATA_HOME/google-cloud-sdk/bin"
-if which gcloud > /dev/null; then
-  GCLOUD_FALLBACK_PATH=$(dirname $(dirname $(which gcloud)))
-  export GCLOUD_SDK_PATH="${GCLOUD_SDK_PATH:-GCLOUD_FALLBACK_PATH}"
+[[ -d "$XDG_DATA_HOME/google-cloud-sdk" ]] && export GCLOUD_SDK_PATH="$XDG_DATA_HOME/google-cloud-sdk"
+if [[ -d $GCLOUD_SDK_PATH ]]; then
   source_if_exists "$GCLOUD_SDK_PATH/path.zsh.inc"
   source_if_exists "$GCLOUD_SDK_PATH/completion.zsh.inc"
 fi
