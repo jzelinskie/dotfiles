@@ -1,17 +1,18 @@
-#!/bin/zsh
-
+#!/usr/bin/env zsh
 set -e
 setopt EXTENDED_GLOB
 
+# Find the current directory
+local DOTFILES_DIR="$(cd $(dirname ${BASH_SOURCE[0]-$0}) && pwd)"
+
 # Default values for configurable variables
-export INSTALL_DIR=${INSTALL_DIR:-$HOME}
-export DOTFILES_DIR=${DOTFILES_DIR:-$PWD}
-export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$INSTALL_DIR/.config}
+local XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+local INSTALL_DIR=${INSTALL_DIR:-$HOME}
 
 # Prompt the user
 if [ -z ${DOTFILES_NONINTERACTIVE+x} ]; then
-  echo "Installing dotfiles in $DOTFILES_DIR into $INSTALL_DIR"
-  echo "You can override these with \$DOTFILES_DIR and \$INSTALL_DIR, respectively"
+  echo "Installing dotfiles in $DOTFILES_DIR into $XDG_CONFIG_HOME and $INSTALL_DIR"
+  echo "You can override these with \$XDG_CONFIG_HOME and \$INSTALL_DIR, respectively"
   echo -n "Continue? "
   read REPLY
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -31,7 +32,7 @@ for LINK in $XDG_LINKS; do
   local FILE=`echo $LINK | awk -F":" '{print $1}'`
   local TARGET=`echo $LINK | awk -F":" '{print $2}'`
   if [[ ! -a $TARGET ]]; then
-    mkdir -p `dirname '$TARGET'`
+    mkdir -p $(dirname $TARGET)
     print -P -- "  %F{002}Linking file:%f $FILE => $TARGET"
     ln -s $FILE $TARGET
   else

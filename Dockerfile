@@ -10,6 +10,7 @@ RUN \
   man-pages \
   sudo sudo-doc \
   openssh openssh-doc \
+  zig \
   zsh zsh-doc \
   # Tools \
   bat \
@@ -46,18 +47,27 @@ RUN \
   # Editors \
   neovim neovim-doc neovim-lang
 
+SHELL ["/bin/zsh", "-c"]
 RUN \
   echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
-  adduser -D -G wheel jimmy
-USER jimmy
+  adduser -D -G wheel jzelinskie
+USER jzelinskie
+WORKDIR /home/jzelinskie
+ENV XDG_CONFIG_HOME=/home/jzelinskie/.config XDG_DATA_HOME=/home/jzelinskie/.local/share
+
+COPY --chown=jzelinskie:wheel . $XDG_CONFIG_HOME/dotfiles/
 
 RUN \
+  # Install dotfiles \
+  DOTFILES_NONINTERACTIVE=1 $XDG_CONFIG_HOME/dotfiles/install.zsh && \
   # Rewrite clones to use https, instead of ssh \
+  sed -i '/github.com/d' $HOME/.gitconfig && \
   git config --global url."https://github.com/".insteadOf git@github.com: && \
   git config --global url."https://".insteadOf git:// && \
-  # Install dotfiles \
-  git clone "git@github.com:jzelinskie/dotfiles.git" "$HOME/.dotfiles" && \
-  DOTFILES_NONINTERACTIVE=1 zsh -c "$HOME/.dotfiles/install.zsh" && \
-  git clone "git@github.com:tarjoilija/zgen.git" "$HOME/.zgen" && \
-  zsh -c "source $HOME/.zshrc" && \
-  nvim +PackInstall +qall
+  # Generate zsh config \
+  git clone "git@github.com:tarjoilija/zgen.git" "$XDG_DATA_HOME/zgen" && \
+  source $HOME/.zshrc && \
+  # Install nvim plugins \
+  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+ENTRYPOINT [ "zsh" ]
