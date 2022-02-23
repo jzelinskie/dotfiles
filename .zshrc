@@ -9,8 +9,8 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 [[ -d "$HOME/.local/bin" ]] && path=($HOME/.local/bin $path)
 
 # add brew to $PATH (prezto brew module needs it on the path)
-[[ -d "/opt/homebrew" ]] && path=(/opt/homebrew/*bin $path)
-[[ -d "$HOME/.linuxbrew" ]] && path=($HOME/.linuxbrew/*bin $path)
+[[ -d "/opt/homebrew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -d "$HOME/.linuxbrew" ]] && eval "$($HOME/.linuxbrew/bin/brew shellenv)"
 if which brew > /dev/null; then export DYLD_FALLBACK_LIBRARY_PATH=$(brew --prefix)/lib; fi
 
 # zgen
