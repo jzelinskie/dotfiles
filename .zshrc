@@ -145,7 +145,9 @@ if which go > /dev/null; then
 fi
 
 # Add cargo to $PATH and turn on backtraces for Rust
-[[ -d $HOME/.cargo/bin ]] && extendp PATH "$HOME/.cargo/bin"
+export RUSTUP_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/rustup"
+export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
+[[ -d $CARGO_HOME/bin ]] && extendp PATH "$CARGO_HOME/bin"
 if which rustc > /dev/null; then export RUST_BACKTRACE=1; fi
 
 # never generate .pyc files: it's slower, but maintains your sanity
