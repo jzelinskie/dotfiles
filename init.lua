@@ -141,7 +141,9 @@ function load_packer_config(bootstrap)
         'nvim-treesitter/nvim-treesitter',
         config = exclude_on_bootstrap(function()
           require('nvim-treesitter.configs').setup({
-            ensure_installed = "maintained",
+            -- ensure_installed = "all",
+            ignore_install = { "phpdoc" },
+            disable = { "phpdoc" },
             highlight = { enable = true },
           })
         end),
