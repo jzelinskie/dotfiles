@@ -11,21 +11,6 @@ function inoremap(lhs, rhs) vim.api.nvim_set_keymap('i', lhs, rhs, { noremap = t
 function bufsnoremap(lhs, rhs) vim.api.nvim_buf_set_keymap(0, 'n', lhs, rhs, { noremap = true, silent = true }) end
 function lspremap(keymap, fn_name) bufsnoremap(keymap, '<cmd>lua vim.lsp.' .. fn_name .. '()<CR>') end
 
--- Define autocommands in lua
--- https://github.com/neovim/neovim/pull/12378
--- https://github.com/norcalli/nvim_utils/blob/71919c2f05920ed2f9718b4c2e30f8dd5f167194/lua/nvim_utils.lua#L554-L567
-function nvim_create_augroups(definitions)
-  for group_name, definition in pairs(definitions) do
-    vim.api.nvim_command('augroup ' .. group_name)
-    vim.api.nvim_command('autocmd!')
-    for _, def in ipairs(definition) do
-      local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
-      vim.api.nvim_command(command)
-    end
-    vim.api.nvim_command('augroup END')
-  end
-end
-
 -- misc global opts
 local settings = {
   'set colorcolumn=80,100',
@@ -217,7 +202,10 @@ function load_packer_config(bootstrap)
 
             -- format on save
             if opts['format_on_save'] ~= nil then
-              nvim_create_augroups({[client.name] = {{'BufWritePre', opts['format_on_save'], ':lua vim.lsp.buf.formatting_sync(nil, 1000)'}}})
+              vim.api.nvim_create_autocommand('BufWritePre', {
+                pattern = opts['format_on_save'],
+                callback = function(args) vim.lsp.buf.formatting_sync(nil, 1000) end
+              })
             end
 
             -- conditional keymaps
