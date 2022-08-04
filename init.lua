@@ -172,15 +172,15 @@ function load_packer_config(bootstrap)
         'neovim/nvim-lspconfig',
         config = exclude_on_bootstrap(function()
           local lspcfg = {
-            gopls =            {binary = 'gopls',                    format_on_save = nil         },
-            golangci_lint_ls = {binary = 'golangci-lint-langserver', format_on_save = nil         },
-            pylsp =            {binary = 'pylsp',                    format_on_save = '*.py'      },
-            pyright =          {binary = 'pyright',                  format_on_save = nil         },
-            rust_analyzer =    {binary = 'rust-analyzer',            format_on_save = '*.rs'      },
-            clojure_lsp =      {binary = 'clojure-lsp',              format_on_save = '*.clj'     },
-            yamlls =           {binary = 'yamlls',                   format_on_save = nil         },
-            bashls =           {binary = 'bash-language-server',     format_on_save = nil         },
-            dockerls =         {binary = 'docker-langserver',        format_on_save = 'Dockerfile'},
+            gopls =            {bin = 'gopls',                    fmt = {}           },
+            golangci_lint_ls = {bin = 'golangci-lint-langserver', fmt = {}           },
+            pylsp =            {bin = 'pylsp',                    fmt = {'*.py'}     },
+            pyright =          {bin = 'pyright',                  fmt = {}           },
+            rust_analyzer =    {bin = 'rust-analyzer',            fmt = {'*.rs'}     },
+            clojure_lsp =      {bin = 'clojure-lsp',              fmt = {'*.clj'}    },
+            yamlls =           {bin = 'yamlls',                   fmt = {}           },
+            bashls =           {bin = 'bash-language-server',     fmt = {}           },
+            dockerls =         {bin = 'docker-langserver',        fmt = {'Dockerfile'}},
           }
           local lsp_keymaps = {
             {capability = 'declaration',      mapping = 'gd',    command = 'buf.declaration'     },
@@ -201,12 +201,10 @@ function load_packer_config(bootstrap)
             vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
             -- format on save
-            if opts['format_on_save'] ~= nil then
-              vim.api.nvim_create_autocommand('BufWritePre', {
-                pattern = opts['format_on_save'],
-                callback = function(args) vim.lsp.buf.formatting_sync(nil, 1000) end
-              })
-            end
+            vim.api.nvim_create_autocmd({'BufWritePre'}, {
+              pattern = opts['fmt'],
+              callback = function(args) vim.lsp.buf.formatting_sync(nil, 1000) end
+            })
 
             -- conditional keymaps
             for _, keymap in ipairs(lsp_keymaps) do
@@ -222,7 +220,7 @@ function load_packer_config(bootstrap)
           -- only setup lsp clients for binaries that exist
           local lsp = require('lspconfig')
           for srv, opts in pairs(lspcfg) do
-            if vim.fn.executable(opts['binary']) then lsp[srv].setup({ on_attach = custom_lsp_attach }) end
+            if vim.fn.executable(opts['bin']) then lsp[srv].setup({ on_attach = custom_lsp_attach }) end
           end
         end),
       },
