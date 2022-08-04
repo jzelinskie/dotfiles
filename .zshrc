@@ -172,6 +172,10 @@ if type rbenv &> /dev/null || [[ -a $RBENV_ROOT/bin/rbenv ]]; then
   }
 fi
 
+# add airport to path
+AIRPORT_PATH=/System/Library/PrivateFrameworks/Apple80211.framework/Resources
+[[ -d "$AIRPORT_PATH" ]] && path=($AIRPORT_PATH $path)
+
 # global node installs (gross)
 [[ -d "$XDG_DATA_HOME/node/bin" ]] && path=($XDG_DATA_HOME/node/bin $path)
 
