@@ -26,6 +26,7 @@
 	unadd = reset HEAD
 	unstage = restore --staged
 	sw = switch
+	prune-branches = "!f() { git branch --merged | egrep -v \"(^\\*|main|master|dev)\" | xargs git branch -d; }; f"
 [core]
 	excludesfile = ~/.gitignore
 	safecrlf = true
