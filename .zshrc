@@ -185,6 +185,9 @@ which docker > /dev/null && alias docker-host='docker run -it --rm --privileged 
 # kubernetes aliases
 if which kubectl > /dev/null; then
   alias kks='kubectl -n kube-system'
+  alias kam='kubectl -n authzed-monitoring'
+  alias kas='kubectl -n authzed-system'
+  alias kar='kubectl -n authzed-region'
   which kubectl-krew > /dev/null && path=($HOME/.krew/bin $path)
   function waitforpods() {
     until [ $(kubectl -n $1 get pods -o json | jq '.items | map(.status.containerStatuses[] | .ready) | all' -r) == 'true' ]; do
