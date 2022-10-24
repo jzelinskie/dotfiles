@@ -208,7 +208,7 @@ function load_packer_config(bootstrap)
 
             -- conditional keymaps
             for _, keymap in ipairs(lsp_keymaps) do
-              if client.resolved_capabilities[keymap.capability] then
+              if client.server_capabilities[keymap.capability] then
                 lspremap(keymap.mapping, keymap.command)
               end
             end
