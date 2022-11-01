@@ -158,14 +158,15 @@ function load_packer_config(bootstrap)
       },
       {
         'nvim-telescope/telescope.nvim',
-        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+        requires = {{'nvim-lua/plenary.nvim'}},
         config = exclude_on_bootstrap(function()
-          nnoremap('<c-p>', "<cmd>lua require('telescope.builtin').find_files()<cr>")
-          nnoremap('<c-b>', "<cmd>lua require('telescope.builtin').buffers()<cr>")
-          nnoremap('<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>")
-          nnoremap('<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>")
-          nnoremap('<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>")
-          nnoremap('<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
+          local builtin = require('telescope.builtin')
+          vim.keymap.set('n', '<c-p>', builtin.find_files, {})
+          vim.keymap.set('n', '<c-b>', builtin.buffers, {})
+          vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+          vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+          vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+          vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
         end),
       },
       {
@@ -214,7 +215,7 @@ function load_packer_config(bootstrap)
             end
 
             -- unconditional keymaps
-            lspremap('gl', 'diagnostic.show_line_diagnostics')
+            bufsnoremap('gl', '<cmd>lua vim.diagnostic.open_float()<CR>')
           end
 
           -- only setup lsp clients for binaries that exist
