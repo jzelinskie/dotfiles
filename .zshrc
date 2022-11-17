@@ -108,6 +108,9 @@ if which rg > /dev/null; then export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc; fi
 # add sandboxed tailscale to path
 [[ -s /Applications/Tailscale.app/Contents/MacOS ]] && path=(/Applications/Tailscale.app/Contents/MacOS $path)
 
+# 1password 8 ssh-agent
+[[ $OSTYPE == darwin* ]] && export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
 # wsl-open as a browser for Windows
 [[ $(uname -r) == *Microsoft ]] && export BROWSER=wsl-open
 
