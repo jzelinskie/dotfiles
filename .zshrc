@@ -187,17 +187,13 @@ which docker > /dev/null && alias docker-host='docker run -it --rm --privileged 
 
 # kubernetes aliases
 if which kubectl > /dev/null; then
-  alias kks='kubectl -n kube-system'
-  alias kam='kubectl -n authzed-monitoring'
-  alias kas='kubectl -n authzed-system'
-  alias kar='kubectl -n authzed-region'
+  function replaceNS() { kubectl config view --minify --flatten --context=$(kubectl config current-context) | yq ".contexts[0].context.namespace=\"$1\"" }
+  alias kks='KUBECONFIG=<(replaceNS "kube-system") kubectl'
+  alias kam='KUBECONFIG=<(replaceNS "authzed-monitoring") kubectl'
+  alias kas='KUBECONFIG=<(replaceNS "authzed-system") kubectl'
+  alias kar='KUBECONFIG=<(replaceNS "authzed-region") kubectl'
+  alias kt='KUBECONFIG=<(replaceNS "tenant") kubectl'
   which kubectl-krew > /dev/null && path=($HOME/.krew/bin $path)
-  function waitforpods() {
-    until [ $(kubectl -n $1 get pods -o json | jq '.items | map(.status.containerStatuses[] | .ready) | all' -r) == 'true' ]; do
-      echo 'waiting for all pods to be ready'
-      sleep 5
-    done
-  }
   function rmfinalizers() {
     kubectl get deployment $1 -o json | jq '.metadata.finalizers = null' | k apply -f -
   }
