@@ -134,6 +134,11 @@ source_if_exists "$HOME/.gvm/scripts/gvm"
 source_if_exists "$HOME/.iterm2_shell_integration.zsh"
 source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh"
 
+# Colima for Docker
+if [[ -S "$HOME/.colima/docker.sock" ]]; then
+  export DOCKER_HOST=unix://$HOME/.colima/docker.sock
+fi
+
 # Keep Go state in ~/.go and add the default GOBIN to the path
 if which go > /dev/null; then
   export GOPATH=${XDG_DATA_HOME:-$HOME/.local/share}/go
