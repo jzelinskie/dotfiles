@@ -1,0 +1,8 @@
+[[language]]
+name = "go"
+config.formatting.gofumpt = true
+
+[[language]]
+name = "rust"
+config.rust-analyzer.cargo.buildScripts.enable = true
+config.rust-analyzer.checkOnSave.command = "clippy"

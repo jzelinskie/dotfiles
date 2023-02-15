@@ -1,0 +1,113 @@
+# Author : Jimmy Zelinskie <jimmy@zelinskie.com>
+
+"ui.linenr.selected" = "orange"
+"ui.text.focus" = { fg = "yellow", modifiers = ["bold"] }
+"ui.menu" = { fg = "white", bg = "darkgray" }
+"ui.menu.selected" = { modifiers = ["reversed"] }
+"ui.virtual.whitespace" = "darkgray"
+"ui.virtual.ruler" = { bg = "darkgray" }
+
+"info" = "base8"
+"hint" = "base8"
+
+# background color
+"ui.background" = { bg = "background" }
+
+# status bars, panels, modals, autocompletion
+"ui.statusline" = { bg = "darkgray" }
+"ui.statusline.inactive" = { fg = "base8", bg = "base8x0c" }
+"ui.statusline.normal" = { fg = "white", bg = "blue" }
+"ui.statusline.insert" = { fg = "white", bg = "green" }
+"ui.statusline.select" = { fg = "white", bg = "purple" }
+"ui.popup" = { bg = "darkgray" }
+"ui.window" = { bg = "darkgray" }
+"ui.help" = { fg = "white", bg = "darkgray" }
+
+# active line, highlighting
+"ui.selection" = { bg = "darkgray" }
+"ui.cursor.match" = { fg = "white", modifiers = ["reversed"] }
+"ui.cursorline" = {}
+
+# comments, nord3 based lighter color
+"comment" = { fg = "gray", modifiers = ["italic"] }
+"ui.linenr" = { fg = "darkgray" }
+
+# cursor, variables, constants, attributes, fields
+"ui.cursor.primary" = { fg = "white", modifiers = ["reversed"] }
+"attribute" = "blue"
+"variable"  = "white"
+"constant"  = "white"
+"variable.builtin" = "pink"
+"constant.builtin" = "pink"
+"namespace" = "pink"
+
+# base text, punctuation
+"ui.text" = { fg = "white" }
+"punctuation" = "gray"
+
+# classes, types, primitives
+"type" = "blue"
+"type.builtin" = { fg = "pink"}
+"label" = "yellow"
+
+# declaration, methods, routines
+"constructor" = "blue"
+"function" = "green"
+"function.macro" = { fg = "blue" }
+"function.builtin" = { fg = "blue" }
+
+# operator, tags, units, punctuations
+"operator" = "pink"
+"variable.other.member" = "base8"
+
+# keywords, special
+"keyword" = "pink"
+"keyword.directive" = "blue"
+"variable.parameter" = "#f59762"
+
+# error
+"error" = { fg = "pink", underline = { style = "curl", color = "pink" } }
+
+# annotations, decorators
+"special" = "#f59762"
+"module" = "#f59762"
+
+# warnings, escape characters, regex
+"warning" = "orange"
+"constant.character.escape" = "blue"
+
+# strings
+"string" = "yellow"
+
+# integer, floating point
+"constant.numeric" = "purple"
+
+# vcs
+"diff.plus" = "green"
+"diff.delta" = "orange"
+"diff.minus" = "pink"
+
+# make diagnostic underlined, to distinguish with selection text.
+diagnostic = { modifiers = ["underlined"] }
+"diagnostic.error" = { underline = { style = "curl", color = "pink" } }
+
+# markup highlight, no need for `markup.raw` and `markup.list`, make them to be default
+"markup.heading" = "green"
+"markup.bold" = { fg = "orange", modifiers = ["bold"] }
+"markup.italic" = { fg = "orange", modifiers = ["italic"] }
+"markup.link.url" = { fg = "orange", modifiers = ["underlined"] }
+"markup.link.text" = "yellow"
+"markup.quote" = "green"
+
+[palette]
+"purple" = "#AE81FF"
+"yellow" = "#E6DB74"
+"pink" = "#f92a72"
+"white" = "#cfcfc2"
+"gray" = "#75715e"
+"darkgray" = "#444444"
+"black" = "#222222"
+"blue" = "#66d9ef"
+"green" = "#a6e22e"
+"orange" = "#fd971f"
+"background" = "#191919"
