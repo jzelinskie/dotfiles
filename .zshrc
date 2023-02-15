@@ -63,7 +63,9 @@ fi
 setopt ignoreeof
 
 # prefer nvim as $EDITOR
-if which nvim > /dev/null; then
+if which hx > /dev/null; then
+  export EDITOR=hx
+elif which nvim > /dev/null; then
   export EDITOR=nvim
   alias vi=nvim
   alias vim=nvim
