@@ -1,6 +1,7 @@
 [user]
 	email = jimmy@zelinskie.com
 	name = Jimmy Zelinskie
+	signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFFLZXAb2TmLXbo9stYA5Lr2xbgyyHl5QXlTJ5VsoJNB\n"
 [color]
 	ui = auto
 [alias]
@@ -34,12 +35,12 @@
 [diff]
 	compactionHeuristic = true
 	mnemonicprefix = true
-[merge]
-	tool = vimdiff
-[mergetool]
-	prompt = true
-[mergetool "vimdiff"]
-	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+# [merge]
+# 	tool = vimdiff
+# [mergetool]
+# 	prompt = true
+# [mergetool "vimdiff"]
+# 	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [push]
 	default = simple
 [github]
@@ -58,3 +59,14 @@
 	submodulesummary = 1
 [submodule]
 	recurse = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
