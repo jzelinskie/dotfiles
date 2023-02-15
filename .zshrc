@@ -211,6 +211,7 @@ fi
 if [[ -d $GCLOUD_SDK_PATH ]]; then
   source_if_exists $GCLOUD_SDK_PATH/path.zsh.inc
   source_if_exists $GCLOUD_SDK_PATH/completion.zsh.inc
+  export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 fi
 
 # time aliases
