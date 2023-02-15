@@ -27,6 +27,7 @@ echo "Linking XDG_CONFIG_HOME configurations..."
 local XDG_LINKS=(
   "$DOTFILES_DIR/init.lua:$XDG_CONFIG_HOME/nvim/init.lua"
   "$DOTFILES_DIR/kitty.conf:$XDG_CONFIG_HOME/kitty/kitty.conf"
+  "$DOTFILES_DIR/helix:$XDG_CONFIG_HOME"
 )
 for LINK in $XDG_LINKS; do
   local FILE=`echo $LINK | awk -F":" '{print $1}'`
