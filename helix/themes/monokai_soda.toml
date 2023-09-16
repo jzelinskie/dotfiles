@@ -12,6 +12,8 @@
 ## Diagnostics
 "diagnostic" = { modifiers = ["underlined"] }
 "diagnostic.error" = { underline = { style = "curl", color = "pink" } }
+"diagnostic.warning" = { underline = { style = "curl", color = "orange" } }
+"diagnostic.info" = { underline = { style = "curl", color = "white" } }
 
 ## Diffs
 "diff.plus" = "green"
@@ -58,7 +60,7 @@
 ## Misc
 "attribute" = "blue"
 "comment" = { fg = "gray", modifiers = ["italic"] }
-"error" = { fg = "pink", underline = { style = "curl", color = "pink" } }
+"error" = "pink"
 "hint" = "white"
 "info" = "white"
 "label" = "yellow"

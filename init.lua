@@ -7,9 +7,6 @@ function vmap(lhs, rhs) vim.api.nvim_set_keymap('v', lhs, rhs, {}) end
 function xmap(lhs, rhs) vim.api.nvim_set_keymap('v', lhs, rhs, {}) end
 function snmap(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, { silent = true}) end
 function nnoremap(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, { noremap = true }) end
-function inoremap(lhs, rhs) vim.api.nvim_set_keymap('i', lhs, rhs, { noremap = true }) end
-function bufsnoremap(lhs, rhs) vim.api.nvim_buf_set_keymap(0, 'n', lhs, rhs, { noremap = true, silent = true }) end
-function lspremap(keymap, fn_name) bufsnoremap(keymap, '<cmd>lua vim.lsp.' .. fn_name .. '()<CR>') end
 
 -- misc global opts
 local settings = {
@@ -65,8 +62,8 @@ snmap('<leader>w', ':set invwrap<CR>:set wrap?<CR>')
 nnoremap('<leader>sws', ':%s/\\s\\+$//e<CR>')
 
 -- packer
-function load_packer_config(bootstrap)
-  function exclude_on_bootstrap(fn) if not bootstrap then return fn end end
+local function load_packer_config(bootstrap)
+  local function exclude_on_bootstrap(fn) if not bootstrap then return fn end end
   return require('packer').startup(function(use)
     use {
       'bogado/file-line',
@@ -80,6 +77,7 @@ function load_packer_config(bootstrap)
       'tpope/vim-surround',
       'vim-scripts/a.vim',
       'wbthomason/packer.nvim',
+
 
       {
         'tpope/vim-unimpaired',
@@ -113,6 +111,7 @@ function load_packer_config(bootstrap)
           vim.g.go_echo_go_info = 0 -- https://github.com/fatih/vim-go/issues/2904#issuecomment-637102187
           vim.g.go_fmt_command = 'gopls'
           vim.g.go_gopls_gofumpt = 1
+          vim.g.go_doc_keywordprg_enabled = 0
         end),
       },
       {
@@ -146,7 +145,7 @@ function load_packer_config(bootstrap)
       {
         'ervandew/supertab',
         config = exclude_on_bootstrap(function()
-          inoremap('<S-Tab>', '<C-v><Tab>')
+          vim.keymap.set('i', '<S-Tab>', '<C-v><Tab>', { noremap=true })
           vim.g.SuperTabDefaultCompletionType = "<c-x><c-o>"
         end),
       },
@@ -173,33 +172,33 @@ function load_packer_config(bootstrap)
         'neovim/nvim-lspconfig',
         config = exclude_on_bootstrap(function()
           local lspcfg = {
-            gopls =            {bin = 'gopls',                    fmt = {}           },
-            golangci_lint_ls = {bin = 'golangci-lint-langserver', fmt = {}           },
-            pylsp =            {bin = 'pylsp',                    fmt = {'*.py'}     },
-            pyright =          {bin = 'pyright',                  fmt = {}           },
-            rust_analyzer =    {bin = 'rust-analyzer',            fmt = {'*.rs'}     },
-            clojure_lsp =      {bin = 'clojure-lsp',              fmt = {'*.clj'}    },
-            yamlls =           {bin = 'yamlls',                   fmt = {}           },
-            bashls =           {bin = 'bash-language-server',     fmt = {}           },
-            dockerls =         {bin = 'docker-langserver',        fmt = {'Dockerfile'}},
+            gopls = { bin='gopls', fmt={'*.go'}, settings={ gopls={ gofumpt=true } } },
+            clojure_lsp      = { bin='clojure-lsp',              fmt={'*.clj'}       },
+            dockerls         = { bin='docker-langserver',        fmt={'Dockerfile'}  },
+            pylsp            = { bin='pylsp',                    fmt={'*.py'}        },
+            rust_analyzer    = { bin='rust-analyzer',            fmt={'*.rs'}        },
+            bashls           = { bin='bash-language-server',     fmt={}              },
+            golangci_lint_ls = { bin='golangci-lint-langserver', fmt={}              },
+            pyright          = { bin='pyright',                  fmt={}              },
+            yamlls           = { bin='yamlls',                   fmt={}              },
           }
           local lsp_keymaps = {
-            {capability = 'declaration',      mapping = 'gd',    command = 'buf.declaration'     },
-            {capability = 'implementation',   mapping = 'gD',    command = 'buf.implementation'  },
-            {capability = 'goto_definition',  mapping = '<c-]>', command = 'buf.definition'      },
-            {capability = 'type_definition',  mapping = '1gD',   command = 'buf.type_definition' },
-            {capability = 'hover',            mapping = 'K',     command = 'buf.hover'           },
-            {capability = 'signature_help',   mapping = '<c-k>', command = 'buf.signature_help'  },
-            {capability = 'find_references',  mapping = 'gr',    command = 'buf.references'      },
-            {capability = 'document_symbol',  mapping = 'g0',    command = 'buf.document_symbol' },
-            {capability = 'workspace_symbol', mapping = 'gW',    command = 'buf.workspace_symbol'},
+            { cap='declaration',      map='gd',    cmd=vim.lsp.buf.declaration      },
+            { cap='implementation',   map='gD',    cmd=vim.lsp.buf.implementation   },
+            { cap='goto_definition',  map='<c-]>', cmd=vim.lsp.buf.definition       },
+            { cap='type_definition',  map='1gD',   cmd=vim.lsp.buf.type_definition  },
+            { cap='hover',            map='K',     cmd=vim.lsp.buf.hover            },
+            { cap='signature_help',   map='<c-k>', cmd=vim.lsp.buf.signature_help   },
+            { cap='find_references',  map='gr',    cmd=vim.lsp.buf.references       },
+            { cap='document_symbol',  map='g0',    cmd=vim.lsp.buf.document_symbol  },
+            { cap='workspace_symbol', map='gW',    cmd=vim.lsp.buf.workspace_symbol },
           }
-          local custom_lsp_attach = function(client)
+          local custom_lsp_attach = function(client, bufnr)
             require('lsp_signature').on_attach { hint_enable = false }
             local opts = lspcfg[client.name]
 
             -- autocomplete
-            vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+            vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
             -- format on save
             vim.api.nvim_create_autocmd({'BufWritePre'}, {
@@ -208,20 +207,24 @@ function load_packer_config(bootstrap)
             })
 
             -- conditional keymaps
+            local keymap_opts = { noremap=true, silent=true, buffer=bufnr }
             for _, keymap in ipairs(lsp_keymaps) do
-              if client.server_capabilities[keymap.capability] then
-                lspremap(keymap.mapping, keymap.command)
+              if client.server_capabilities[keymap.cap] then
+                vim.keymap.set('n', keymap.map, keymap.cmd, keymap_opts)
               end
             end
+            -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, keymap_opts)
 
             -- unconditional keymaps
-            bufsnoremap('gl', '<cmd>lua vim.diagnostic.open_float()<CR>')
+            vim.keymap.set('n', 'gl', vim.diagnostic.open_float, keymap_opts)
+            vim.keymap.set('n', '[d', vim.diagnostic.goto_prev,  keymap_opts)
+            vim.keymap.set('n', ']d', vim.diagnostic.goto_next,  keymap_opts)
           end
 
           -- only setup lsp clients for binaries that exist
           local lsp = require('lspconfig')
           for srv, opts in pairs(lspcfg) do
-            if vim.fn.executable(opts['bin']) then lsp[srv].setup({ on_attach = custom_lsp_attach }) end
+            if vim.fn.executable(opts['bin']) then lsp[srv].setup({ on_attach = custom_lsp_attach, settings=opts['settings'] }) end
           end
         end),
       },

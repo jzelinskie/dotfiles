@@ -11,12 +11,12 @@
 .DS_Store?
 .Spotlight-V100
 .Trashes
+.helix
 ._*
 .env
 .git/**
 .python-version
 Brewfile.lock.json
-Icon?
 Thumbs.db
 ehthumbs.db
 id_ed25519

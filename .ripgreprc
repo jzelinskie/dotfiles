@@ -1,5 +1,5 @@
 --glob
-!{.git}
+!{.git,.next,node_modules}
 --no-binary
 --hidden
 --no-ignore-vcs

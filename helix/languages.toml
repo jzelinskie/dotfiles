@@ -1,8 +1,29 @@
-[[language]]
-name = "go"
-config.formatting.gofumpt = true
+[language-server.vscode-json-language-server.config.format]
+insertFinalNewline = true
+
+[language-server.gopls.config]
+gofumpt = true
+codelenses.gc_details = true
+
+[language-server.spicedb]
+command = "spicedb"
+args = ["lsp", "--log-level=trace"]
+
+[language-server.rust-analyzer.config]
+cargo.buildScripts.enable = true
+checkOnSave.command = "clippy"
+
+[[grammar]]
+name = "spicedb"
+source.git = "https://github.com/jzelinskie/tree-sitter-spicedb"
+source.rev = "2196469b7081b5efa521da52890e7c9f45126a2e"
 
 [[language]]
-name = "rust"
-config.rust-analyzer.cargo.buildScripts.enable = true
-config.rust-analyzer.checkOnSave.command = "clippy"
+name = "spicedb"
+scope = "source.zed"
+injection-regex = "zed"
+file-types = ["zed"]
+comment-token = "//"
+roots = []
+language-servers = ["spicedb"]
+indent = { tab-width = 2, unit = "  " }
