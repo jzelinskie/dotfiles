@@ -3,7 +3,9 @@ zmodload zsh/zprof
 
 # XDG
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 
 # add ~/.local/bin to $PATH if it exists
 [[ -d ~/.local/bin ]] && path=(~/.local/bin $path)
@@ -178,7 +180,7 @@ fi
 which docker > /dev/null && alias docker-host='docker run -it --rm --privileged --pid=host justincormack/nsenter1'
 
 # krew
-if command -v kubectl-krew > /dev/null;then
+if command -v kubectl-krew > /dev/null; then
   export KREW_ROOT=$XDG_DATA_HOME/krew
   path=("$KREW_ROOT/bin" $path)
 fi
