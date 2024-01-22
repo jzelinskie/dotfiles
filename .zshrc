@@ -92,6 +92,7 @@ alias_if_exists g git
 alias_if_exists icat 'kitty +kitten icat'
 alias_if_exists jq faq
 alias_if_exists k kubectl
+alias_if_exists kam 'kubectl -n authzed-monitoring'
 alias_if_exists kar 'kubectl -n authzed-region'
 alias_if_exists kas 'kubectl -n authzed-system'
 alias_if_exists kctx kubectx
