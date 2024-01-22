@@ -13,8 +13,10 @@ export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 # add brew to $PATH (prezto brew module needs it on the path)
 [[ -d /opt/homebrew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 [[ -d ~/.linuxbrew ]] && eval "$(~/.linuxbrew/bin/brew shellenv)"
-if command -v brew > /dev/null; then export DYLD_FALLBACK_LIBRARY_PATH=$(brew --prefix)/lib; fi
-[[ -d "$(brew --prefix)/opt/llvm" ]] && path=("$(brew --prefix)/opt/llvm/bin" $path)
+if command -v brew > /dev/null; then
+  export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib"
+  [[ -d "$(brew --prefix)/opt/llvm" ]] && path=("$(brew --prefix)/opt/llvm/bin" $path)
+fi;
 
 # zgenom - an optimized zsh package manager
 export ZGEN_DIR=$XDG_DATA_HOME/zgenom
