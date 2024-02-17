@@ -103,6 +103,7 @@ alias_if_exists ls lsd
 alias_if_exists mk minikube
 alias_if_exists open wsl-open
 alias_if_exists open xdg-open
+alias_if_exists p pnpm
 alias_if_exists pbcopy 'xclip -selection clipboard'
 alias_if_exists pbpaste 'xclip -selection clipboard -o'
 alias_if_exists sed gsed
