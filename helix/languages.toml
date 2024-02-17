@@ -13,17 +13,6 @@ args = ["lsp", "--log-level=trace"]
 cargo.buildScripts.enable = true
 checkOnSave.command = "clippy"
 
-[[grammar]]
-name = "spicedb"
-source.git = "https://github.com/jzelinskie/tree-sitter-spicedb"
-source.rev = "2196469b7081b5efa521da52890e7c9f45126a2e"
-
 [[language]]
 name = "spicedb"
-scope = "source.zed"
-injection-regex = "zed"
-file-types = ["zed"]
-comment-token = "//"
-roots = []
-language-servers = ["spicedb"]
-indent = { tab-width = 2, unit = "  " }
+# language-servers = ["spicedb"]
