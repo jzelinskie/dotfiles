@@ -32,15 +32,13 @@
 	excludesfile = ~/.gitignore
 	safecrlf = true
 	trustctime = false
+[merge]
+	conflictstyle = zdiff3
 [diff]
+	algorithm = histogram
+	submodule = log
 	compactionHeuristic = true
 	mnemonicprefix = true
-# [merge]
-# 	tool = vimdiff
-# [mergetool]
-# 	prompt = true
-# [mergetool "vimdiff"]
-# 	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [push]
 	default = simple
 [github]
@@ -51,12 +49,13 @@
 	ff = only
 [rebase]
 	autoStash = true
+	autoSquash = true
 [init]
 	defaultBranch = main
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
 [status]
-	submodulesummary = 1
+	submodulesummary = true
 [submodule]
 	recurse = true
 [filter "lfs"]
@@ -67,6 +66,7 @@
 [gpg]
 	format = ssh
 [commit]
+	verbose = true
 	gpgsign = true
 [tag]
 	gpgsign = true
