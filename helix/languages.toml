@@ -5,13 +5,13 @@ insertFinalNewline = true
 gofumpt = true
 codelenses.gc_details = true
 
-[language-server.spicedb]
-command = "spicedb"
-args = ["lsp", "--log-level=trace"]
-
 [language-server.rust-analyzer.config]
 cargo.buildScripts.enable = true
 checkOnSave.command = "clippy"
+
+[language-server.spicedb]
+command = "spicedb"
+args = ["lsp", "--log-level=trace"]
 
 [[language]]
 name = "spicedb"
