@@ -11,8 +11,8 @@ checkOnSave.command = "clippy"
 
 [language-server.spicedb]
 command = "spicedb"
-args = ["lsp", "--log-level=trace"]
+args = ["lsp", "--log-level=warn"]
 
 [[language]]
 name = "spicedb"
-# language-servers = ["spicedb"]
+language-servers = ["spicedb"]
