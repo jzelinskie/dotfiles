@@ -21,7 +21,7 @@ fi;
 # zgenom - an optimized zsh package manager
 export ZGEN_DIR=$XDG_DATA_HOME/zgenom
 export NVM_LAZY_LOAD=true
-[[ ! -d $ZGEN_DIR ]] && git clone git@github.com:jandamm/zgenom.git "$ZGEN_DIR"
+[[ ! -d $ZGEN_DIR ]] && HOME="" git clone https://github.com/jzelinskie/zgenom.git "$ZGEN_DIR"
 # shellcheck disable=SC1091
 source "$ZGEN_DIR/zgenom.zsh"
 zgenom autoupdate
