@@ -87,7 +87,6 @@ if command -v rg > /dev/null; then export RIPGREP_CONFIG_PATH=~/.ripgreprc; fi
 function alias_if_exists() { command -v "${2%% *}" > /dev/null && alias "$1"="$2"; }
 alias_if_exists cat bat
 alias_if_exists compose docker-compose
-alias_if_exists cue ~/Downloads/cue_v0.4.2_darwin_arm64/cue
 alias_if_exists g git
 alias_if_exists icat 'kitty +kitten icat'
 alias_if_exists jq faq
