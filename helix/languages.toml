@@ -16,3 +16,7 @@ args = ["lsp", "--log-level=warn"]
 [[language]]
 name = "spicedb"
 language-servers = ["spicedb"]
+
+[[language]]
+name = "sshclientconfig"
+shebangs = ["sshclientconfig"]
