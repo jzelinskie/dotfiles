@@ -4,6 +4,10 @@
 	signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFFLZXAb2TmLXbo9stYA5Lr2xbgyyHl5QXlTJ5VsoJNB\n"
 [color]
 	ui = auto
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
 [alias]
 	amend = commit --amend --no-edit
 	ammend = amend
@@ -36,24 +40,36 @@
 	conflictstyle = zdiff3
 [diff]
 	algorithm = histogram
+	colorMoved = plain
 	submodule = log
 	compactionHeuristic = true
 	mnemonicprefix = true
 [push]
 	default = simple
+	autoSetupRemote = true
+	followTags = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
 [github]
 	user = jzelinskie
 [rerere]
 	enabled = true
+	autoupdate = true
 [pull]
 	ff = only
+	rebase = true
 [rebase]
 	autoStash = true
 	autoSquash = true
+	updateRefs = true
 [init]
 	defaultBranch = main
 [url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+	pushinsteadOf = https://github.com/
+[url "git@gist.github.com:"]
+	pushinsteadOf = https://gist.github.com/jzelinskie/
 [status]
 	submodulesummary = true
 [submodule]
@@ -65,8 +81,13 @@
 	required = true
 [gpg]
 	format = ssh
+[gpg "ssh"]
+	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 [commit]
 	verbose = true
 	gpgsign = true
 [tag]
 	gpgsign = true
+	sort = version:refname
+[help]
+	autocorrect = prompt
