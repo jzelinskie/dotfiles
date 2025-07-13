@@ -91,6 +91,7 @@ alias_if_exists g git
 alias_if_exists icat 'kitty +kitten icat'
 alias_if_exists jq faq
 alias_if_exists k kubectl
+alias_if_exists kd 'kubectl authzed dedicated'
 alias_if_exists kam 'kubectl -n authzed-monitoring'
 alias_if_exists kar 'kubectl -n authzed-region'
 alias_if_exists kas 'kubectl -n authzed-system'
@@ -98,6 +99,7 @@ alias_if_exists kctx kubectx
 alias_if_exists kks 'kubectl -n kube-system'
 alias_if_exists kns kubens
 alias_if_exists kt 'kubectl -n tenant'
+alias_if_exists ktr 'kubectl -n torrent'
 alias_if_exists ls lsd
 alias_if_exists mk minikube
 alias_if_exists open wsl-open
@@ -109,9 +111,12 @@ alias_if_exists sed gsed
 alias_if_exists tree 'lsd --tree'
 alias_if_exists vi nvim
 alias_if_exists vim nvim
+alias_if_exists zgen zgenom
 
 # source a script, if it exists
 function source_if_exists() { [[ -s $1 ]] && source "$1"; }
+source_if_exists "$CARGO_HOME/env"
+source_if_exists "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration"
 source_if_exists "$HOME/.gvm/scripts/gvm"
 source_if_exists "$HOME/.iterm2_shell_integration.zsh"
 source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh"
