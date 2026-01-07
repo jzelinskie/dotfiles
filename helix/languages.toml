@@ -20,3 +20,28 @@ language-servers = ["spicedb"]
 [[language]]
 name = "sshclientconfig"
 shebangs = ["sshclientconfig"]
+
+[[language]]
+name = "python"
+scope = "source.python"
+injection-regex = "py(thon)?"
+file-types = ["py", "pyi", "py3", "pyw", "ptl", "rpy", "cpy", "ipy", "pyt", { glob = ".python_history" }, { glob = ".pythonstartup" }, { glob = ".pythonrc" }, { glob = "*SConstruct" }, { glob = "*SConscript" }, { glob = "*sconstruct" }]
+shebangs = ["python", "uv"]
+roots = ["pyproject.toml", "setup.py", "poetry.lock", "pyrightconfig.json"]
+comment-token = "#"
+language-servers = ["ty", "ruff", "basedpyright", "jedi", "pylsp"]
+indent = { tab-width = 4, unit = "    " }
+auto-format = true
+
+[language-server.basedpyright]
+command = "uvx"
+args = ["basedpyright", "-"]
+
+[language-server.ruff]
+command = "uvx"
+args = ["ruff", "server"]
+environment = { "RUFF_TRACE" = "messages" }
+
+[language-server.ty]
+command = "uvx"
+args = ["ty", "server"]
