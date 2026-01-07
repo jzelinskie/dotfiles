@@ -1,5 +1,9 @@
+# shellcheck shell=zsh
+
 # profile startup
-# zmodload zsh/zprof
+zmodload zsh/zprof
+
+function prepend_path_if_exists() { [[ -s $1 ]] && path=("$1" $path); }
 
 # XDG
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
@@ -7,89 +11,70 @@ export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 
-# add brew to $PATH (prezto brew module needs it on the path)
-[[ -d /opt/homebrew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
-[[ -d ~/.linuxbrew ]] && eval "$(~/.linuxbrew/bin/brew shellenv)"
-if command -v brew > /dev/null; then
-  export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib"
-  [[ -d "$(brew --prefix)/opt/llvm" ]] && path=("$(brew --prefix)/opt/llvm/bin" $path)
+# add brew to $PATH
+[[ -s /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -s ~/.linuxbrew/bin/brew ]] && eval "$(~/.linuxbrew/bin/brew shellenv)"
+if [[ -v commands[brew] ]]; then
+  export DYLD_FALLBACK_LIBRARY_PATH=$HOMEBREW_PREFIX/lib
+  [[ -s "$HOMEBREW_PREFIX/opt/llvm" ]] && path=("$HOMEBREW_PREFIX/opt/llvm/bin" $path)
 fi;
 
-# add ~/.local/bin to $PATH if it exists
-[[ -d ~/.local/bin ]] && path=(~/.local/bin $path)
-
-# zgenom - an optimized zsh package manager
-export ZGEN_DIR=$XDG_DATA_HOME/zgenom
-export NVM_LAZY_LOAD=true
-[[ ! -d $ZGEN_DIR ]] && HOME="" git clone https://github.com/jzelinskie/zgenom.git "$ZGEN_DIR"
-# shellcheck disable=SC1091
-source "$ZGEN_DIR/zgenom.zsh"
-zgenom autoupdate
-if ! zgenom saved; then
-  zgenom compdef
-
-  # prezto
-  zgenom prezto 'module:editor' dot-expansion 'yes'
-  [[ $OSTYPE == darwin* ]] && zgenom prezto prompt theme 'sorin'
-  [[ ! $OSTYPE == darwin* ]] && zgenom prezto prompt theme 'skwp'
-  zgenom prezto
-  zgenom prezto git
-
-  # everything else
-  zgenom load docker/cli contrib/completion/zsh
-  zgenom load lukechilds/zsh-nvm
-  zgenom load peterhurford/git-it-on.zsh
-  zgenom load rupa/z
-  zgenom load zsh-users/zsh-completions src
-  zgenom load zsh-users/zsh-history-substring-search
-  zgenom load zsh-users/zsh-syntax-highlighting
-
-  zgenom save
-  zgenom compile ~/.zshrc
+# zim
+ZIM_HOME="$XDG_CONFIG_HOME/zim"
+ZIM_CONFIG_FILE="$ZIM_HOME/zimrc"
+if [[ ! -e "$ZIM_HOME/zimfw.zsh" ]]; then
+  curl -fsSL --create-dirs -o "$ZIM_HOME/zimfw.zsh" "https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh"
 fi
+if [[ ! "$ZIM_HOME/init.zsh" -nt "$ZIM_CONFIG_FILE" ]]; then
+  source "$ZIM_HOME/zimfw.zsh" init
+fi
+zstyle ':prezto:module:editor' dot-expansion 'yes'
+zstyle ':prezto:module:editor' ps-context 'yes'
+export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+export NVM_LAZY_LOAD=true
+source "$ZIM_HOME/init.zsh"
 
 # Editor preferences: Helix > Neovim > Vim
-if command -v hx > /dev/null; then
+if [[ -v commands[hx] ]]; then
   export EDITOR=hx
-elif command -v nvim > /dev/null; then
+elif [[ -v commands[nvim] ]]; then
   export EDITOR=nvim
 else
   export EDITOR=vim
 fi
-export GIT_EDITOR=$EDITOR
-export VISUAL=$EDITOR
+export GIT_EDITOR="$EDITOR"
+export VISUAL="$EDITOR"
 
-# less
+# pager preferences
 export PAGER='less'
 export LESS='-F -g -i -M -R -S -w -X -z-4'
-if (( ${+commands[lesspipe.sh]} )); then
-  export LESSOPEN='| /usr/bin/env lesspipe.sh %s 2>&-'
-fi
+[[ -v commands[lesspipe.sh] ]] && export LESSOPEN="| lesspipe.sh %s"
 
 # mac-style text navigation for minimal terminal emulators
 bindkey "\e[1;3D" backward-word # ⌥←
 bindkey "\e[1;3C" forward-word  # ⌥→
 
 # global ripgrep config
-if command -v rg > /dev/null; then export RIPGREP_CONFIG_PATH=~/.ripgreprc; fi
+[[ -v commands[rg] ]] && export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # add sandboxed tailscale to path
-[[ -s /Applications/Tailscale.app/Contents/MacOS ]] && path=("/Applications/Tailscale.app/Contents/MacOS" $path)
+prepend_path_if_exists "/Applicatons/Tailscale.app/Contents/MacOS"
 
 # 1password 8 ssh-agent
 [[ $OSTYPE == darwin* ]] && export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 # wsl-open as a browser for Windows
-[[ $(uname -r) == *Microsoft ]] && export BROWSER=wsl-open
+[[ -n $WSL_DISTRO_NAME ]] && export BROWSER="wsl-open"
 
 # create an alias to the first arg, if the command in the second arg exists
 # shellcheck disable=2139
-function alias_if_exists() { command -v "${2%% *}" > /dev/null && alias "$1"="$2"; }
+function alias_if_exists() { [[ -v commands["${2%% *}"] ]] && alias "$1"="$2"; }
 alias_if_exists cat bat
 alias_if_exists compose docker-compose
 alias_if_exists g git
 alias_if_exists icat 'kitty +kitten icat'
 alias_if_exists jq faq
+alias_if_exists jqstruct "jq -r '[path(..)|map(if type==\"number\" then \"[]\" else tostring end)|join(\".\")|split(\".[]\")|join(\"[]\")]|unique|map(\".\"+.)|.[]'"
 alias_if_exists k kubectl
 alias_if_exists kd 'kubectl authzed dedicated'
 alias_if_exists kam 'kubectl -n authzed-monitoring'
@@ -111,36 +96,33 @@ alias_if_exists sed gsed
 alias_if_exists tree 'lsd --tree'
 alias_if_exists vi nvim
 alias_if_exists vim nvim
-alias_if_exists zgen zgenom
 
 # source a script, if it exists
 function source_if_exists() { [[ -s $1 ]] && source "$1"; }
-source_if_exists "$CARGO_HOME/env"
 source_if_exists "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration"
-source_if_exists "$HOME/.gvm/scripts/gvm"
-source_if_exists "$HOME/.iterm2_shell_integration.zsh"
 source_if_exists "$HOME/.nix-profile/etc/profile.d/nix.sh"
 
 # Put Go pkgs in $XDG_DATA_HOME, add GOBIN to the path, add brew libs to CGO
-if command -v go > /dev/null; then
-  export GOPATH=$XDG_DATA_HOME/go
-  [[ -d $GOPATH/bin ]] && path=("$GOPATH/bin" $path)
-  if command -v brew > /dev/null; then export CGO_LDFLAGS="-L$(brew --prefix)/lib"; fi
+if [[ -v commands[go] ]]; then
+  export GOPATH="$XDG_DATA_HOME/go"
+  prepend_path_if_exists "$GOPATH/bin"
+  [[ -v commands[brew] ]] && export CGO_LDFLAGS="-L$HOMEBREW_PREFIX/lib"
 fi
 
 # Add cargo to $PATH and turn on backtraces for Rust
-export RUSTUP_HOME=$XDG_DATA_HOME/rustup
-export CARGO_HOME=$XDG_DATA_HOME/cargo
-[[ -d $CARGO_HOME/bin ]] && path=("$CARGO_HOME/bin" $path)
-if command -v rustc > /dev/null; then export RUST_BACKTRACE=1; fi
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+source_if_exists "$CARGO_HOME/env"
+prepend_path_if_exists "$CARGO_HOME/bin"
+[[ -v commands[rustc] ]] && export RUST_BRACKTRACE=1
 
 # never generate .pyc files: it's slower, but maintains your sanity
-if command -v python > /dev/null; then export PYTHONDONTWRITEBYTECODE=1; fi
+[[ -v commands[python] ]] && export PYTHONDONTWRITEBYTECODE=1
 
-# lazy load pyenv
+# lazy load pyenv, so excited to kill this when uv is totally ubiquitous
 export PYENV_ROOT=${PYENV_ROOT:-$XDG_DATA_HOME/pyenv}
-[[ -a "$PYENV_ROOT/bin/pyenv" ]] && path=("$PYENV_ROOT/bin" $path)
-if type pyenv &> /dev/null || [[ -a $PYENV_ROOT/bin/pyenv ]]; then
+[[ -e "$PYENV_ROOT/bin/pyenv" ]] && path=("$PYENV_ROOT/bin" $path)
+if type pyenv &> /dev/null || [[ -e "$PYENV_ROOT/bin/pyenv" ]]; then
   function pyenv() {
     unset pyenv
     path=("$PYENV_ROOT/shims" $path)
@@ -155,50 +137,39 @@ fi
 
 # lazy load rbenv
 export RBENV_ROOT=${RBENV_ROOT:-$XDG_DATA_HOME/rbenv}
-[[ -a $RBENV_ROOT/bin/rbenv ]] && path=("$RBENV_ROOT/bin" $path)
+[[ -a "$RBENV_ROOT/bin/rbenv" ]] && path=("$RBENV_ROOT/bin" $path)
 if type rbenv &> /dev/null || [[ -a $RBENV_ROOT/bin/rbenv ]]; then
   function rbenv() {
     unset rbenv
-    path=("$RBENV_ROOT/shims" $path)
+    prepend_path_if_exists "$RBENV_ROOT/shims"
     eval "$(command rbenv init -)"
   }
 fi
 
-# add airport to path
-AIRPORT_PATH=/System/Library/PrivateFrameworks/Apple80211.framework/Resources
-[[ -d "$AIRPORT_PATH" ]] && path=("$AIRPORT_PATH" $path)
-
 # global node installs (gross)
-[[ -d "$XDG_DATA_HOME/node/bin" ]] && path=("$XDG_DATA_HOME/node/bin" $path)
-
-# pnpm global installs (slightly less gross)
-if command -v pnpm > /dev/null; then
-  export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-  path=("$PNPM_HOME" $path)
-fi
+prepend_path_if_exists "$XDG_DATA_HOME/node/bin"
+[[ -v commands[pnpm] ]] && export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+prepend_path_if_exists "$PNPM_HOME"
 
 # bun
-if [[ -d ~/.bun ]]; then
-  source_if_exists ~/.bun/_bun
-  export BUN_INSTALL="$HOME/.bun"
-  export PATH="$BUN_INSTALL/bin:$PATH"
-fi
+source_if_exists "$HOME/.bun/_bun"
+prepend_path_if_exists "$HOME/.bun/bin"
 
 # alias for accessing the docker host as a container
-which docker > /dev/null && alias docker-host='docker run -it --rm --privileged --pid=host justincormack/nsenter1'
+[[ -v commands[docker] ]] && alias docker-host='docker run -it --rm --privileged --pid=host justincormack/nsenter1'
 
 # krew
-if command -v kubectl-krew > /dev/null; then
-  export KREW_ROOT=$XDG_DATA_HOME/krew
+if [[ -v commands[kubectl-krew] ]]; then
+  export KREW_ROOT="$XDG_DATA_HOME/krew"
   path=("$KREW_ROOT/bin" $path)
 fi
 
 # gcloud
-[[ -d $XDG_DATA_HOME/google-cloud-sdk ]] && export GCLOUD_SDK_PATH="$XDG_DATA_HOME/google-cloud-sdk"
-if [[ -d $GCLOUD_SDK_PATH ]]; then
+if [[ -s $XDG_DATA_HOME/google-cloud-sdk ]]; then
+  export GCLOUD_SDK_PATH="$XDG_DATA_HOME/google-cloud-sdk"
   source_if_exists "$GCLOUD_SDK_PATH/path.zsh.inc"
   source_if_exists "$GCLOUD_SDK_PATH/completion.zsh.inc"
-  export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+  export USE_GKE_GCLOUD_AUTH_PLUGIN='True'
 fi
 
 # time aliases
@@ -209,3 +180,6 @@ alias utc='TZ=Etc/UTC date'
 
 # theme for faq syntax highlighting
 export FAQ_STYLE='github'
+
+# prefer my own bin over everything else
+prepend_path_if_exists "$HOME/.local/bin"

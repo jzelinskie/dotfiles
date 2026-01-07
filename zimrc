@@ -1,0 +1,32 @@
+#!/bin/zsh
+
+# environment
+zmodule environment
+zmodule input
+zmodule termtitle
+zmodule utility
+
+# prezto
+zmodule sorin-ionescu/prezto --root modules/editor
+
+# Prompt (these are explicitly ordered)
+zmodule duration-info
+zmodule git-info
+zmodule prompt-pwd
+zmodule sorin
+
+# aliases
+zmodule git
+zmodule archive
+zmodule rupa/z
+zmodule lukechilds/zsh-nvm
+zmodule docker/cli --root contrib/completion/zsh
+
+# Completion
+zmodule zsh-users/zsh-completions --fpath src
+zmodule completion
+
+# Modules that must be initialized last (these are explicitly ordered)
+zmodule zsh-users/zsh-syntax-highlighting
+zmodule zsh-users/zsh-history-substring-search
+zmodule zsh-users/zsh-autosuggestions
